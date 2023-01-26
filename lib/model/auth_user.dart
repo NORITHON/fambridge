@@ -29,7 +29,8 @@ class AuthUser {
   );
 
   factory AuthUser.fromSnapshot(
-      QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
+      DocumentSnapshot<Map<String, dynamic>> snap) {
+        var snapshot = snap.data() as Map<String, dynamic>;
     return AuthUser(
       id: snapshot[userIdFieldName], 
       name: snapshot[userNameFieldName], 

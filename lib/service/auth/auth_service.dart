@@ -1,3 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:fambridge/constants/enums/family_role.dart';
+
 import 'firebase_auth_provider.dart';
 import 'auth_provider.dart';
 import '../../model/auth_user.dart';
@@ -17,7 +21,7 @@ class AuthService implements AuthProvider {
       provider.createUser(email: email, password: password);
 
   @override
-  AuthUser? get currentUser => provider.currentUser;
+  Future<AuthUser?> get currentUser => provider.currentUser;
 
   @override
   Future<AuthUser> logIn() =>
@@ -26,9 +30,14 @@ class AuthService implements AuthProvider {
   @override
   Future<void> logOut() => provider.logOut();
 
-  @override
-  String? userDisplayName() => provider.userDisplayName();
   
   @override
   Future<void> initialize() => provider.initialize();
+
+  @override
+  Future<void> addAuthToDatabase({required String name, required FamilyRole familyRole, required int birthOrder, String? groupId}) =>
+    provider.addAuthToDatabase(name: name, familyRole: familyRole, birthOrder: birthOrder);
+
+  @override
+  Future<UserCredential> signInWithGoogle() => provider.signInWithGoogle();
 }
