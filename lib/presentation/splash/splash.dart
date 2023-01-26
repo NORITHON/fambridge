@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:get/get.dart';
 
 import '../resources/assets_manager.dart';
