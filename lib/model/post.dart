@@ -21,8 +21,7 @@ class Post {
       required this.questionId,
       });
 
-  factory Post.fromSnapshot(DocumentSnapshot snap) {
-    var snapshot = snap.data() as Map<String, dynamic>;
+  factory Post.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
 
     return Post(
       description: snapshot[postDescriptionFieldName],
