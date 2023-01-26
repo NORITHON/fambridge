@@ -1,6 +1,5 @@
-import '../presentation/resources/routes_manager.dart';
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import '../presentation/resources/theme_manager.dart';
-import '../presentation/todo/todo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
@@ -23,18 +22,9 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      onGenerateRoute: RouteGenerator.getRoute,
       initialRoute: Routes.splashRoute,
       theme: getApplicationTheme(),
-      getPages: [
-        GetPage(
-          name: "/",
-          page: () => HomeScreen(),
-          transition: Transition.fade,
-        ),
-        GetPage(name: "/first", page: () => const HomeScreen()),
-        GetPage(name: "/second", page: () => const HomeScreen()),
-      ],
+      getPages: getPages,
     );
   }
 }
