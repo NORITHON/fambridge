@@ -4,7 +4,7 @@ import '../../firebase_options.dart';
 
 import 'auth_exceptions.dart';
 import 'auth_provider.dart';
-import 'auth_user.dart';
+import '../../model/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class FirebaseAuthProvider implements AuthProvider {
