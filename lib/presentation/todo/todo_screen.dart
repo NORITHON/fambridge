@@ -1,5 +1,5 @@
-import 'package:complete_advanced_flutter/controller/todo_controller.dart';
-import 'package:complete_advanced_flutter/model/todo_model.dart';
+import '../../controller/todo_controller.dart';
+import '../../model/todo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
