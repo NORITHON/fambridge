@@ -1,5 +1,7 @@
-import 'package:fambridge/presentation/onboarding/onboarding.dart';
+import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,25 +16,180 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Container(
+          color: ColorManager.primary,
+          child: Column(
+            children: [
+              Loginbody(),
+              LoginBottom(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Loginbody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
         child: Row(
           children: [
-            ElevatedButton.icon(
-              onPressed: () {
-                Get.toNamed(Routes.onBoardingRoute);
-              },
-              icon: const Icon(Icons.login),
-              label: const Text("Login continue with google"),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.13,
+              color: Color(0xffFF0000).withOpacity(0.2),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                Get.toNamed(Routes.registerRoute);
-              },
-              icon: const Icon(Icons.add),
-              label: const Text("Go to Register"),
+            LoginForm(),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.13,
+              color: Color(0xffFF0000).withOpacity(0.2),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String id = "";
+  String password = "";
+
+  var pointStyle = TextStyle(
+    color: ColorManager.orange,
+    fontFamily: 'GmarketSans',
+  );
+  var textStyle = TextStyle(
+    fontFamily: 'GmarketSans',
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 100),
+            Container(
+              width: 150,
+              height: 150,
+              color: Colors.red,
+            ),
+            SizedBox(height: 30),
+            Text(
+              "로그인",
+              textAlign: TextAlign.center,
+              style: textStyle,
+            ),
+            SizedBox(height: 15),
+            CustomTextfield(hintText: "아이디", controller: idController),
+            SizedBox(
+              height: 8,
+            ),
+            CustomTextfield(hintText: "비밀번호", controller: passwordController),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.forgotIdRoute);
+                  },
+                  child: Text(
+                    "아이디",
+                    style: pointStyle,
+                  ),
+                ),
+                Text(
+                  "/",
+                  style: pointStyle,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.forgotPasswordRoute);
+                  },
+                  child: Text(
+                    "비밀번호 찾기",
+                    style: pointStyle,
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ColorManager.orange,
+                  padding: EdgeInsets.all(12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                onPressed: () {
+                  print(idController.value);
+                  print(passwordController.value);
+                  return;
+                },
+                child: Text(
+                  "로그인",
+                  style: textStyle,
+                ),
+              ),
+            ),
+            SizedBox(height: 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("처음이세요?"),
+                TextButton(
+                  onPressed: () => Get.toNamed(Routes.registerRoute),
+                  child: Text(
+                    "회원가입하기",
+                    style: pointStyle,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LoginBottom extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.red,
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.13,
+            color: Color(0xffFF0000).withOpacity(0.2),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.13,
+            color: Color(0xffFF0000).withOpacity(0.2),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.13,
+            color: Color(0xffFF0000).withOpacity(0.2),
+          ),
+        ],
       ),
     );
   }

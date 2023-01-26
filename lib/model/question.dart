@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fambridge/constants/database_fieldname/firebase_fieldname.dart';
 
-import '../constants/enums/firebase_fieldname.dart';
-
-class Question{
+class Question {
   final String questionId;
   final String questionScript;
   final Timestamp questionCreatedTimeStamp;
-  
+
   final QuestionCategory? category;
 
   Question({
@@ -20,21 +19,19 @@ class Question{
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Question(
-      questionCreatedTimeStamp: snapshot[questionCreatedTimeStampFieldName], 
-      questionId: snapshot[questionIdFieldName], 
+      questionCreatedTimeStamp: snapshot[questionCreatedTimeStampFieldName],
+      questionId: snapshot[questionIdFieldName],
       questionScript: snapshot[questionScriptFieldName],
       category: snapshot[questionCategoryFieldName],
     );
   }
 
-   Map<String, dynamic> toJson() => {
-    questionCreatedTimeStampFieldName: questionCreatedTimeStamp,
-    questionIdFieldName: questionId,
-    questionScriptFieldName: questionScript,
-    questionCategoryFieldName: category,
-  };
+  Map<String, dynamic> toJson() => {
+        questionCreatedTimeStampFieldName: questionCreatedTimeStamp,
+        questionIdFieldName: questionId,
+        questionScriptFieldName: questionScript,
+        questionCategoryFieldName: category,
+      };
 }
 
-enum QuestionCategory{
-  notDecided
-}
+enum QuestionCategory { notDecided }

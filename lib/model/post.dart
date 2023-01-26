@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../constants/enums/firebase_fieldname.dart';
+import 'package:fambridge/constants/database_fieldname/firebase_fieldname.dart';
 
 class Post {
   final String description;
@@ -11,18 +10,18 @@ class Post {
   final DateTime datePublished;
   final String questionId;
 
-  const Post(
-      {required this.description,
-      required this.uid,
-      required this.username,
-      required this.likes,
-      required this.postId,
-      required this.datePublished,
-      required this.questionId,
-      });
+  const Post({
+    required this.description,
+    required this.uid,
+    required this.username,
+    required this.likes,
+    required this.postId,
+    required this.datePublished,
+    required this.questionId,
+  });
 
-  factory Post.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
-
+  factory Post.fromSnapshot(
+      QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
     return Post(
       description: snapshot[postDescriptionFieldName],
       uid: snapshot[postUidFieldName],
@@ -34,7 +33,7 @@ class Post {
     );
   }
 
-   Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         postDescriptionFieldName: description,
         postUidFieldName: uid,
         postLikesFieldName: likes,
