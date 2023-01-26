@@ -10,3 +10,10 @@ const String questionIdFieldName = 'question-id';
 const String questionScriptFieldName = 'question-script';
 const String questionCreatedTimeStampFieldName = 'created-time';
 const String questionCategoryFieldName = 'question-category';
+
+const String userIdFieldName = 'user-id';
+const String userNameFieldName = 'name';
+const String userFamilyRoleFieldName = 'family-role';
+const String userBirthOrderFieldName = 'birth-order';
+const String userRegisterTimeFieldName = 'register-time';
+const String userGroupIdFieldName = 'group-id';
