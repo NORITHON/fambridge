@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../constants/enums/firebase_fieldname.dart';
+import '../constants/database_fieldname/firebase_fieldname.dart';
 
 class Post {
   final String description;
