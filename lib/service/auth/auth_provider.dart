@@ -1,5 +1,6 @@
 // provide FirebaseAuth user
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import '../../constants/enums/family_role.dart';
 import '../../model/auth_user.dart';
@@ -21,4 +22,6 @@ abstract class AuthProvider {
     String? groupId,
   });
   Future<firebase_auth.UserCredential> signInWithGoogle();
+  Stream<User?> getAuthStateChanges();
+  Future<void> sendEmailVerification();
 }

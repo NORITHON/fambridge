@@ -40,4 +40,10 @@ class AuthService implements AuthProvider {
 
   @override
   Future<UserCredential> signInWithGoogle() => provider.signInWithGoogle();
+  
+  @override
+  Stream<User?> getAuthStateChanges() => provider.getAuthStateChanges();
+
+  @override
+  Future<void> sendEmailVerification() => provider.sendEmailVerification();
 }
