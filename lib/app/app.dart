@@ -4,6 +4,7 @@ import '../presentation/todo/todo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+@immutable
 class MyApp extends StatefulWidget {
   MyApp._internal(); // private named constructor
   int appState = 0;
@@ -31,8 +32,8 @@ class _MyAppState extends State<MyApp> {
           page: () => HomeScreen(),
           transition: Transition.fade,
         ),
-        GetPage(name: "/first", page: () => HomeScreen()),
-        GetPage(name: "/second", page: () => HomeScreen()),
+        GetPage(name: "/first", page: () => const HomeScreen()),
+        GetPage(name: "/second", page: () => const HomeScreen()),
       ],
     );
   }
