@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fambridge/constants/database_fieldname/firebase_collection_name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../firebase_options.dart';
@@ -8,6 +10,8 @@ import '../../model/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class FirebaseAuthProvider implements AuthProvider {
+  final authCollection =
+         FirebaseFirestore.instance.collection(userCollectionName);
   @override
   Future<AuthUser> createUser({
     required String email,
@@ -38,10 +42,17 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  AuthUser? get currentUser {
+  Future<AuthUser?> get currentUser async {
     final user = firebase_auth.FirebaseAuth.instance.currentUser;
+    
     if (user != null) {
-      return AuthUser.fromFirebase(user);
+      final DocumentSnapshot<Map<String, dynamic>> snap = await authCollection.doc(user.uid).get();
+      if(snap.data() == null){
+        return AuthUser.fromFirebase(user);
+      }else{
+        return AuthUser.fromSnapshot(snap);
+      }
+      
     } else {
       return null;
     }
