@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:get/get.dart';
+
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
@@ -20,7 +22,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   _goNext() {
-    Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+    Get.offNamed(Routes.onBoardingRoute);
   }
 
   @override
