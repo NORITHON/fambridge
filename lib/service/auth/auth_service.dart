@@ -1,6 +1,6 @@
 import 'firebase_auth_provider.dart';
 import 'auth_provider.dart';
-import 'auth_user.dart';
+import '../../model/auth_user.dart';
 
 class AuthService implements AuthProvider {
   final AuthProvider provider;
