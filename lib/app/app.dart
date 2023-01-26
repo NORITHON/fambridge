@@ -3,6 +3,7 @@ import '../presentation/resources/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+@immutable
 class MyApp extends StatefulWidget {
   MyApp._internal(); // private named constructor
   int appState = 0;

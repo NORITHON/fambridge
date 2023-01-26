@@ -89,7 +89,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
         children: [
           // left arrow
           Padding(
-            padding: EdgeInsets.all(AppPadding.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -99,7 +99,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               onTap: () {
                 // go to previous slide
                 _pageController.animateToPage(_getPreviousIndex(),
-                    duration: Duration(milliseconds: DurationConstant.d300),
+                    duration: const Duration(milliseconds: DurationConstant.d300),
                     curve: Curves.bounceInOut);
               },
             ),
@@ -110,7 +110,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             children: [
               for (int i = 0; i < _list.length; i++)
                 Padding(
-                  padding: EdgeInsets.all(AppPadding.p8),
+                  padding: const EdgeInsets.all(AppPadding.p8),
                   child: _getProperCircle(i),
                 )
             ],
@@ -118,7 +118,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
           // right arrow
           Padding(
-            padding: EdgeInsets.all(AppPadding.p14),
+            padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               child: SizedBox(
                 height: AppSize.s20,
@@ -128,7 +128,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
               onTap: () {
                 // go to next slide
                 _pageController.animateToPage(_getNextIndex(),
-                    duration: Duration(milliseconds: DurationConstant.d300),
+                    duration: const Duration(milliseconds: DurationConstant.d300),
                     curve: Curves.bounceInOut);
               },
             ),
@@ -165,16 +165,16 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 }
 
 class OnBoardingPage extends StatelessWidget {
-  SliderObject _sliderObject;
+  final SliderObject _sliderObject;
 
-  OnBoardingPage(this._sliderObject, {Key? key}) : super(key: key);
+  const OnBoardingPage(this._sliderObject, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(height: AppSize.s40),
+        const SizedBox(height: AppSize.s40),
         Padding(
           padding: const EdgeInsets.all(AppPadding.p8),
           child: Text(
@@ -191,7 +191,7 @@ class OnBoardingPage extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: AppSize.s60,
         ),
         SvgPicture.asset(_sliderObject.image)
