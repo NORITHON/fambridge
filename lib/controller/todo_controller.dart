@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:complete_advanced_flutter/model/todo_model.dart';
-import 'package:complete_advanced_flutter/service/todo_service.dart';
+import '../model/todo_model.dart';
+import '../service/todo_service.dart';
 import 'package:get/state_manager.dart';
 
 class TodoController extends GetxController {
