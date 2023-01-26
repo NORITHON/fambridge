@@ -20,15 +20,14 @@ class AuthService implements AuthProvider {
   AuthUser? get currentUser => provider.currentUser;
 
   @override
-  Future<AuthUser> logIn() =>
-      provider.logIn();
+  Future<AuthUser> logIn() => provider.logIn();
 
   @override
   Future<void> logOut() => provider.logOut();
 
   @override
   String? userDisplayName() => provider.userDisplayName();
-  
+
   @override
   Future<void> initialize() => provider.initialize();
 }
