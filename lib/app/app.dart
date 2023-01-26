@@ -22,8 +22,8 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.splashRoute,
-      theme: getApplicationTheme(),
+      initialRoute: Routes.loginRoute,
+      // theme: getApplicationTheme(),
       getPages: getPages,
     );
   }

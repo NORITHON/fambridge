@@ -1,4 +1,5 @@
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:get/get.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
@@ -65,7 +66,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                    Get.toNamed(Routes.startRoute);
                   },
                   child: Text(
                     AppStrings.skip,
