@@ -1,3 +1,4 @@
+import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,9 @@ class _LoginViewState extends State<LoginView> {
         child: Row(
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.onBoardingRoute);
+              },
               icon: const Icon(Icons.login),
               label: const Text("Login continue with google"),
             ),
