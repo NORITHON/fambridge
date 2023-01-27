@@ -13,10 +13,8 @@ class GroupService implements GroupProvider {
   factory GroupService.firebase() => GroupService(FirebaseGroupProvider());
 
   @override
-  Future<bool?> checkIfAnswerShouldBeOpen(
-          {required String groupId}) =>
-      provider.checkIfAnswerShouldBeOpen(
-          groupId: groupId);
+  Future<bool?> checkIfAnswerShouldBeOpen({required String groupId}) =>
+      provider.checkIfAnswerShouldBeOpen(groupId: groupId);
 
   @override
   String createGroupQuestion(
@@ -24,10 +22,16 @@ class GroupService implements GroupProvider {
       provider.createGroupQuestion(groupId: groupId, question: question);
 
   @override
-  Future<Group> createNewGroup(
-          {required String groupName, required String creatorUserId, required Question question,}) async => 
+  Future<Group> createNewGroup({
+    required String groupName,
+    required String creatorUserId,
+    required Question question,
+  }) async =>
       provider.createNewGroup(
-          creatorUserId: creatorUserId, groupName: groupName, question: question,);
+        creatorUserId: creatorUserId,
+        groupName: groupName,
+        question: question,
+      );
 
   @override
   Stream<Iterable<GroupQuestion>> getAllGroupQuestion(
@@ -39,16 +43,12 @@ class GroupService implements GroupProvider {
       provider.getGroup(groupId: groupId);
 
   @override
-  Future<GroupQuestion> getTodayGroupQuestion(
-          {required String groupId}) =>
-      provider.getTodayGroupQuestion(
-          groupId: groupId);
+  Future<GroupQuestion> getTodayGroupQuestion({required String groupId}) =>
+      provider.getTodayGroupQuestion(groupId: groupId);
 
   @override
-  Future<int> howManyPeopleAnswered(
-          {required String groupId}) =>
-      provider.howManyPeopleAnswered(
-          groupId: groupId);
+  Future<int> howManyPeopleAnswered({required String groupId}) =>
+      provider.howManyPeopleAnswered(groupId: groupId);
 
   @override
   Future<int> howManyPeopleInGroup({required String groupId}) =>
