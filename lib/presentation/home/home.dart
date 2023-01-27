@@ -30,13 +30,6 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  var textStyle = TextStyle(
-    color: ColorManager.darkGrey,
-    fontFamily: "GmarketSans",
-    fontWeight: FontWeightManager.regular,
-    fontSize: FontSize.s16,
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +83,13 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  var textStyle = TextStyle(
+    color: ColorManager.darkGrey,
+    fontFamily: "GmarketSans",
+    fontWeight: FontWeightManager.regular,
+    fontSize: FontSize.s16,
+  );
 }
 
 class _HomeTop extends StatelessWidget {
@@ -242,7 +242,9 @@ class _BottomQuestionState extends State<BottomQuestion> {
           Container(
             width: 350,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.checkCommentRoute);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(

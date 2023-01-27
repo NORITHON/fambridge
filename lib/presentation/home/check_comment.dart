@@ -1,8 +1,7 @@
+import 'dart:ui';
+
 import 'package:fambridge/presentation/resources/assets_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
-import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -17,30 +16,32 @@ class CheckCommentView extends StatefulWidget {
 }
 
 class _CheckCommentViewState extends State<CheckCommentView> {
+  FocusNode focusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: _AppBar(),
-      body: Container(
-        child: Column(
-          children: [
-            Top(),
-            CommentBuilder(),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              padding: EdgeInsets.all(0),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  Get.offAllNamed(Routes.homeRoute);
-                },
-                child: const Text(
-                  "나가기",
-                ),
+      body: SafeArea(
+        child: Container(
+          child: Column(
+            children: [
+              Top(),
+              Column(
+                children: [
+                  Stack(
+                    children: [CommentBuilder(), Container()],
+                  ),
+                  // BackdropFilter(
+                  //   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  //   child: Text("fe"),
+                  // ),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-          ],
+              SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
@@ -74,6 +75,75 @@ class _CheckCommentViewState extends State<CheckCommentView> {
   }
 }
 
+class AnswerTextField extends StatelessWidget {
+  const AnswerTextField({
+    Key? key,
+    required this.focusNode,
+  }) : super(key: key);
+
+  final FocusNode focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      focusNode: focusNode,
+      style: getMediumStyle(
+        color: ColorManager.darkGrey,
+        fontSize: 18,
+      ),
+      autofocus: true,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: ColorManager.white,
+        hintText: '대답을 입력하세요.',
+        hintStyle: getMediumStyle(
+          color: ColorManager.lightGrey,
+          fontSize: 18,
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular((10)))),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular((10)))),
+        border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.all(Radius.circular((10)))),
+      ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final String fieldName;
+  final VoidCallback onPressed;
+
+  CustomButton({
+    Key? key,
+    required this.fieldName,
+    required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(0),
+      width: double.infinity,
+      height: 45,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Text(
+          fieldName,
+          style: getMediumStyle(
+            color: ColorManager.white,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class CommentBuilder extends StatelessWidget {
   const CommentBuilder({
     Key? key,
@@ -81,7 +151,8 @@ class CommentBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Container(
+      height: 350,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
         child: ListView.separated(
