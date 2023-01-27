@@ -3,6 +3,7 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class MyPageView extends StatefulWidget {
   const MyPageView({super.key});
@@ -51,11 +52,14 @@ class _MyPageViewState extends State<MyPageView> with TickerProviderStateMixin {
         ),
         centerTitle: true,
         backgroundColor: ColorManager.white,
-        leading: SvgPicture.asset(
-          ImageAssets.back,
-          height: 5,
-          width: 5,
-          fit: BoxFit.scaleDown,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: SvgPicture.asset(
+            ImageAssets.back,
+            height: 20,
+            width: 20,
+            fit: BoxFit.scaleDown,
+          ),
         ),
         elevation: 0.0,
       ),
