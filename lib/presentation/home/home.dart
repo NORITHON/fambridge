@@ -3,10 +3,13 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart';
 
 import '../resources/font_manager.dart';
+import '../resources/values_manager.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -115,8 +118,8 @@ class _HomeTop extends StatelessWidget {
           ),
           child: SvgPicture.asset(
             ImageAssets.fambridgeIcon,
-            width: 40,
-            height: 40,
+            width: AppSize.s40,
+            height: AppSize.s40,
           ),
         ),
         const SizedBox(width: 15),
@@ -128,13 +131,13 @@ class _HomeTop extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.0),
           child: IconButton(
-            iconSize: 40,
+            iconSize: AppSize.s40,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.bookmark,
-              width: 40,
-              height: 40,
+              width: AppSize.s40,
+              height: AppSize.s40,
             ),
             onPressed: () {}, //do something,
           ),
@@ -142,13 +145,13 @@ class _HomeTop extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.0),
           child: IconButton(
-            iconSize: 40,
+            iconSize: AppSize.s40,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.profile,
-              width: 40,
-              height: 40,
+              width: AppSize.s40,
+              height: AppSize.s40,
             ),
             onPressed: () {
               Get.toNamed(Routes.myPageRoute);
@@ -170,31 +173,84 @@ class Bottom extends StatelessWidget {
     return Container(
       height: 260,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          //배경 그라데이션 적용
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.white,
-            Colors.orange.withOpacity(0.1),
-          ],
-        ),
       ),
     );
   }
 }
 
-class Tree extends StatelessWidget {
+class Tree extends StatefulWidget {
   const Tree({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<Tree> createState() => _TreeState();
+}
+
+class _TreeState extends State<Tree> {
+  bool get isPlaying => _controller?.isActive ?? false;
+
+  Artboard? _riveArtboard;
+  StateMachineController? _controller;
+  SMIInput<int>? _input;
+
+  @override
+  void initState() {
+    super.initState();
+
+    rootBundle.load(RiveAssets.growingThree).then(
+      (data) async {
+        // Load the RiveFile from the binary data.
+        final file = RiveFile.import(data);
+
+        // The artboard is the root of the animation and gets drawn in the
+        // Rive widget.
+        final artboard = file.mainArtboard;
+        var controller =
+            StateMachineController.fromArtboard(artboard, 'GrowingTree');
+        if (controller != null) {
+          artboard.addController(controller);
+          _input = controller.findInput('xpForTree');
+        }
+        setState(() => _riveArtboard = artboard);
+      },
+    );
+  }
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         child: Center(
-          child: Text("Tree"),
+          child: _riveArtboard == null
+            ? const SizedBox()
+            : GestureDetector(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    const Text(
+                      'Press to activate, slide for progress...',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    Slider(
+                      value: _input!.value.toDouble(),
+                      min: 0,
+                      max: 100,
+                      label: _input!.value.toDouble().round().toString(),
+                      onChanged: (double value) => setState(() {
+                        _input!.value = value.toInt();
+                      }),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: Rive(
+                        artboard: _riveArtboard!,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
         ),
       ),
     );
