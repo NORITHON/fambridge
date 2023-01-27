@@ -6,11 +6,15 @@ class GroupQuestion{
   final Map<String, String> userIdsWhoHaveAnswered;
   final String groupQuestionId;
   final String questionScript;
+  final bool isAnswerVisible;
+  final int answerCount;
 
   GroupQuestion({    
     required this.userIdsWhoHaveAnswered,
     required this.groupQuestionId,
     required this.questionScript,
+    required this.isAnswerVisible,
+    required this.answerCount,
   });
 
   factory GroupQuestion.fromSnapshot(DocumentSnapshot snap){
@@ -19,6 +23,8 @@ class GroupQuestion{
       userIdsWhoHaveAnswered: snapshot[userIdsWhoHaveAnsweredFieldName] as Map<String, String>,
       groupQuestionId: snapshot[groupQuestionIdFieldName], 
       questionScript: snapshot[groupQuestionScriptFieldName],
+      isAnswerVisible: snapshot[groupQuestionScriptFieldName] ?? false,
+      answerCount: snapshot[answerCountFieldName] ?? 0,
     );
   }
 }

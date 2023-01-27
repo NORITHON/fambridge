@@ -9,7 +9,6 @@ import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../resources/getx_routes_manager.dart';
 import '../resources/styles_manager.dart';
 
 class LoginView extends StatefulWidget {
@@ -68,107 +67,77 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: AppPadding.p100),
-          SvgPicture.asset(
-            ImageAssets.appLogo,
-            width: AppSize.s150,
-            height: AppSize.s150,
-          ),
-          const SizedBox(height: AppPadding.p30),
-          Text(
-            AppStrings.login,
-            textAlign: TextAlign.center,
-            style: getRegularStyle(color: ColorManager.darkGrey),
-          ),
-          const SizedBox(height: AppPadding.p14),
-          CustomTextfield(hintText: AppStrings.loginId, controller: idController),
-          const SizedBox(
-            height: AppPadding.p8,
-          ),
-          CustomTextfield(hintText: AppStrings.loginPwd, controller: passwordController),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.forgotIdRoute);
-                },
-                child: const Text(
-                  AppStrings.loginId,
-                ),
-              ),
-              Text(
-                "/",
-                style: getRegularStyle(color: ColorManager.darkGrey),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.forgotIdRoute);
-                },
-                child: const Text(
-                  "${AppStrings.loginPwd} ${AppStrings.loginFind}",
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(height: AppPadding.p100),
+        SvgPicture.asset(
+          ImageAssets.appLogo,
+          width: AppSize.s150,
+          height: AppSize.s150,
+        ),
+        const SizedBox(height: AppPadding.p30),
+        Text(
+          AppStrings.login,
+          textAlign: TextAlign.center,
+          style: getRegularStyle(color: ColorManager.darkGrey),
+        ),
+        const SizedBox(height: AppPadding.p14),
+        CustomTextfield(hintText: AppStrings.loginId, controller: idController),
+        const SizedBox(
+          height: AppPadding.p8,
+        ),
+        CustomTextfield(
+            hintText: AppStrings.loginPwd, controller: passwordController),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
               onPressed: () {
-                log("Clicked");
+                Get.toNamed(Routes.forgotIdRoute);
               },
               child: const Text(
-                AppStrings.login,
+                AppStrings.loginId,
               ),
             ),
-          ),
-          const SizedBox(height: AppPadding.p40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(AppStrings.registeredYet),
-              TextButton(
-                onPressed: () => Get.toNamed(Routes.registerRoute),
-                child: const Text(
-                  AppStrings.signup,
-                ),
+            Text(
+              "/",
+              style: getRegularStyle(color: ColorManager.darkGrey),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.forgotIdRoute);
+              },
+              child: const Text(
+                "${AppStrings.loginPwd} ${AppStrings.loginFind}",
               ),
-            ],
-          )
-        ],
-      
-    );
-  }
-}
-
-class LoginBottom extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: ColorManager.primary,
-      child: Row(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.13,
-            height: 50,
-            color: const Color(0xffFF9B92),
-          ),
-          Expanded(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              height: 50,
-              color: const Color(0xffFF0000).withOpacity(0.2),
+            ),
+          ],
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              log("Clicked");
+            },
+            child: const Text(
+              AppStrings.login,
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.13,
-            height: 50,
-            color: const Color(0xffFF9B92),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppPadding.p40),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(AppStrings.registeredYet),
+            TextButton(
+              onPressed: () => Get.toNamed(Routes.registerRoute),
+              child: const Text(
+                AppStrings.signup,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
