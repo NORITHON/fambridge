@@ -4,6 +4,7 @@ import 'package:fambridge/presentation/main/main_view.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/register/register.dart';
 import 'package:fambridge/presentation/splash/splash.dart';
+import 'package:fambridge/presentation/start/startPage.dart';
 import 'package:fambridge/presentation/store_details/store_details.dart';
 import 'package:get/route_manager.dart';
 
@@ -14,6 +15,7 @@ class Routes {
   static const String registerRoute = "/register";
   static const String storeDetailsRoute = "/storeDetails";
   static const String forgotPasswordRoute = "/forgotPassword";
+  static const String startRoute = "/start";
   static const String mainRoute = "/main";
   static const String verifyEmailRoute = "/verify-email";
 }
@@ -47,6 +49,11 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.mainRoute,
     page: () => MainView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.startRoute,
+    page: () => StartPage(),
     transition: Transition.downToUp,
   ),
   GetPage(

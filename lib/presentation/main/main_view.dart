@@ -11,7 +11,13 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("main page"),)
+      body: Center(
+        child: ElevatedButton.icon(
+          onPressed: () {},
+          icon: const Icon(Icons.home),
+          label: const Text("Main page"),
+        ),
+      ),
     );
   }
 }
