@@ -5,7 +5,7 @@ import '../../model/group_question.dart';
 import '../../model/question.dart';
 
 abstract class GroupProvider {
-  void createNewGroup({
+  Future<Group> createNewGroup({
     required String groupName,
     required String creatorUserId,
   });
