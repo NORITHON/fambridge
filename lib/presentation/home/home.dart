@@ -16,12 +16,20 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  String point = "326";
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
+  var textStyle = TextStyle(
+    color: ColorManager.darkGrey,
+    fontFamily: "GmarketSans",
+    fontWeight: FontWeightManager.regular,
+    fontSize: FontSize.s16,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +73,89 @@ class _HomeViewState extends State<HomeView> {
               label: "스토어"),
         ],
         currentIndex: _selectedIndex,
-        selectedLabelStyle:
-            getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
-        unselectedLabelStyle:
-            getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
+        selectedLabelStyle: textStyle.copyWith(
+            fontWeight: FontWeightManager.medium,
+            fontSize: FontSize.s16,
+            height: 2),
+        unselectedLabelStyle: textStyle.copyWith(
+            fontWeight: FontWeightManager.medium, fontSize: FontSize.s16),
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: ColorManager.point,
       ),
+    );
+  }
+}
+
+class _HomeTop extends StatelessWidget {
+  const _HomeTop({
+    Key? key,
+    required this.textStyle,
+  }) : super(key: key);
+
+  final TextStyle textStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: ColorManager.white,
+            boxShadow: [
+              BoxShadow(
+                color: ColorManager.darkGrey.withOpacity(0.25),
+                spreadRadius: 5,
+                blurRadius: 10,
+                offset: const Offset(1, 1),
+              ),
+            ],
+          ),
+          child: SvgPicture.asset(
+            ImageAssets.fambridgeIcon,
+            width: 40,
+            height: 40,
+          ),
+        ),
+        const SizedBox(width: 15),
+        Text(
+          "Fambridge",
+          style: textStyle,
+        ),
+        const SizedBox(width: 50),
+        Container(
+          padding: const EdgeInsets.all(0.0),
+          child: IconButton(
+            iconSize: 40,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: SvgPicture.asset(
+              ImageAssets.bookmark,
+              width: 40,
+              height: 40,
+            ),
+            onPressed: () {}, //do something,
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(0.0),
+          child: IconButton(
+            iconSize: 40,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+            icon: SvgPicture.asset(
+              ImageAssets.profile,
+              width: 40,
+              height: 40,
+            ),
+            onPressed: () {
+              Get.toNamed(Routes.myPageRoute);
+            }, //do something,
+          ),
+        ),
+      ],
     );
   }
 }

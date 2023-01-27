@@ -91,82 +91,24 @@ class _LoginFormState extends State<LoginForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(height: 100),
-            SvgPicture.asset(
-              ImageAssets.fambridgeIcon,
-              width: 150,
-              height: 150,
+            TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.forgotIdRoute);
+              },
+              child: const Text(
+                AppStrings.loginId,
+              ),
             ),
-            SizedBox(height: 30),
-            Text("로그인",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 16,
-                )),
-            SizedBox(height: 15),
-            CustomTextfield(hintText: "아이디", controller: idController),
-            SizedBox(
-              height: 8,
+            Text(
+              "/",
+              style: getRegularStyle(color: ColorManager.darkGrey),
             ),
-            CustomTextfield(hintText: "비밀번호", controller: passwordController),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.forgotIdRoute);
-                  },
-                  child: Text(
-                    "아이디",
-                    style: getMediumStyle(
-                      color: ColorManager.point,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                Text(
-                  "/",
-                  style: getMediumStyle(
-                    color: ColorManager.point,
-                    fontSize: 16,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.forgotIdRoute);
-                  },
-                  child: Text(
-                    "비밀번호 찾기",
-                    style: getMediumStyle(
-                      color: ColorManager.point,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorManager.point,
-                  padding: EdgeInsets.all(12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                onPressed: () {
-                  Get.toNamed(Routes.homeRoute);
-                  return;
-                },
-                child: Text(
-                  "로그인",
-                  style: getMediumStyle(
-                    color: ColorManager.white,
-                    fontSize: 16,
-                  ),
-                ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.forgotIdRoute);
+              },
+              child: const Text(
+                "${AppStrings.loginPwd} ${AppStrings.loginFind}",
               ),
             ),
           ],
@@ -176,6 +118,7 @@ class _LoginFormState extends State<LoginForm> {
           child: ElevatedButton(
             onPressed: () {
               log("Clicked");
+              Get.toNamed(Routes.homeRoute);
             },
             child: const Text(
               AppStrings.login,
