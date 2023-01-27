@@ -5,6 +5,7 @@ import 'package:fambridge/presentation/home/check_comment.dart';
 import 'package:fambridge/presentation/home/home.dart';
 import 'package:fambridge/presentation/login/login.dart';
 import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
+import 'package:fambridge/presentation/onboarding/checkMyself.dart';
 import 'package:fambridge/presentation/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/onboarding/first_delayonboarding.dart';
 import 'package:fambridge/presentation/onboarding/numbersofFamily.dart';
@@ -33,8 +34,9 @@ class Routes {
   static const String numbersofFamilyRoute = "/number-family";
   static const String LastquestionRoute = "/last-question";
   static const String codeshareRoute = "/code-share";
-  static const String first_delayRoute = "/first-onboarding";
-  static const String second_delayRoute = "/second-onboarding";
+  static const String firstDelayRoute = "/first-onboarding";
+  static const String secondDelayRoute = "/second-onboarding";
+  static const String checkMyselfRoute = "/check-myself";
 }
 
 List<GetPage<dynamic>> getPages = [
@@ -109,13 +111,18 @@ List<GetPage<dynamic>> getPages = [
     transition: Transition.downToUp,
   ),
   GetPage(
-    name: Routes.first_delayRoute,
+    name: Routes.firstDelayRoute,
     page: () => const first_delayView(),
     transition: Transition.downToUp,
   ),
   GetPage(
-    name: Routes.second_delayRoute,
+    name: Routes.secondDelayRoute,
     page: () => const second_delayView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.checkMyselfRoute,
+    page: () => const checkMyselfView(),
     transition: Transition.downToUp,
   ),
 ];

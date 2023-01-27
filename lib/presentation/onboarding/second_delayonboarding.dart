@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:fambridge/presentation/resources/font_manager.dart';
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class second_delayView extends StatefulWidget {
   const second_delayView({super.key});
@@ -12,6 +18,14 @@ class second_delayView extends StatefulWidget {
 
 class _second_delayState extends State<second_delayView> {
   @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 2), () {
+      Get.toNamed(Routes.homeRoute);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -20,26 +34,7 @@ class _second_delayState extends State<second_delayView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 150),
-              Text(
-                "2가지 질문에 답변을 통해.",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.black,
-                  fontSize: FontSize.s16,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "가족 코드가 발행됩니다.",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.black,
-                  fontSize: FontSize.s16,
-                ),
-              ),
+              const SizedBox(height: 220),
               const FamilyList(),
               const SizedBox(
                 height: 50,
@@ -82,43 +77,99 @@ class FamilyList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            '아빠',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '엄마',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '첫째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '뚤째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '셋째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
+          FamilyMember(type: "아빠", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "엄마", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "첫째", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "둘째", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "셋째", profile: ImageAssets.onboardingLogo3),
         ],
       ),
     );
+  }
+}
+
+class FamilyMember extends StatelessWidget {
+  String type;
+  String profile;
+  FamilyMember({
+    required this.type,
+    required this.profile,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleProfile(size: 44, profile: profile),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          type,
+          style: getMediumStyle(
+            color: ColorManager.darkGrey,
+            fontSize: 16,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+PreferredSizeWidget _MypageAppBar() {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(60),
+    child: AppBar(
+      title: Text(
+        "",
+        style: getMediumStyle(
+          fontSize: 18,
+          color: ColorManager.darkGrey,
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: ColorManager.white,
+      leading: IconButton(
+        onPressed: () => Get.back(),
+        icon: SvgPicture.asset(
+          ImageAssets.back,
+          height: 20,
+          width: 20,
+          fit: BoxFit.scaleDown,
+        ),
+      ),
+      elevation: 0.0,
+    ),
+  );
+}
+
+class CircleProfile extends StatelessWidget {
+  double size;
+  String profile;
+  CircleProfile({
+    Key? key,
+    required this.profile,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.transparent,
+        ),
+        child: CircleAvatar(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(45),
+            child: SvgPicture.asset(
+              profile,
+              height: size,
+              width: size,
+              allowDrawingOutsideViewBox: true,
+            ),
+          ),
+        ));
   }
 }
