@@ -125,15 +125,22 @@ class _LoginFormState extends State<LoginForm> {
               loadingDialog(context);
               await AuthService.firebase().logIn();
               final user = await AuthService.firebase().currentUser;
-              if(user!.name == null){
-                final question = await QuestionService.firebase().getNextQuestion();
-                final group = await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user.id, question: question);
-                await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1, groupId: group.groupId);
-                
+              if (user!.name == null) {
+                final question =
+                    await QuestionService.firebase().getNextQuestion();
+                final group = await GroupService.firebase().createNewGroup(
+                    groupName: "groupName",
+                    creatorUserId: user.id,
+                    question: question);
+                await AuthService.firebase().addAuthToDatabase(
+                    name: "shinhoo",
+                    familyRole: FamilyRole.son,
+                    birthOrder: 1,
+                    groupId: group.groupId);
               }
               AuthService.nonSyncronizedUser =
                   await AuthService.firebase().currentUser;
-              Get.offAllNamed(Routes.homeRoute);
+              Get.offAllNamed(Routes.inputFamilyCodeRoute);
             },
             child: const Text(
               AppStrings.login,
