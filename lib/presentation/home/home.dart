@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/presentation/resources/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -35,12 +38,15 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Top(),
-            Tree(),
-            Bottom(),
-          ],
+        child: Container(
+          color: ColorManager.white,
+          child: Column(
+            children: [
+              Top(),
+              Tree(),
+              Bottom(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -48,27 +54,23 @@ class _HomeViewState extends State<HomeView> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               "assets/images/Home.svg",
-              width: 30,
-              height: 35,
+              width: 25,
+              height: 25,
             ),
             label: '홈',
           ),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset("assets/images/Today.svg",
-                  width: 30, height: 35),
-              label: '일정'),
-          BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/images/Dashboard.svg",
-                width: 30,
-                height: 35,
+                width: 25,
+                height: 25,
               ),
-              label: "피드"),
+              label: "리스트"),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/images/Store.svg",
-                width: 30,
-                height: 35,
+                width: 25,
+                height: 25,
               ),
               label: "스토어"),
         ],
@@ -167,6 +169,117 @@ class Bottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        BottomGround(),
+        BottomQuestion(),
+      ],
+    );
+  }
+}
+
+class BottomQuestion extends StatelessWidget {
+  const BottomQuestion({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.95,
+      height: 240,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(25),
+          topLeft: Radius.circular(25),
+        ),
+        color: ColorManager.white,
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 15),
+          Text(
+            "첫번째 질문",
+            style: getMediumStyle(
+              color: ColorManager.lightGrey,
+              fontSize: 16,
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "\"우리는 어떤 가족인가요?\"",
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 20,
+            ),
+          ),
+          SizedBox(height: 25),
+          Text(
+            "2명이 답변했어요.",
+            style: getMediumStyle(
+              color: ColorManager.lightGrey,
+              fontSize: 12,
+            ),
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: 12345.toString().split("").map((e) {
+              return Row(
+                children: [
+                  Container(
+                    width: 35,
+                    color: int.parse(e) < 3
+                        ? ColorManager.point
+                        : ColorManager.lightGrey,
+                    height: 3,
+                  ),
+                  e == '3'
+                      ? SvgPicture.asset(ImageAssets.lock)
+                      : SizedBox(
+                          width: 2,
+                        ),
+                ],
+              );
+            }).toList(),
+          ),
+          SizedBox(height: 35),
+          Container(
+            width: 350,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Padding(
+                padding: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "대답하기",
+                      style: getMediumStyle(
+                        color: ColorManager.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Icon(Icons.navigate_next),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomGround extends StatelessWidget {
+  const BottomGround({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 260,
       decoration: BoxDecoration(
@@ -175,8 +288,8 @@ class Bottom extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.white,
-            Colors.orange.withOpacity(0.1),
+            ColorManager.white,
+            ColorManager.point,
           ],
         ),
       ),
@@ -215,7 +328,7 @@ class Top extends StatelessWidget {
           children: [
             SizedBox(height: 50),
             TopIconBar(),
-            SizedBox(height: 30),
+            SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
               child: Text(
