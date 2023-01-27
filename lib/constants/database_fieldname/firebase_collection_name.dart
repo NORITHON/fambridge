@@ -1,1 +1,1 @@
-const String userCollection = 'user';
+const String userCollectionName = 'user';

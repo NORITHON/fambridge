@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fambridge/constants/database_fieldname/firebase_collection_name.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../constants/database_fieldname/firebase_fieldname.dart';
+import '../../constants/enums/family_role.dart';
 import '../../firebase_options.dart';
 
 import 'auth_exceptions.dart';
@@ -8,6 +13,8 @@ import '../../model/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class FirebaseAuthProvider implements AuthProvider {
+  final authCollection =
+         FirebaseFirestore.instance.collection(userCollectionName);
   @override
   Future<AuthUser> createUser({
     required String email,
@@ -16,7 +23,7 @@ class FirebaseAuthProvider implements AuthProvider {
     try {
       await firebase_auth.FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      final user = currentUser;
+      final user = await currentUser;
       if (user != null) {
         return user;
       } else {
@@ -38,15 +45,43 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  AuthUser? get currentUser {
+  Future<AuthUser?> get currentUser async {
     final user = firebase_auth.FirebaseAuth.instance.currentUser;
     if (user != null) {
-      return AuthUser.fromFirebase(user);
+      final DocumentSnapshot<Map<String, dynamic>> snap = await authCollection.doc(user.uid).get();
+      if(!snap.exists){
+        return AuthUser.fromFirebase(user);
+      }else{
+        return AuthUser.fromSnapshot(snap);
+      }
     } else {
       return null;
     }
   }
 
+  @override
+  Future<void> addAuthToDatabase({
+    required String name,
+    required FamilyRole familyRole,
+    required int birthOrder,
+    String? groupId,
+  }) async {
+    final AuthUser? user = await currentUser;
+    if(user != null){
+      if(user.name == null){
+        await authCollection.doc(user.id).set({
+          userIdFieldName: user.id,
+          userNameFieldName: name,
+          userFamilyRoleFieldName: familyRole.toString(),
+          userBirthOrderFieldName: birthOrder,
+          userGroupIdFieldName: groupId,
+          userRegisterTimeFieldName: FieldValue.serverTimestamp(),
+        });
+      }
+    }
+  }
+
+  @override
   Future<firebase_auth.UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -64,16 +99,12 @@ class FirebaseAuthProvider implements AuthProvider {
     return await firebase_auth.FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  String? userDisplayName() {
-    final user = firebase_auth.FirebaseAuth.instance.currentUser;
-    return user?.displayName;
-  }
 
   @override
   Future<AuthUser> logIn() async {
     try {
       final u = await signInWithGoogle();
-      final AuthUser? user = currentUser;
+      final AuthUser? user = await currentUser;
       if (user != null) {
         return user;
       } else {
@@ -96,7 +127,7 @@ class FirebaseAuthProvider implements AuthProvider {
 
   @override
   Future<void> logOut() async {
-    final AuthUser? user = currentUser;
+    final AuthUser? user = await currentUser;
     if (user != null) {
       try {
         await firebase_auth.FirebaseAuth.instance.signOut();
@@ -115,5 +146,21 @@ class FirebaseAuthProvider implements AuthProvider {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  }
+  
+  @override
+  Stream<firebase_auth.User?> getAuthStateChanges() => FirebaseAuth.instance.authStateChanges();
+
+  @override
+  Future<void> sendEmailVerification() async {
+    final AuthUser? user = await currentUser;
+    if (user != null) {
+      if (!(user.isEmailVerified ?? false)) {
+        await firebase_auth.FirebaseAuth.instance.currentUser
+            ?.sendEmailVerification();
+      }
+    } else {
+      throw UserNotLoggedInAuthException();
+    }
   }
 }
