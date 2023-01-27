@@ -26,18 +26,21 @@ class _codeshareState extends State<codeshareview> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 80),
+              const SizedBox(height: 60),
               const Title(),
               const SizedBox(height: 10),
               const SubTitle(),
-              const SizedBox(height: 40),
+              const SizedBox(height: 100),
               FamilyList(),
+              const SizedBox(height: 100),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     "가족 코드",
                     // style: TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(width: 20),
                   Text(
                     idController == null ? "" : idController, //family code
                     textAlign: TextAlign.center,
@@ -49,51 +52,53 @@ class _codeshareState extends State<codeshareview> {
                 ],
               ),
               const SizedBox(
-                height: 50,
+                height: 40,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.point,
-                    padding: const EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorManager.point,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 42.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      return;
+                    },
+                    child: Text(
+                      "복사하기",
+                      style: getMediumStyle(
+                        color: ColorManager.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                  onPressed: () {
-                    return;
-                  },
-                  child: Text(
-                    "복사하기",
-                    style: getMediumStyle(
-                      color: ColorManager.white,
-                      fontSize: 16,
+                  SizedBox(width: 8),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorManager.white,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 42.5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      return;
+                    },
+                    child: Text(
+                      "공유하기",
+                      style: getMediumStyle(
+                        color: ColorManager.point,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.white,
-                    padding: const EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  onPressed: () {
-                    return;
-                  },
-                  child: Text(
-                    "공유하기",
-                    style: getMediumStyle(
-                      color: ColorManager.point,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
+                ],
               ),
             ],
           ),
@@ -113,8 +118,8 @@ class Title extends StatelessWidget {
     return Text(
       "Fambridge.",
       textAlign: TextAlign.center,
-      style: getMediumStyle(
-        color: ColorManager.point,
+      style: getBoldStyle(
+        color: ColorManager.point.withOpacity(0.6),
         fontSize: FontSize.s16,
       ),
     );
@@ -159,43 +164,42 @@ class FamilyList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text(
-            '아빠',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '엄마',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '첫째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '뚤째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
-          Text(
-            '셋째',
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
+          FamilyMember(type: "아빠", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "엄마", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "첫째", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "둘째", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "셋째", profile: ImageAssets.onboardingLogo3),
         ],
       ),
+    );
+  }
+}
+
+class FamilyMember extends StatelessWidget {
+  String type;
+  String profile;
+  FamilyMember({
+    required this.type,
+    required this.profile,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CircleProfile(size: 44, profile: profile),
+        SizedBox(
+          height: 5,
+        ),
+        Text(
+          type,
+          style: getMediumStyle(
+            color: ColorManager.darkGrey,
+            fontSize: 16,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -225,4 +229,34 @@ PreferredSizeWidget _MypageAppBar() {
       elevation: 0.0,
     ),
   );
+}
+
+class CircleProfile extends StatelessWidget {
+  double size;
+  String profile;
+  CircleProfile({
+    Key? key,
+    required this.profile,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.transparent,
+        ),
+        child: CircleAvatar(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(45),
+            child: SvgPicture.asset(
+              profile,
+              height: size,
+              width: size,
+              allowDrawingOutsideViewBox: true,
+            ),
+          ),
+        ));
+  }
 }
