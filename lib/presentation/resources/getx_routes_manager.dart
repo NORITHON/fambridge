@@ -9,7 +9,6 @@ import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
 import 'package:fambridge/presentation/onboarding/checkMyself.dart';
 import 'package:fambridge/presentation/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/onboarding/first_delayonboarding.dart';
-import 'package:fambridge/presentation/onboarding/numbersofFamily.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/onboarding/second_delayonboarding.dart';
 import 'package:fambridge/presentation/register/register.dart';
@@ -93,7 +92,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.numbersofFamilyRoute,
-    page: () => const NumbersofFamilyView(),
+    page: () => NumbersofFamilyView(),
     transition: Transition.downToUp,
   ),
   GetPage(
