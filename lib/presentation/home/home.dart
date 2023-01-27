@@ -1,7 +1,9 @@
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../resources/font_manager.dart';
 
@@ -28,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.1),
+                horizontal: MediaQuery.of(context).size.width * 0.12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -90,9 +92,11 @@ class _HomeTop extends StatelessWidget {
           ),
         ),
         SizedBox(width: 15),
-        Text(
-          "Fambridge",
-          style: textStyle,
+        Expanded(
+          child: Text(
+            "Fambridge",
+            style: textStyle,
+          ),
         ),
         SizedBox(width: 50),
         Container(
@@ -120,7 +124,9 @@ class _HomeTop extends StatelessWidget {
               width: 40,
               height: 40,
             ),
-            onPressed: () {}, //do something,
+            onPressed: () {
+              Get.toNamed(Routes.myPageRoute);
+            }, //do something,
           ),
         ),
       ],

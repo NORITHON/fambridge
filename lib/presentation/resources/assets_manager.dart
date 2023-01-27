@@ -13,4 +13,8 @@ class ImageAssets {
   static const String fambridgeIcon = "$IMAGE_PATH/fambridge_icon.svg";
   static const String bookmark = "$IMAGE_PATH/bookmark.svg";
   static const String profile = "$IMAGE_PATH/profile.svg";
+
+  static const String back = "$IMAGE_PATH/back.svg";
+  static const String saveFalse = "$IMAGE_PATH/save_false.svg";
+  static const String saveTrue = "$IMAGE_PATH/save_true.svg";
 }

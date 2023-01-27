@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.homeRoute,
+      initialRoute: Routes.myPageRoute,
       // theme: getApplicationTheme(),
       getPages: getPages,
     );
