@@ -117,7 +117,7 @@ class _LoginFormState extends State<LoginForm> {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              Get.offAndToNamed(Routes.homeRoute);
+              Get.offAllNamed(Routes.homeRoute);
             },
             child: const Text(
               AppStrings.login,
