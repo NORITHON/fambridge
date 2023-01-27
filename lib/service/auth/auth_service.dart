@@ -23,6 +23,8 @@ class AuthService implements AuthProvider {
   @override
   Future<AuthUser?> get currentUser => provider.currentUser;
 
+  static AuthUser? nonSyncronizedUser;
+
   @override
   Future<AuthUser> logIn() =>
       provider.logIn();
@@ -36,7 +38,7 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> addAuthToDatabase({required String name, required FamilyRole familyRole, required int birthOrder, String? groupId}) =>
-    provider.addAuthToDatabase(name: name, familyRole: familyRole, birthOrder: birthOrder);
+    provider.addAuthToDatabase(name: name, familyRole: familyRole, birthOrder: birthOrder, groupId: groupId);
 
   @override
   Future<UserCredential> signInWithGoogle() => provider.signInWithGoogle();

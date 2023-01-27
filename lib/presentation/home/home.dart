@@ -2,6 +2,7 @@ import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 
+import '../../model/group_question.dart';
 import '../resources/font_manager.dart';
 import '../resources/values_manager.dart';
 
@@ -180,10 +182,20 @@ class Bottom extends StatelessWidget {
   }
 }
 
-class BottomQuestion extends StatelessWidget {
+class BottomQuestion extends StatefulWidget {
   const BottomQuestion({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<BottomQuestion> createState() => _BottomQuestionState();
+}
+
+class _BottomQuestionState extends State<BottomQuestion> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,43 +220,24 @@ class BottomQuestion extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Text(
-            "\"우리는 어떤 가족인가요?\"",
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 20,
-            ),
+          FutureBuilder(
+            future: GroupService.firebase().getTodayGroupQuestion(
+                groupId: AuthService.nonSyncronizedUser!.groupId!),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return Text(snapshot.hasData
+                      ? snapshot.data!.questionScript
+                      : "no Data");
+                default:
+                  return CircularProgressIndicator(
+                    color: ColorManager.buttonDisable,
+                  );
+              }
+            },
           ),
           const SizedBox(height: 25),
-          Text(
-            "2명이 답변했어요.",
-            style: getMediumStyle(
-              color: ColorManager.lightGrey,
-              fontSize: 12,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: 12345.toString().split("").map((e) {
-              return Row(
-                children: [
-                  Container(
-                    width: 35,
-                    color: int.parse(e) < 3
-                        ? ColorManager.point
-                        : ColorManager.lightGrey,
-                    height: 3,
-                  ),
-                  e == '3'
-                      ? SvgPicture.asset(ImageAssets.lock)
-                      : const SizedBox(
-                          width: 2,
-                        ),
-                ],
-              );
-            }).toList(),
-          ),
+          const AnswerProgressIndicatorWithTitle(),
           const SizedBox(height: 35),
           Container(
             width: 350,
@@ -272,6 +265,93 @@ class BottomQuestion extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class AnswerProgressIndicatorWithTitle extends StatelessWidget {
+  const AnswerProgressIndicatorWithTitle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    AuthService.nonSyncronizedUser!.groupId;
+    final totalCountFuture = GroupService.firebase().howManyPeopleInGroup(
+        groupId: AuthService.nonSyncronizedUser!.groupId!);
+    final answerCountFuture = GroupService.firebase().howManyPeopleAnswered(
+        groupId: AuthService.nonSyncronizedUser!.groupId!);
+    return FutureBuilder(
+      future: Future.wait([totalCountFuture, answerCountFuture]),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            final totalCount = snapshot.data?[0] ?? 0;
+            final answerCount = snapshot.data?[1] ?? 0;
+            return Column(
+              children: [
+                Text(
+                  "$answerCount명이 답변했어요.",
+                  style: getMediumStyle(
+                    color: ColorManager.lightGrey,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.center,
+                  child: AnswerProgressIndicator(
+                      total: totalCount, count: answerCount),
+                ),
+              ],
+            );
+          default:
+            return CircularProgressIndicator(
+              color: ColorManager.point,
+            );
+        }
+      },
+    );
+  }
+}
+
+class AnswerProgressIndicator extends StatelessWidget {
+  const AnswerProgressIndicator(
+      {super.key, required this.total, required this.count});
+
+  final int total;
+  final int count;
+
+  Widget _getBar(bool isColored) {
+    return Container(
+      width: AppSize.s35,
+      color: isColored ? ColorManager.point : ColorManager.lightGrey,
+      height: AppSize.s3,
+    );
+  }
+
+  Widget _getGap(bool isLockLocation) {
+    return isLockLocation
+        ? SvgPicture.asset(ImageAssets.lock)
+        : const SizedBox(
+            width: AppSize.s2,
+          );
+  }
+
+  List<Widget> _getIndicatorBar() {
+    final List<Widget> indicatorBar = [];
+    int lockLocation = (total / 2).round();
+    for (int i = 1; i <= total; i++) {
+      indicatorBar.addAll([_getBar(i <= count), _getGap(i == lockLocation)]);
+    }
+    return indicatorBar;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: _getIndicatorBar(),
     );
   }
 }

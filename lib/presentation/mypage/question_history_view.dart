@@ -12,7 +12,8 @@ class QuestionHistoryView extends StatefulWidget {
   State<QuestionHistoryView> createState() => _QuestionHistoryViewState();
 }
 
-class _QuestionHistoryViewState extends State<QuestionHistoryView> with TickerProviderStateMixin {
+class _QuestionHistoryViewState extends State<QuestionHistoryView>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -38,33 +39,33 @@ class _QuestionHistoryViewState extends State<QuestionHistoryView> with TickerPr
       ),
     );
   }
+}
 
-  PreferredSizeWidget _MypageAppBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
-      child: AppBar(
-        title: Text(
-          "질문 목록",
-          style: getMediumStyle(
-            fontSize: 18,
-            color: ColorManager.darkGrey,
-          ),
+PreferredSizeWidget _MypageAppBar() {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(60),
+    child: AppBar(
+      title: Text(
+        "질문 목록",
+        style: getMediumStyle(
+          fontSize: 18,
+          color: ColorManager.darkGrey,
         ),
-        centerTitle: true,
-        backgroundColor: ColorManager.white,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: SvgPicture.asset(
-            ImageAssets.back,
-            height: 20,
-            width: 20,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-        elevation: 0.0,
       ),
-    );
-  }
+      centerTitle: true,
+      backgroundColor: ColorManager.white,
+      leading: IconButton(
+        onPressed: () => Get.back(),
+        icon: SvgPicture.asset(
+          ImageAssets.back,
+          height: 20,
+          width: 20,
+          fit: BoxFit.scaleDown,
+        ),
+      ),
+      elevation: 0.0,
+    ),
+  );
 }
 
 class _TapbarView extends StatelessWidget {
@@ -141,14 +142,14 @@ class _TapBar extends StatelessWidget {
           Container(
             height: 60,
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               '전체',
             ),
           ),
           Container(
             height: 60,
             alignment: Alignment.center,
-            child: Text(
+            child: const Text(
               '저장',
             ),
           ),
