@@ -10,7 +10,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 
-import '../../model/group_question.dart';
 import '../resources/font_manager.dart';
 import '../resources/values_manager.dart';
 
