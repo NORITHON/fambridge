@@ -3,6 +3,7 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../resources/getx_routes_manager.dart';
 
@@ -17,14 +18,10 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          children: [
-            Loginbody(),
-            LoginBottom(),
-          ],
-        ),
+        child: Loginbody(),
       ),
     );
   }
@@ -34,21 +31,15 @@ class Loginbody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        color: ColorManager.primary,
-        child: Row(
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              color: Color(0xffFF0000).withOpacity(0.2),
-            ),
-            LoginForm(),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.13,
-              color: Color(0xffFF0000).withOpacity(0.2),
-            ),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.75,
+            color: ColorManager.white,
+            child: LoginForm(),
+          ),
+        ],
       ),
     );
   }
@@ -100,10 +91,10 @@ class _LoginFormState extends State<LoginForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 100),
-            Container(
+            SvgPicture.asset(
+              "assets/images/Frame_15682.svg",
               width: 150,
               height: 150,
-              color: Colors.black,
             ),
             SizedBox(height: 30),
             Text(
@@ -135,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(Routes.forgotPasswordRoute);
+                    Get.toNamed(Routes.forgotIdRoute);
                   },
                   child: Text(
                     "비밀번호 찾기",
