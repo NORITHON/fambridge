@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.splashRoute,
+      initialRoute: Routes.checkCommentRoute,
       // theme: getApplicationTheme(),
       getPages: getPages,
     );

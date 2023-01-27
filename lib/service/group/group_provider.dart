@@ -1,5 +1,8 @@
 // provide FirebaseAuth user
 
+<<<<<<< HEAD
+abstract class GroupProvider {}
+=======
 import '../../model/group.dart';
 import '../../model/group_question.dart';
 import '../../model/question.dart';
@@ -32,3 +35,4 @@ abstract class GroupProvider {
     required String todayQuestionId,
   });
 }
+>>>>>>> main
