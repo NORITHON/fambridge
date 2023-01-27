@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-<<<<<<< HEAD
 import 'package:fambridge/constants/database_fieldname/firebase_fieldname.dart';
-=======
-
 import '../constants/database_fieldname/firebase_fieldname.dart';
->>>>>>> main
 
 class Post {
   final String description;
