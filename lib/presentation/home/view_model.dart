@@ -11,6 +11,7 @@ class AnswerViewModel extends GetxController {
   final answerScript = "".obs;
   final isAnswerOpen = false.obs;
   final hasAnswered = false.obs;
+  final treeXp = 0.obs;
 
   void setAnswerScript({String? newVal, bool listen = false}) {
     answerScript.value = newVal ?? answerScript.value;

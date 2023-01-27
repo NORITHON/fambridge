@@ -52,5 +52,4 @@ class AuthUser {
     }
     return null;
   }
-  
 }

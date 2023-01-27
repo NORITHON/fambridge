@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:fambridge/presentation/home/widgets/answer_progress_indicator.dart';
 import 'package:fambridge/presentation/home/widgets/question_sheet.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
@@ -16,6 +17,7 @@ import 'package:glass/glass.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../resources/assets_manager.dart';
+import '../utilities/msg_alert_dialog.dart';
 import 'view_model.dart';
 import 'widgets/answer_button.dart';
 import 'widgets/blurred_answer_list.dart';
@@ -63,8 +65,10 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             onPressed: () async {
               await GroupService.firebase().submitAnswerForGroupQuestion(groupId: AuthService.nonSyncronizedUser!.groupId!, answerScript: Get.find<AnswerViewModel>().answerScript.value, userId: AuthService.nonSyncronizedUser!.id);
               final newVal = await GroupService.firebase().checkIfAnswerShouldBeOpen(groupId: AuthService.nonSyncronizedUser!.groupId!);
+              if(newVal ?? false) await msgAlertDialog(context, title: AppStrings.answerOpened, body: AppStrings.checkTheAnswers);
               Get.find<AnswerViewModel>().setHasAnswered(newVal: true, listen: true);
               Get.find<AnswerViewModel>().setIsAnswerOpen(newVal: newVal, listen: true);
+              
             },
           ),
         ),

@@ -21,4 +21,7 @@ class AppStrings {
   static const String loginFind = "찾기";
   static const String signup = "회원가입하기";
   static const String registeredYet = "처음이세요?";
+
+  static const String answerOpened = "답변이 열렸습니다.";
+  static const String checkTheAnswers = "'우리'의 대답을 읽어보세요!";
 }

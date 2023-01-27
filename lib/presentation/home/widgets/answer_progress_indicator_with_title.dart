@@ -19,7 +19,7 @@ class AnswerProgressIndicatorWithTitle extends StatelessWidget {
     return GetBuilder<AnswerViewModel>(
         init: AnswerViewModel(),
         builder: (answerViewModel) {
-          Get.find<AnswerViewModel>().answerScript;
+          Get.find<AnswerViewModel>().hasAnswered;
           final totalCountFuture = GroupService.firebase().howManyPeopleInGroup(
               groupId: AuthService.nonSyncronizedUser!.groupId!);
           final answerCountFuture = GroupService.firebase()
