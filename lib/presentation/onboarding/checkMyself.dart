@@ -74,13 +74,7 @@ class ChoiceForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            MenberCountButton(content: "아빠", index: -1),
-            MenberCountButton(content: "엄마", index: -2),
-          ],
-        ),
-        Row(
+        Wrap(
           children: buildCheckMySelfForm(),
         ),
       ],
@@ -90,8 +84,6 @@ class ChoiceForm extends StatelessWidget {
   List<Widget> buildCheckMySelfForm() {
     List<Widget> result = [];
     var n = int.parse(Get.arguments['familyMemberCount'].toString());
-    print(Get.arguments['familyMemberCount']);
-    print("familyMemberCount : $n");
 
     List<String> familyMember = [
       "엄마",
@@ -138,27 +130,29 @@ class _MenberCountButtonState extends State<MenberCountButton> {
           onTap: () {
             target.value = widget.index;
           },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-            width: 60,
-            decoration: BoxDecoration(
-              color: widget.index == target.value
-                  ? ColorManager.point
-                  : ColorManager.white,
-              borderRadius: BorderRadius.circular(40),
-              border: Border.all(
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+              decoration: BoxDecoration(
+                color: widget.index == target.value
+                    ? ColorManager.point
+                    : ColorManager.white,
+                borderRadius: BorderRadius.circular(40),
+                border: Border.all(
+                    color: widget.index == target.value
+                        ? ColorManager.white
+                        : ColorManager.darkGrey),
+              ),
+              child: Text(
+                widget.content,
+                textAlign: TextAlign.center,
+                style: getMediumStyle(
                   color: widget.index == target.value
                       ? ColorManager.white
-                      : ColorManager.darkGrey),
-            ),
-            child: Text(
-              widget.content,
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: widget.index == target.value
-                    ? ColorManager.white
-                    : ColorManager.darkGrey,
-                fontSize: 16,
+                      : ColorManager.darkGrey,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
