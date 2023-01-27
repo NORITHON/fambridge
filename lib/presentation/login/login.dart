@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../resources/getx_routes_manager.dart';
+import '../resources/styles_manager.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -18,28 +23,16 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorManager.backgroundColor,
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Loginbody(),
-      ),
-    );
-  }
-}
-
-class Loginbody extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.75,
-            color: ColorManager.white,
+      body: const SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: AppPadding.p45),
+          child: SizedBox(
+            width: double.infinity,
             child: LoginForm(),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -53,128 +46,99 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  TextEditingController idController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String id = "";
-  String password = "";
+  late final TextEditingController idController;
+  late final TextEditingController passwordController;
 
-  _LoginFormState() {
-    idController.addListener(() {
-      setState(
-        () {
-          id = idController.text;
-        },
-      );
-    });
-    passwordController.addListener(() {
-      setState(
-        () {
-          password = passwordController.text;
-        },
-      );
-    });
+  @override
+  void initState() {
+    super.initState();
+
+    idController = TextEditingController();
+    passwordController = TextEditingController();
   }
 
-  var textStyle = TextStyle(
-    fontFamily: 'GmarketSans',
-  );
-  var pointStyle = TextStyle(
-    color: ColorManager.orange,
-    fontFamily: 'GmarketSans',
-  );
+  @override
+  void dispose() {
+    super.dispose();
+
+    idController.dispose();
+    passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 100),
-            SvgPicture.asset(
-              "assets/images/Frame_15682.svg",
-              width: 150,
-              height: 150,
-            ),
-            SizedBox(height: 30),
-            Text(
-              "로그인",
-              textAlign: TextAlign.center,
-              style: textStyle,
-            ),
-            SizedBox(height: 15),
-            CustomTextfield(hintText: "아이디", controller: idController),
-            SizedBox(
-              height: 8,
-            ),
-            CustomTextfield(hintText: "비밀번호", controller: passwordController),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.forgotIdRoute);
-                  },
-                  child: Text(
-                    "아이디",
-                    style: pointStyle,
-                  ),
-                ),
-                Text(
-                  "/",
-                  style: pointStyle,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.forgotIdRoute);
-                  },
-                  child: Text(
-                    "비밀번호 찾기",
-                    style: pointStyle,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorManager.orange,
-                  padding: EdgeInsets.all(12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: AppPadding.p100),
+          SvgPicture.asset(
+            ImageAssets.appLogo,
+            width: AppSize.s150,
+            height: AppSize.s150,
+          ),
+          const SizedBox(height: AppPadding.p30),
+          Text(
+            AppStrings.login,
+            textAlign: TextAlign.center,
+            style: getRegularStyle(color: ColorManager.darkGrey),
+          ),
+          const SizedBox(height: AppPadding.p14),
+          CustomTextfield(hintText: AppStrings.loginId, controller: idController),
+          const SizedBox(
+            height: AppPadding.p8,
+          ),
+          CustomTextfield(hintText: AppStrings.loginPwd, controller: passwordController),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
                 onPressed: () {
-                  print("id");
-                  print(id);
-                  print("password");
-                  print(password);
-                  return;
+                  Get.toNamed(Routes.forgotIdRoute);
                 },
-                child: Text(
-                  "로그인",
-                  style: textStyle,
+                child: const Text(
+                  AppStrings.loginId,
                 ),
               ),
-            ),
-            SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("처음이세요?"),
-                TextButton(
-                  onPressed: () => Get.toNamed(Routes.registerRoute),
-                  child: Text(
-                    "회원가입하기",
-                    style: pointStyle,
-                  ),
+              Text(
+                "/",
+                style: getRegularStyle(color: ColorManager.darkGrey),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed(Routes.forgotIdRoute);
+                },
+                child: const Text(
+                  "${AppStrings.loginPwd} ${AppStrings.loginFind}",
                 ),
-              ],
-            )
-          ],
-        ),
-      ),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                log("Clicked");
+              },
+              child: const Text(
+                AppStrings.login,
+              ),
+            ),
+          ),
+          const SizedBox(height: AppPadding.p40),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(AppStrings.registeredYet),
+              TextButton(
+                onPressed: () => Get.toNamed(Routes.registerRoute),
+                child: const Text(
+                  AppStrings.signup,
+                ),
+              ),
+            ],
+          )
+        ],
+      
     );
   }
 }
@@ -189,19 +153,19 @@ class LoginBottom extends StatelessWidget {
           Container(
             width: MediaQuery.of(context).size.width * 0.13,
             height: 50,
-            color: Color(0xffFF9B92),
+            color: const Color(0xffFF9B92),
           ),
           Expanded(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.13,
               height: 50,
-              color: Color(0xffFF0000).withOpacity(0.2),
+              color: const Color(0xffFF0000).withOpacity(0.2),
             ),
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.13,
             height: 50,
-            color: Color(0xffFF9B92),
+            color: const Color(0xffFF9B92),
           ),
         ],
       ),

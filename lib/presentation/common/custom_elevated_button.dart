@@ -25,7 +25,7 @@ class CustumButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: ColorManager.orange,
+          backgroundColor: ColorManager.point,
           padding: EdgeInsets.all(12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
