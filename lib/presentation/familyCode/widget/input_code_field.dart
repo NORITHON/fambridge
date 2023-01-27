@@ -2,26 +2,25 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/group/group_exception.dart';
-import 'package:fambridge/service/group/group_provider.dart';
 import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CustomTextfield extends StatefulWidget {
+class InputCodeTextField extends StatefulWidget {
   String hintText;
   TextEditingController controller;
 
-  CustomTextfield({
+  InputCodeTextField({
     super.key,
     required this.hintText,
     required this.controller,
   });
 
   @override
-  State<CustomTextfield> createState() => _CustomTextfieldState();
+  State<InputCodeTextField> createState() => _InputCodeTextFieldState();
 }
 
-class _CustomTextfieldState extends State<CustomTextfield> {
+class _InputCodeTextFieldState extends State<InputCodeTextField> {
   @override
   Widget build(BuildContext context) {
     var textStyle =
@@ -39,6 +38,8 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         ],
       ),
       child: TextField(
+        maxLength: 5,
+        onChanged: onChanged,
         controller: widget.controller,
         style: getMediumStyle(
           color: ColorManager.lightGrey,
@@ -65,5 +66,45 @@ class _CustomTextfieldState extends State<CustomTextfield> {
         ),
       ),
     );
+  }
+
+  void onChanged(value) async {
+    print(widget.controller.text);
+    //db에 widget.controller.text값이 존재하는지 확인하는 조건 추가.
+
+    if (widget.controller.text.length == 5) {
+      var groupId = widget.controller.text;
+      try {
+        var result = await GroupService.firebase().getGroup(groupId: groupId);
+        Get.toNamed(Routes.secondDelayRoute);
+      } on GroupNotFoundGroupException catch (e) {
+        Get.defaultDialog(
+          title: "없는 가족 코드입니다.",
+          titlePadding: EdgeInsets.only(top: 40),
+          titleStyle: getMediumStyle(
+            color: ColorManager.darkGrey,
+            fontSize: 18,
+          ),
+          middleText: "다시 확인해 보세요.",
+          middleTextStyle: getMediumStyle(
+            color: ColorManager.lightGrey,
+            fontSize: 16,
+          ),
+          cancel: Padding(
+            padding: const EdgeInsets.all(20),
+            child: GestureDetector(
+              onTap: () => Get.back(),
+              child: Text(
+                "확인",
+                style: getMediumStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    }
   }
 }

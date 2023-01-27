@@ -1,4 +1,5 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/familyCode/widget/input_code_field.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -126,7 +127,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                   )
                 ],
               ),
-              child: CustomTextfield(
+              child: InputCodeTextField(
                   hintText: "공유 받은 코드 입력", controller: codeController),
             ),
             const SizedBox(height: 150),
