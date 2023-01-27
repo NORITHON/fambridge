@@ -1,4 +1,3 @@
-
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -28,13 +27,6 @@ class _HomeViewState extends State<HomeView> {
       _selectedIndex = index;
     });
   }
-
-  var textStyle = TextStyle(
-    color: ColorManager.darkGrey,
-    fontFamily: "GmarketSans",
-    fontWeight: FontWeightManager.regular,
-    fontSize: FontSize.s16,
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +81,13 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  var textStyle = TextStyle(
+    color: ColorManager.darkGrey,
+    fontFamily: "GmarketSans",
+    fontWeight: FontWeightManager.regular,
+    fontSize: FontSize.s16,
+  );
 }
 
 class _HomeTop extends StatelessWidget {
@@ -250,7 +249,9 @@ class BottomQuestion extends StatelessWidget {
           Container(
             width: 350,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.checkCommentRoute);
+              },
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: Row(
@@ -337,38 +338,39 @@ class _TreeState extends State<Tree> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         child: Center(
           child: _riveArtboard == null
-            ? const SizedBox()
-            : GestureDetector(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Slider(
-                      value: _input!.value,
-                      min: 0,
-                      max: 100,
-                      thumbColor: ColorManager.point,
-                      activeColor: ColorManager.point,
-                      inactiveColor: ColorManager.buttonDisable,
-                      label: _input!.value.round().toString(),
-                      onChanged: (double value) => setState(() {
-                        _input!.value = value;
-                      }),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: rive.Rive(
-                        artboard: _riveArtboard!,
+              ? const SizedBox()
+              : GestureDetector(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Slider(
+                        value: _input!.value,
+                        min: 0,
+                        max: 100,
+                        thumbColor: ColorManager.point,
+                        activeColor: ColorManager.point,
+                        inactiveColor: ColorManager.buttonDisable,
+                        label: _input!.value.round().toString(),
+                        onChanged: (double value) => setState(() {
+                          _input!.value = value;
+                        }),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: rive.Rive(
+                          artboard: _riveArtboard!,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
         ),
       ),
     );

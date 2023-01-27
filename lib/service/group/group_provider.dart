@@ -1,8 +1,3 @@
-// provide FirebaseAuth user
-
-<<<<<<< HEAD
-abstract class GroupProvider {}
-=======
 import '../../model/group.dart';
 import '../../model/group_question.dart';
 import '../../model/question.dart';
@@ -29,10 +24,11 @@ abstract class GroupProvider {
     required String groupId,
     required String todayQuestionId,
   });
-  Future<int> howManyPeopleInGroup({required String groupId,});
+  Future<int> howManyPeopleInGroup({
+    required String groupId,
+  });
   Future<bool?> checkIfAnswerShouldBeOpen({
     required String groupId,
     required String todayQuestionId,
   });
 }
->>>>>>> main
