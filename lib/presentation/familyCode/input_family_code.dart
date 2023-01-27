@@ -1,6 +1,11 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class InputFamilyCode extends StatefulWidget {
   const InputFamilyCode({Key? key}) : super(key: key);
@@ -13,19 +18,30 @@ class _InputFamilyCodeState extends State<InputFamilyCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Next page',
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: _AppBar(),
       resizeToAvoidBottomInset: false,
       body: const SafeArea(
         child: InputFamilybody(),
+      ),
+    );
+  }
+
+  PreferredSizeWidget _AppBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: AppBar(
+        centerTitle: true,
+        backgroundColor: ColorManager.white,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: SvgPicture.asset(
+            ImageAssets.back,
+            height: 20,
+            width: 20,
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        elevation: 0,
       ),
     );
   }
@@ -39,10 +55,15 @@ class InputFamilybody extends StatelessWidget {
     return Expanded(
       child: Container(
         color: ColorManager.backgroundColor,
-        child: Row(
-          children: const [
-            FamilyCodeForm(),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+          ),
+          child: Row(
+            children: const [
+              FamilyCodeForm(),
+            ],
+          ),
         ),
       ),
     );
@@ -57,39 +78,28 @@ class FamilyCodeForm extends StatefulWidget {
 }
 
 class _FamilyCodeFormState extends State<FamilyCodeForm> {
-  TextEditingController idController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String id = "";
-  String password = "";
+  TextEditingController codeController = TextEditingController();
+  String code = "";
 
   _FamilyCodeFormState() {
-    idController.addListener(() {
+    codeController.addListener(() {
       setState(
         () {
-          id = idController.text;
-        },
-      );
-    });
-    passwordController.addListener(() {
-      setState(
-        () {
-          password = passwordController.text;
+          code = codeController.text;
         },
       );
     });
   }
 
-  var textStyle = const TextStyle(
-    fontFamily: 'GmarketSans',
-    fontSize: 16,
-  );
-  var pointStyle = TextStyle(
-    color: ColorManager.point,
-    fontFamily: 'GmarketSans',
-  );
+  @override
+  void dispose() {
+    codeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(code);
     return Expanded(
       child: Container(
         child: Column(
@@ -99,7 +109,10 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
             Text(
               "가족 코드를 입력하세요.",
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 20),
             Container(
@@ -114,13 +127,16 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                 ],
               ),
               child: CustomTextfield(
-                  hintText: "공유 받은 코드 입력", controller: idController),
+                  hintText: "공유 받은 코드 입력", controller: codeController),
             ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 150),
             Text(
               "제가 시작하는 사람이에요!",
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 7),
             SizedBox(
@@ -134,11 +150,14 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                   ),
                 ),
                 onPressed: () {
-                  return;
+                  Get.toNamed(Routes.firstDelayRoute);
                 },
                 child: Text(
                   "새로운 코드 받기",
-                  style: textStyle,
+                  style: getMediumStyle(
+                    color: ColorManager.white,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),

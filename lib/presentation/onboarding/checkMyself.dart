@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 
 RxInt target = 0.obs;
 
-class numbersofFamilyView extends StatefulWidget {
-  const numbersofFamilyView({super.key});
+class checkMyselfView extends StatefulWidget {
+  const checkMyselfView({super.key});
 
   @override
-  _numbersofFamilyState createState() => _numbersofFamilyState();
+  _checkMyselfState createState() => _checkMyselfState();
 }
 
-class _numbersofFamilyState extends State<numbersofFamilyView> {
+class _checkMyselfState extends State<checkMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +30,32 @@ class _numbersofFamilyState extends State<numbersofFamilyView> {
             children: [
               const SizedBox(height: 110),
               Text(
-                "가족 구성원은 몇 명인가요?",
+                "나는 '누구'인가요?",
                 textAlign: TextAlign.left,
                 style: getMediumStyle(
                   color: ColorManager.darkGrey,
                   fontSize: 20,
                 ),
               ),
-              const SizedBox(height: 75),
+              const SizedBox(height: 85),
               ChoiceForm(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Text(
+                    ".",
+                    style:
+                        getBoldStyle(color: ColorManager.darkGrey, fontSize: 5),
+                  ),
+                  Text(
+                    ".",
+                    style:
+                        getBoldStyle(color: ColorManager.black, fontSize: 10),
+                  ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.checkMyselfRoute);
+                      Get.toNamed(Routes.LastquestionRoute);
                     },
                     child: CircleProfile(
                       profile: ImageAssets.navigateNext,
@@ -73,28 +83,15 @@ class ChoiceForm extends StatelessWidget {
       children: [
         Row(
           children: [
-            MenberCountButton(content: "2명", index: 2),
-            MenberCountButton(content: "3명", index: 3),
+            MenberCountButton(content: "아빠", index: 2),
+            MenberCountButton(content: "엄마", index: 3),
           ],
         ),
         Row(
           children: [
-            MenberCountButton(content: "4명", index: 4),
-            MenberCountButton(content: "5명", index: 5),
-            MenberCountButton(content: "6명", index: 6),
-            MenberCountButton(content: "7명", index: 7),
-          ],
-        ),
-        Row(
-          children: [
-            MenberCountButton(content: "8명", index: 8),
-            MenberCountButton(content: "9명", index: 9),
-            MenberCountButton(content: "10명", index: 10),
-          ],
-        ),
-        Row(
-          children: [
-            MenberCountButton(content: "기타", index: 11),
+            MenberCountButton(content: "첫째", index: 4),
+            MenberCountButton(content: "둘쨰", index: 5),
+            MenberCountButton(content: "셋째", index: 6),
           ],
         ),
       ],

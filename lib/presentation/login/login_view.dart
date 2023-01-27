@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:fambridge/constants/enums/family_role.dart';
@@ -132,7 +131,8 @@ class _LoginFormState extends State<LoginForm> {
                 await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1, groupId: group.groupId);
                 
               }
-              AuthService.nonSyncronizedUser = await AuthService.firebase().currentUser;
+              AuthService.nonSyncronizedUser =
+                  await AuthService.firebase().currentUser;
               Get.offAllNamed(Routes.homeRoute);
             },
             child: const Text(
