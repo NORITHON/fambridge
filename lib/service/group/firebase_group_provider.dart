@@ -84,6 +84,10 @@ class FirebaseGroupProvider implements GroupProvider {
     return groupQuestionId;
   }
 
+  void _incrementAnswerCount(String groupId){
+    final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
+  }
+
   @override
   Future<void> submitAnswerForGroupQuestion({
     required String groupId,
