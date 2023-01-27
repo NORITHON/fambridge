@@ -47,7 +47,7 @@ class _QuestionHistoryViewState extends State<QuestionHistoryView> with TickerPr
           "질문 목록",
           style: getMediumStyle(
             fontSize: 18,
-            color: ColorManager.lightGrey,
+            color: ColorManager.darkGrey,
           ),
         ),
         centerTitle: true,
@@ -194,7 +194,7 @@ class QuestListComponent extends StatelessWidget {
         color: ColorManager.white,
         boxShadow: [
           BoxShadow(
-            color: ColorManager.lightGrey.withOpacity(0.1),
+            color: ColorManager.darkGrey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 5,
             offset: const Offset(0, 0), // changes position of shadow
@@ -214,7 +214,7 @@ class QuestListComponent extends StatelessWidget {
             child: Text(
               question,
               style: getMediumStyle(
-                color: ColorManager.lightGrey,
+                color: ColorManager.darkGrey,
                 fontSize: 16,
               ),
             ),
