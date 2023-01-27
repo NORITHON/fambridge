@@ -1,7 +1,7 @@
 import 'package:fambridge/presentation/familyCode/input_family_code.dart';
 import 'package:fambridge/presentation/forgot_id/forgot_id.dart';
 import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
-import 'package:fambridge/presentation/home/homepage.dart';
+import 'package:fambridge/presentation/home/home.dart';
 import 'package:fambridge/presentation/login/login.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/register/register.dart';
@@ -73,7 +73,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.homeRoute,
-    page: () => const homepageView(),
+    page: () => const HomeView(),
     transition: Transition.downToUp,
   ),
 ];
