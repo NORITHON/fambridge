@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.numbersofFamilyRoute,
+      initialRoute: Routes.inputFamilyCodeRoute,
       // theme: getApplicationTheme(),
       getPages: getPages,
     );

@@ -21,6 +21,7 @@ class _codeshareState extends State<codeshareview> {
     return Scaffold(
       appBar: _MypageAppBar(),
       body: Container(
+        color: ColorManager.backgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(40),
           child: Column(

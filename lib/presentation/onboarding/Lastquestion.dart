@@ -1,3 +1,4 @@
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -27,6 +28,7 @@ class _LastquestionState extends State<LastquestionView> {
     return Scaffold(
       appBar: _MypageAppBar(),
       body: Container(
+        color: ColorManager.backgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(40),
           child: Column(
@@ -75,7 +77,12 @@ class _LastquestionState extends State<LastquestionView> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    //가족이 다 모였다면
+                    Get.toNamed(Routes.secondDelayRoute);
+                    //아직 다 모이지 않았다면
+                    //Get.toNamed(Routes.codeshareRoute);
+                  },
                   child: Text(
                     "확인",
                     style: textStyle,

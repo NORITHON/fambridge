@@ -78,39 +78,28 @@ class FamilyCodeForm extends StatefulWidget {
 }
 
 class _FamilyCodeFormState extends State<FamilyCodeForm> {
-  TextEditingController idController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String id = "";
-  String password = "";
+  TextEditingController codeController = TextEditingController();
+  String code = "";
 
   _FamilyCodeFormState() {
-    idController.addListener(() {
+    codeController.addListener(() {
       setState(
         () {
-          id = idController.text;
-        },
-      );
-    });
-    passwordController.addListener(() {
-      setState(
-        () {
-          password = passwordController.text;
+          code = codeController.text;
         },
       );
     });
   }
 
-  var textStyle = const TextStyle(
-    fontFamily: 'GmarketSans',
-    fontSize: 16,
-  );
-  var pointStyle = TextStyle(
-    color: ColorManager.point,
-    fontFamily: 'GmarketSans',
-  );
+  @override
+  void dispose() {
+    codeController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(code);
     return Expanded(
       child: Container(
         child: Column(
@@ -120,7 +109,10 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
             Text(
               "가족 코드를 입력하세요.",
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 20),
             Container(
@@ -135,13 +127,16 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                 ],
               ),
               child: CustomTextfield(
-                  hintText: "공유 받은 코드 입력", controller: idController),
+                  hintText: "공유 받은 코드 입력", controller: codeController),
             ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 150),
             Text(
               "제가 시작하는 사람이에요!",
               textAlign: TextAlign.center,
-              style: textStyle,
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 16,
+              ),
             ),
             const SizedBox(height: 7),
             SizedBox(
@@ -155,11 +150,14 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                   ),
                 ),
                 onPressed: () {
-                  Get.toNamed(Routes.first_delayRoute);
+                  Get.toNamed(Routes.firstDelayRoute);
                 },
                 child: Text(
                   "새로운 코드 받기",
-                  style: textStyle,
+                  style: getMediumStyle(
+                    color: ColorManager.white,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
