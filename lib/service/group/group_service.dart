@@ -13,21 +13,25 @@ class GroupService implements GroupProvider {
   factory GroupService.firebase() => GroupService(FirebaseGroupProvider());
 
   @override
-  Future<bool?> checkIfAnswerShouldBeOpen(
-          {required String groupId, required String todayQuestionId}) =>
-      provider.checkIfAnswerShouldBeOpen(
-          groupId: groupId, todayQuestionId: todayQuestionId);
+  Future<bool?> checkIfAnswerShouldBeOpen({required String groupId}) =>
+      provider.checkIfAnswerShouldBeOpen(groupId: groupId);
 
   @override
-  void createGroupQuestion(
+  String createGroupQuestion(
           {required String groupId, required Question question}) =>
       provider.createGroupQuestion(groupId: groupId, question: question);
 
   @override
-  Future<Group> createNewGroup(
-          {required String groupName, required String creatorUserId}) async =>
+  Future<Group> createNewGroup({
+    required String groupName,
+    required String creatorUserId,
+    required Question question,
+  }) async =>
       provider.createNewGroup(
-          creatorUserId: creatorUserId, groupName: groupName);
+        creatorUserId: creatorUserId,
+        groupName: groupName,
+        question: question,
+      );
 
   @override
   Stream<Iterable<GroupQuestion>> getAllGroupQuestion(
@@ -39,16 +43,12 @@ class GroupService implements GroupProvider {
       provider.getGroup(groupId: groupId);
 
   @override
-  Future<GroupQuestion> getTodayGroupQuestion(
-          {required String groupId, required String todayQuestionId}) =>
-      provider.getTodayGroupQuestion(
-          groupId: groupId, todayQuestionId: todayQuestionId);
+  Future<GroupQuestion> getTodayGroupQuestion({required String groupId}) =>
+      provider.getTodayGroupQuestion(groupId: groupId);
 
   @override
-  Future<int> howManyPeopleAnswered(
-          {required String groupId, required String todayQuestionId}) =>
-      provider.howManyPeopleAnswered(
-          groupId: groupId, todayQuestionId: todayQuestionId);
+  Future<int> howManyPeopleAnswered({required String groupId}) =>
+      provider.howManyPeopleAnswered(groupId: groupId);
 
   @override
   Future<int> howManyPeopleInGroup({required String groupId}) =>
@@ -58,13 +58,11 @@ class GroupService implements GroupProvider {
   void submitAnswerForGroupQuestion({
     required String groupId,
     required String answerScript,
-    required String todayQuestionId,
     required String userId,
   }) =>
       provider.submitAnswerForGroupQuestion(
         groupId: groupId,
         answerScript: answerScript,
-        todayQuestionId: todayQuestionId,
         userId: userId,
       );
 }
