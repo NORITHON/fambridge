@@ -89,10 +89,28 @@ class ChoiceForm extends StatelessWidget {
 
   List<Widget> buildCheckMySelfForm() {
     List<Widget> result = [];
-    var n = int.parse(Get.arguments['familyMemberCount']);
+    var n = int.parse(Get.arguments['familyMemberCount'].toString());
+    print(Get.arguments['familyMemberCount']);
     print("familyMemberCount : $n");
 
-    MenberCountButton(content: "첫째", index: 1);
+    List<String> familyMember = [
+      "엄마",
+      "아빠",
+      "첫째",
+      "둘째",
+      "셋째",
+      "넷째",
+      "다섯째",
+      "여섯째",
+      "일곱째",
+      "여덟째",
+      "아홉째",
+      "열째",
+    ];
+
+    for (var i = 0; i < n; i++) {
+      result.add(MenberCountButton(content: familyMember[i], index: i + 1));
+    }
     return result;
   }
 }
