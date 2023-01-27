@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 
 RxInt target = 0.obs;
 
-class numbersofFamilyView extends StatefulWidget {
-  const numbersofFamilyView({super.key});
+class NumbersofFamilyView extends StatefulWidget {
+  const NumbersofFamilyView({super.key});
 
   @override
   _numbersofFamilyState createState() => _numbersofFamilyState();
 }
 
-class _numbersofFamilyState extends State<numbersofFamilyView> {
+class _numbersofFamilyState extends State<NumbersofFamilyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,8 @@ class _numbersofFamilyState extends State<numbersofFamilyView> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.checkMyselfRoute);
+                      Get.toNamed(Routes.checkMyselfRoute,
+                          arguments: {"familyMemberCount": target});
                     },
                     child: CircleProfile(
                       profile: ImageAssets.navigateNext,
