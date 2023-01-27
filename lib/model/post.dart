@@ -22,7 +22,6 @@ class Post {
       });
 
   factory Post.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
-
     return Post(
       description: snapshot[postDescriptionFieldName],
       uid: snapshot[postUidFieldName],
