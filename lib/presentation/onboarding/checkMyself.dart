@@ -43,19 +43,12 @@ class _checkMyselfState extends State<checkMyselfView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    ".",
-                    style:
-                        getBoldStyle(color: ColorManager.darkGrey, fontSize: 5),
-                  ),
-                  Text(
-                    ".",
-                    style:
-                        getBoldStyle(color: ColorManager.black, fontSize: 10),
-                  ),
                   GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.LastquestionRoute);
+                      Get.toNamed(Routes.LastquestionRoute, arguments: {
+                        "familyMemberCount": Get.arguments['familyMemberCount'],
+                        "UserFamilyOrder": target,
+                      });
                     },
                     child: CircleProfile(
                       profile: ImageAssets.navigateNext,
@@ -83,19 +76,42 @@ class ChoiceForm extends StatelessWidget {
       children: [
         Row(
           children: [
-            MenberCountButton(content: "아빠", index: 2),
-            MenberCountButton(content: "엄마", index: 3),
+            MenberCountButton(content: "아빠", index: -1),
+            MenberCountButton(content: "엄마", index: -2),
           ],
         ),
         Row(
-          children: [
-            MenberCountButton(content: "첫째", index: 4),
-            MenberCountButton(content: "둘쨰", index: 5),
-            MenberCountButton(content: "셋째", index: 6),
-          ],
+          children: buildCheckMySelfForm(),
         ),
       ],
     );
+  }
+
+  List<Widget> buildCheckMySelfForm() {
+    List<Widget> result = [];
+    var n = int.parse(Get.arguments['familyMemberCount'].toString());
+    print(Get.arguments['familyMemberCount']);
+    print("familyMemberCount : $n");
+
+    List<String> familyMember = [
+      "엄마",
+      "아빠",
+      "첫째",
+      "둘째",
+      "셋째",
+      "넷째",
+      "다섯째",
+      "여섯째",
+      "일곱째",
+      "여덟째",
+      "아홉째",
+      "열째",
+    ];
+
+    for (var i = 0; i < n; i++) {
+      result.add(MenberCountButton(content: familyMember[i], index: i + 1));
+    }
+    return result;
   }
 }
 
