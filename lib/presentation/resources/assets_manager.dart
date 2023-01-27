@@ -25,6 +25,7 @@ class ImageAssets {
   static const String likeOff = "$IMAGE_PATH/like_off.svg";
   static const String likeOn = "$IMAGE_PATH/like_on.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
+  static const String navigateNext = "$IMAGE_PATH/navigate_next.png";
 }
 
 class RiveAssets {
