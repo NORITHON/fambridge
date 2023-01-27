@@ -1,15 +1,17 @@
-import 'dart:ffi';
 
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:fambridge/presentation/resources/theme_manager.dart';
+import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rive/rive.dart' as rive;
 
 import '../resources/font_manager.dart';
+import '../resources/values_manager.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -43,8 +45,8 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               Top(),
-              Tree(),
-              Bottom(),
+              const Tree(),
+              const Bottom(),
             ],
           ),
         ),
@@ -117,8 +119,8 @@ class _HomeTop extends StatelessWidget {
           ),
           child: SvgPicture.asset(
             ImageAssets.fambridgeIcon,
-            width: 40,
-            height: 40,
+            width: AppSize.s40,
+            height: AppSize.s40,
           ),
         ),
         const SizedBox(width: 15),
@@ -130,13 +132,13 @@ class _HomeTop extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.0),
           child: IconButton(
-            iconSize: 40,
+            iconSize: AppSize.s40,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.bookmark,
-              width: 40,
-              height: 40,
+              width: AppSize.s40,
+              height: AppSize.s40,
             ),
             onPressed: () {}, //do something,
           ),
@@ -144,13 +146,13 @@ class _HomeTop extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(0.0),
           child: IconButton(
-            iconSize: 40,
+            iconSize: AppSize.s40,
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.profile,
-              width: 40,
-              height: 40,
+              width: AppSize.s40,
+              height: AppSize.s40,
             ),
             onPressed: () {
               Get.toNamed(Routes.myPageRoute);
@@ -171,7 +173,7 @@ class Bottom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomCenter,
-      children: [
+      children: const [
         BottomGround(),
         BottomQuestion(),
       ],
@@ -190,7 +192,7 @@ class BottomQuestion extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.95,
       height: 240,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
           topLeft: Radius.circular(25),
         ),
@@ -198,7 +200,7 @@ class BottomQuestion extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Text(
             "첫번째 질문",
             style: getMediumStyle(
@@ -206,7 +208,7 @@ class BottomQuestion extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             "\"우리는 어떤 가족인가요?\"",
             style: getMediumStyle(
@@ -214,7 +216,7 @@ class BottomQuestion extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Text(
             "2명이 답변했어요.",
             style: getMediumStyle(
@@ -222,7 +224,7 @@ class BottomQuestion extends StatelessWidget {
               fontSize: 12,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: 12345.toString().split("").map((e) {
@@ -237,14 +239,14 @@ class BottomQuestion extends StatelessWidget {
                   ),
                   e == '3'
                       ? SvgPicture.asset(ImageAssets.lock)
-                      : SizedBox(
+                      : const SizedBox(
                           width: 2,
                         ),
                 ],
               );
             }).toList(),
           ),
-          SizedBox(height: 35),
+          const SizedBox(height: 35),
           Container(
             width: 350,
             child: ElevatedButton(
@@ -261,7 +263,7 @@ class BottomQuestion extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    Icon(Icons.navigate_next),
+                    const Icon(Icons.navigate_next),
                   ],
                 ),
               ),
@@ -297,17 +299,76 @@ class BottomGround extends StatelessWidget {
   }
 }
 
-class Tree extends StatelessWidget {
+class Tree extends StatefulWidget {
   const Tree({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<Tree> createState() => _TreeState();
+}
+
+class _TreeState extends State<Tree> {
+  bool get isPlaying => _controller?.isActive ?? false;
+
+  rive.Artboard? _riveArtboard;
+  rive.StateMachineController? _controller;
+  rive.SMIInput<double>? _input;
+
+  @override
+  void initState() {
+    super.initState();
+
+    rootBundle.load(RiveAssets.growingThree).then(
+      (data) async {
+        // Load the RiveFile from the binary data.
+        final file = rive.RiveFile.import(data);
+
+        // The artboard is the root of the animation and gets drawn in the
+        // Rive widget.
+        final artboard = file.mainArtboard;
+        var controller =
+            rive.StateMachineController.fromArtboard(artboard, 'GrowingTree');
+        if (controller != null) {
+          artboard.addController(controller);
+          _input = controller.findInput('xpForTree');
+        }
+        setState(() => _riveArtboard = artboard);
+      },
+    );
+  }
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         child: Center(
-          child: Text("Tree"),
+          child: _riveArtboard == null
+            ? const SizedBox()
+            : GestureDetector(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Slider(
+                      value: _input!.value,
+                      min: 0,
+                      max: 100,
+                      thumbColor: ColorManager.point,
+                      activeColor: ColorManager.point,
+                      inactiveColor: ColorManager.buttonDisable,
+                      label: _input!.value.round().toString(),
+                      onChanged: (double value) => setState(() {
+                        _input!.value = value;
+                      }),
+                    ),
+                    const SizedBox(height: 10),
+                    Expanded(
+                      child: rive.Rive(
+                        artboard: _riveArtboard!,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
         ),
       ),
     );
@@ -316,6 +377,8 @@ class Tree extends StatelessWidget {
 
 class Top extends StatelessWidget {
   String point = "326";
+
+  Top({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -326,9 +389,9 @@ class Top extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             TopIconBar(),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
               child: Text(
@@ -354,19 +417,21 @@ class Top extends StatelessWidget {
 }
 
 class TopIconBar extends StatelessWidget {
+  const TopIconBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        FambridgeIcon(),
-        SizedBox(width: 15),
+        const FambridgeIcon(),
+        const SizedBox(width: 15),
         Expanded(
           child: Text(
             "Fambridge",
             style: getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
           ),
         ),
-        SizedBox(width: 50),
+        const SizedBox(width: 50),
         SvgIcon(asset: ImageAssets.bookmark),
         SvgIcon(asset: ImageAssets.profile),
       ],
@@ -382,7 +447,7 @@ class FambridgeIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(7),
+      padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: ColorManager.white,
@@ -391,7 +456,7 @@ class FambridgeIcon extends StatelessWidget {
             color: ColorManager.darkGrey.withOpacity(0.25),
             spreadRadius: 5,
             blurRadius: 10,
-            offset: Offset(1, 1),
+            offset: const Offset(1, 1),
           ),
         ],
       ),
@@ -418,7 +483,7 @@ class SvgIcon extends StatelessWidget {
       child: IconButton(
         iconSize: 40,
         padding: EdgeInsets.zero,
-        constraints: BoxConstraints(),
+        constraints: const BoxConstraints(),
         icon: SvgPicture.asset(
           ImageAssets.bookmark,
           width: 40,

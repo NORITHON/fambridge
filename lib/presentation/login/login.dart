@@ -1,9 +1,15 @@
+
+import 'dart:developer';
+
+import 'package:fambridge/constants/enums/family_role.dart';
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
+import 'package:fambridge/service/auth/auth_service.dart';
+import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -114,7 +120,11 @@ class _LoginFormState extends State<LoginForm> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              await AuthService.firebase().logIn();
+              await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1);
+              final user = await AuthService.firebase().currentUser;
+              await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user!.id);
               Get.offAllNamed(Routes.homeRoute);
             },
             child: const Text(

@@ -1,4 +1,5 @@
 const String IMAGE_PATH = "assets/images";
+const String RIVE_PATH = "assets/rive";
 
 class ImageAssets {
   static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
@@ -19,4 +20,8 @@ class ImageAssets {
   static const String saveFalse = "$IMAGE_PATH/save_false.svg";
   static const String saveTrue = "$IMAGE_PATH/save_true.svg";
   static const String lock = "$IMAGE_PATH/lock.svg";
+}
+
+class RiveAssets {
+  static const String growingThree = "$RIVE_PATH/growing_tree.riv";
 }
