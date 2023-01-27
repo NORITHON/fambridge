@@ -40,8 +40,18 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      color: Colors.red,
+      height: 260,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          //배경 그라데이션 적용
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.white,
+            Colors.orange.withOpacity(0.1),
+          ],
+        ),
+      ),
     );
   }
 }
