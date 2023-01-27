@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Get.toNamed(Routes.forgotPasswordRoute);
+                    Get.toNamed(Routes.forgotIdRoute);
                   },
                   child: Text(
                     "비밀번호 찾기",
