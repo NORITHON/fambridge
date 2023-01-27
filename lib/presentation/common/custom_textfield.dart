@@ -1,4 +1,5 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextfield extends StatefulWidget {
@@ -34,7 +35,10 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       ),
       child: TextField(
         controller: widget.controller,
-        style: TextStyle(fontSize: 15, color: ColorManager.lightGrey),
+        style: getMediumStyle(
+          color: ColorManager.lightGrey,
+          fontSize: 15,
+        ),
         autofocus: false,
         decoration: InputDecoration(
           filled: true,
