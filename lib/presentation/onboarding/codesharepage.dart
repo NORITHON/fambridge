@@ -6,8 +6,6 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-var idController; //family code
-
 class codeshareview extends StatefulWidget {
   const codeshareview({super.key});
 
@@ -15,16 +13,9 @@ class codeshareview extends StatefulWidget {
   _codeshareState createState() => _codeshareState();
 }
 
-var textStyle = const TextStyle(
-  fontFamily: 'GmarketSans',
-  fontSize: 16,
-);
-var pointStyle = TextStyle(
-  color: ColorManager.point,
-  fontFamily: 'GmarketSans',
-);
-
 class _codeshareState extends State<codeshareview> {
+  var idController = "24983827"; //family code
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,48 +26,12 @@ class _codeshareState extends State<codeshareview> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 150),
-              Text(
-                "Fambridge.",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.point,
-                  fontSize: FontSize.s16,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    "우리",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "라는 이름 아래 모인 우리.",
-                    textAlign: TextAlign.center,
-                    style: getMediumStyle(
-                      color: ColorManager.black,
-                      fontSize: FontSize.s14,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              Container(
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Text('아빠'),
-                      Text('엄마'),
-                      Text('첫째'),
-                      Text('뚤째'),
-                      Text('셋째'),
-                    ]),
-              ),
+              const SizedBox(height: 80),
+              const Title(),
+              const SizedBox(height: 10),
+              const SubTitle(),
+              const SizedBox(height: 40),
+              FamilyList(),
               Row(
                 children: [
                   const Text(
@@ -84,11 +39,11 @@ class _codeshareState extends State<codeshareview> {
                     // style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    idController, //family code
+                    idController == null ? "" : idController, //family code
                     textAlign: TextAlign.center,
-                    style: getMediumStyle(
-                      color: ColorManager.black.withOpacity(0.7),
-                      fontSize: FontSize.s18,
+                    style: getBoldStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: 20,
                     ),
                   ),
                 ],
@@ -111,7 +66,10 @@ class _codeshareState extends State<codeshareview> {
                   },
                   child: Text(
                     "복사하기",
-                    style: textStyle,
+                    style: getMediumStyle(
+                      color: ColorManager.white,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
@@ -130,13 +88,113 @@ class _codeshareState extends State<codeshareview> {
                   },
                   child: Text(
                     "공유하기",
-                    style: textStyle,
+                    style: getMediumStyle(
+                      color: ColorManager.point,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Title extends StatelessWidget {
+  const Title({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Fambridge.",
+      textAlign: TextAlign.center,
+      style: getMediumStyle(
+        color: ColorManager.point,
+        fontSize: FontSize.s16,
+      ),
+    );
+  }
+}
+
+class SubTitle extends StatelessWidget {
+  const SubTitle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "'우리'",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "라는 이름 아래 모인 우리.",
+          textAlign: TextAlign.center,
+          style: getMediumStyle(
+            color: ColorManager.black,
+            fontSize: FontSize.s14,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FamilyList extends StatelessWidget {
+  const FamilyList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            '아빠',
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            '엄마',
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            '첫째',
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            '뚤째',
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            '셋째',
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
     );
   }
