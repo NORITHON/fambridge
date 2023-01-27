@@ -49,21 +49,17 @@ class _HomeViewState extends State<HomeView> {
             icon: SvgPicture.asset(
               "assets/images/Home.svg",
               width: 30,
-              height: 35,
+              height: 25,
             ),
             label: '홈',
           ),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset("assets/images/Today.svg",
-                  width: 30, height: 35),
-              label: '일정'),
-          BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                "assets/images/Dashboard.svg",
+                "assets/images/List.svg",
                 width: 30,
                 height: 35,
               ),
-              label: "피드"),
+              label: "리스트"),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 "assets/images/Store.svg",
@@ -175,8 +171,8 @@ class Bottom extends StatelessWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.white,
-            Colors.orange.withOpacity(0.1),
+            ColorManager.white,
+            ColorManager.point,
           ],
         ),
       ),
