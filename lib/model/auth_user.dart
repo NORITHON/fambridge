@@ -37,13 +37,20 @@ class AuthUser {
     return AuthUser(
       id: snapshot[userIdFieldName], 
       name: snapshot[userNameFieldName], 
-      familyRole: snapshot[userFamilyRoleFieldName], 
-      registerTime: snapshot[userRegisterTimeFieldName],
+      familyRole: _castStringToFamiltyRole(snapshot[userFamilyRoleFieldName]), 
+      registerTime: snapshot[userRegisterTimeFieldName] as Timestamp,
       birthOrder: snapshot[userBirthOrderFieldName],
       groupId: snapshot[userGroupIdFieldName],
     );
   }
   
-
+  static FamilyRole? _castStringToFamiltyRole(String string){
+    for(FamilyRole role in FamilyRole.values){
+      if(role.name == string){
+        return role;
+      }
+    }
+    return null;
+  }
   
 }

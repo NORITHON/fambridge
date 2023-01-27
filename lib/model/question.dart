@@ -23,7 +23,7 @@ class Question {
       questionCreatedTimeStamp: snapshot[questionCreatedTimeStampFieldName],
       questionId: snapshot[questionIdFieldName],
       questionScript: snapshot[questionScriptFieldName],
-      category: snapshot[questionCategoryFieldName],
+      category: QuestionCategory.notDecided,
     );
   }
 
