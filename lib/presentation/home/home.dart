@@ -16,6 +16,12 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   String point = "326";
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +40,9 @@ class _HomeViewState extends State<HomeView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 _HomeTop(textStyle: textStyle),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
                   child: Text(
@@ -55,6 +61,46 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/images/Home.svg",
+              width: 30,
+              height: 35,
+            ),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset("assets/images/Today.svg",
+                  width: 30, height: 35),
+              label: '일정'),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/images/Dashboard.svg",
+                width: 30,
+                height: 35,
+              ),
+              label: "피드"),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/images/Store.svg",
+                width: 30,
+                height: 35,
+              ),
+              label: "스토어"),
+        ],
+        currentIndex: _selectedIndex,
+        selectedLabelStyle: textStyle.copyWith(
+            fontWeight: FontWeightManager.medium,
+            fontSize: FontSize.s16,
+            height: 2),
+        unselectedLabelStyle: textStyle.copyWith(
+            fontWeight: FontWeightManager.medium, fontSize: FontSize.s16),
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: ColorManager.orange,
+      ),
     );
   }
 }
@@ -72,7 +118,7 @@ class _HomeTop extends StatelessWidget {
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.all(7),
+          padding: const EdgeInsets.all(7),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: ColorManager.white,
@@ -81,7 +127,7 @@ class _HomeTop extends StatelessWidget {
                 color: ColorManager.grey.withOpacity(0.25),
                 spreadRadius: 5,
                 blurRadius: 10,
-                offset: Offset(1, 1),
+                offset: const Offset(1, 1),
               ),
             ],
           ),
@@ -91,20 +137,18 @@ class _HomeTop extends StatelessWidget {
             height: 40,
           ),
         ),
-        SizedBox(width: 15),
-        Expanded(
-          child: Text(
-            "Fambridge",
-            style: textStyle,
-          ),
+        const SizedBox(width: 15),
+        Text(
+          "Fambridge",
+          style: textStyle,
         ),
-        SizedBox(width: 50),
+        const SizedBox(width: 50),
         Container(
           padding: const EdgeInsets.all(0.0),
           child: IconButton(
             iconSize: 40,
             padding: EdgeInsets.zero,
-            constraints: BoxConstraints(),
+            constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.bookmark,
               width: 40,
@@ -118,7 +162,7 @@ class _HomeTop extends StatelessWidget {
           child: IconButton(
             iconSize: 40,
             padding: EdgeInsets.zero,
-            constraints: BoxConstraints(),
+            constraints: const BoxConstraints(),
             icon: SvgPicture.asset(
               ImageAssets.profile,
               width: 40,
