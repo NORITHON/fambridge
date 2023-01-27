@@ -25,7 +25,7 @@ class GroupService implements GroupProvider {
 
   @override
   Future<Group> createNewGroup(
-          {required String groupName, required String creatorUserId}) async => 
+          {required String groupName, required String creatorUserId}) async =>
       provider.createNewGroup(
           creatorUserId: creatorUserId, groupName: groupName);
 
