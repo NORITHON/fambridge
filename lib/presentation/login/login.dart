@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
