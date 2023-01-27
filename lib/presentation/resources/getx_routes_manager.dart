@@ -4,6 +4,9 @@ import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
 import 'package:fambridge/presentation/home/check_comment.dart';
 import 'package:fambridge/presentation/home/home.dart';
 import 'package:fambridge/presentation/login/login.dart';
+import 'package:fambridge/presentation/onboarding/%08numbersOfFamily.dart';
+import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
+import 'package:fambridge/presentation/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/register/register.dart';
 import 'package:fambridge/presentation/splash/splash.dart';
@@ -25,6 +28,9 @@ class Routes {
   static const String checkCommentRoute = "/check-comment";
   static const String verifyEmailRoute = "/verify-email";
   static const String inputFamilyCodeRoute = "/add-familyCode";
+  static const String numbersofFamilyRoute = "/number-family";
+  static const String LastquestionRoute = "/last-question";
+  static const String codeshareRoute = "/code-share";
 }
 
 List<GetPage<dynamic>> getPages = [
@@ -76,6 +82,21 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.homeRoute,
     page: () => const HomeView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.numbersofFamilyRoute,
+    page: () => const numbersofFamilyView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.LastquestionRoute,
+    page: () => const LastquestionView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.codeshareRoute,
+    page: () => const codeshareview(),
     transition: Transition.downToUp,
   ),
   GetPage(

@@ -1,10 +1,6 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
-import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../resources/getx_routes_manager.dart';
 
 class InputFamilyCode extends StatefulWidget {
   const InputFamilyCode({Key? key}) : super(key: key);
@@ -17,8 +13,18 @@ class _InputFamilyCodeState extends State<InputFamilyCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(''),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.navigate_next),
+            tooltip: 'Next page',
+            onPressed: () {},
+          ),
+        ],
+      ),
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
+      body: const SafeArea(
         child: InputFamilybody(),
       ),
     );
