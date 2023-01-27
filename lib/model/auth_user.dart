@@ -13,9 +13,11 @@ class AuthUser {
   final int? birthOrder;
   final Timestamp? registerTime;
   final String? groupId;
+  final bool? isEmailVerified;
 
   const AuthUser({
     required this.id,
+    this.isEmailVerified,
     this.name,
     this.familyRole,
     this.birthOrder,
@@ -26,10 +28,12 @@ class AuthUser {
   // create authuser from firebase user
   factory AuthUser.fromFirebase(FirebaseAuth.User user) => AuthUser(
     id: user.uid,
+    isEmailVerified: user.emailVerified,
   );
 
   factory AuthUser.fromSnapshot(
-      QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
+      DocumentSnapshot<Map<String, dynamic>> snap) {
+        var snapshot = snap.data() as Map<String, dynamic>;
     return AuthUser(
       id: snapshot[userIdFieldName], 
       name: snapshot[userNameFieldName], 

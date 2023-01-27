@@ -1,8 +1,10 @@
 import 'dart:async';
 
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/onboarding/onboarding.dart';
+import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:get/get.dart';
 
+import '../main/main_view.dart';
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
 import '../resources/routes_manager.dart';
@@ -16,37 +18,44 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  Timer? _timer;
-
-  _startDelay() {
-    _timer = Timer(Duration(seconds: 2), _goNext);
-  }
-
-  _goNext() {
-    Get.offNamed(Routes.onBoardingRoute);
-  }
-
   @override
-  void initState() {
-    super.initState();
-    _startDelay();
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: AuthService.firebase().getAuthStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const AppLogo();
+        } else if (snapshot.hasData) {
+          return FutureBuilder(
+            future: Future.wait([Future.delayed(const Duration(seconds: 2))]),
+            builder: (context, snapshot) {
+              switch(snapshot.connectionState){
+                case ConnectionState.done:
+                  return const MainView();
+                default:
+                  return const AppLogo();
+              }
+            },
+          );
+        } else if (snapshot.hasError) {
+          return const Center(
+            child: Text("Something went Wrong!"),
+          );
+        } else {
+          return const OnBoardingView();
+        }
+    },);
   }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
+}
+class AppLogo extends StatelessWidget {
+  const AppLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.primary,
-      body: Center(
+    return const Center(
         child: Image(
           image: AssetImage(ImageAssets.splashLogo),
         ),
-      ),
-    );
+      );
   }
 }

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "672451599743-o52pkba0i4la1ds269h75n6cf7sdgfhv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fambridge",
+            "certificate_hash": "526138988d1ccc9515e4d614d1c5f50d2c9bb58a"
+          }
+        },
+        {
           "client_id": "672451599743-9epa9d2n9d1faicu07pdja4fphjmqlt1.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -31,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "672451599743-kvlduvs7a8n77k7imiblhs209jfst5jv.apps.googleusercontent.com",
+              "client_id": "672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.minafarid.completeAdvancedFlutter"
+                "bundle_id": "com.example.fambridge"
               }
             }
           ]
@@ -67,10 +75,10 @@
               "client_type": 3
             },
             {
-              "client_id": "672451599743-kvlduvs7a8n77k7imiblhs209jfst5jv.apps.googleusercontent.com",
+              "client_id": "672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.minafarid.completeAdvancedFlutter"
+                "bundle_id": "com.example.fambridge"
               }
             }
           ]
