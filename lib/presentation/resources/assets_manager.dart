@@ -19,6 +19,7 @@ class ImageAssets {
   static const String back = "$IMAGE_PATH/back.svg";
   static const String saveFalse = "$IMAGE_PATH/save_false.svg";
   static const String saveTrue = "$IMAGE_PATH/save_true.svg";
+  static const String lock = "$IMAGE_PATH/lock.svg";
 }
 
 class RiveAssets {
