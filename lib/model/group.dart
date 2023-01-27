@@ -7,11 +7,13 @@ class Group{
   final List<String> userIdsInGroup;
   final String groupId;
   final String groupName;
+  final int userCount;
 
   Group({
     required this.userIdsInGroup,
     required this.groupId,
     required this.groupName,
+    required this.userCount, 
   });
 
   factory Group.fromSnapshot(DocumentSnapshot snap){
@@ -19,7 +21,8 @@ class Group{
     return Group(
       groupId: snapshot[groupIdFieldName],
       groupName: snapshot[groupNameFieldName], 
-      userIdsInGroup: [userIdsInGroupFieldName],
+      userIdsInGroup: snapshot[userIdsInGroupFieldName],
+      userCount: snapshot[userCountFieldName] ?? 0,
     );
   }
 }

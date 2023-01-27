@@ -19,13 +19,13 @@ class _CustomTextfieldState extends State<CustomTextfield> {
   @override
   Widget build(BuildContext context) {
     var textStyle =
-        TextStyle(fontFamily: 'GmarketSans', color: ColorManager.grey);
+        TextStyle(fontFamily: 'GmarketSans', color: ColorManager.lightGrey);
 
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: ColorManager.grey.withOpacity(0.1),
+            color: ColorManager.lightGrey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 10,
             offset: Offset(0, 0), // changes position of shadow
@@ -34,7 +34,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
       ),
       child: TextField(
         controller: widget.controller,
-        style: TextStyle(fontSize: 15, color: ColorManager.grey),
+        style: TextStyle(fontSize: 15, color: ColorManager.lightGrey),
         autofocus: false,
         decoration: InputDecoration(
           filled: true,

@@ -44,6 +44,7 @@ dependencies:
   flutter_svg: ^0.22.0
   google_sign_in: ^5.4.3
   uuid: ^3.0.7
+  firebase_database: ^10.0.9
 
 dev_dependencies:
   flutter_test:

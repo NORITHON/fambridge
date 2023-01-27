@@ -8,46 +8,54 @@ import '../../constants/database_fieldname/firebase_fieldname.dart';
 import '../../model/group.dart';
 import 'group_exception.dart';
 import 'group_provider.dart';
+
 class FirebaseGroupProvider implements GroupProvider {
   final groupCollection =
-         FirebaseFirestore.instance.collection(groupCollectionName);
-  
+      FirebaseFirestore.instance.collection(groupCollectionName);
+
   DocumentReference findDocRef(String docId) => groupCollection.doc(docId);
 
   void createNewGroup({
     required String groupName,
     required String creatorUserId,
-  }){
+  }) {
     final String groupId = const Uuid().v4();
     groupCollection.doc(groupId).set({
       groupIdFieldName: groupId,
       groupNameFieldName: groupName,
       userIdsInGroupFieldName: [creatorUserId],
-  });
+    });
   }
 
   Future<Group?> getGroup({required String groupId}) async {
     final docSnap = await findDocRef(groupId).get();
-    if(!docSnap.exists){
+    if (!docSnap.exists) {
       throw GroupNotFoundGroupException();
     }
     return Group.fromSnapshot(docSnap);
   }
 
-  CollectionReference getGroupQuestionCollectionRef(String groupId) => findDocRef(groupId).collection(groupQuestionCollectionName);
+  CollectionReference getGroupQuestionCollectionRef(String groupId) =>
+      findDocRef(groupId).collection(groupQuestionCollectionName);
 
-  Stream<Iterable<GroupQuestion>> getAllGroupQuestion({required String groupId}){
+  Stream<Iterable<GroupQuestion>> getAllGroupQuestion(
+      {required String groupId}) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
     return groupQuestionCollection.where(groupIdFieldName).snapshots().map(
         (event) => event.docs.map((doc) => GroupQuestion.fromSnapshot(doc)));
   }
 
-  Future<GroupQuestion> getTodayGroupQuestion({required String groupId, required String todayQuestionId}) async {
+  Future<GroupQuestion> getTodayGroupQuestion(
+      {required String groupId, required String todayQuestionId}) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
-    return groupQuestionCollection.doc(todayQuestionId).get().then(((value) => GroupQuestion.fromSnapshot(value)));
+    return groupQuestionCollection
+        .doc(todayQuestionId)
+        .get()
+        .then(((value) => GroupQuestion.fromSnapshot(value)));
   }
 
-  void createGroupQuestion({required String groupId, required Question question}){
+  void createGroupQuestion(
+      {required String groupId, required Question question}) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
     final String groupQuestionId = const Uuid().v4();
     groupQuestionCollection.doc(groupQuestionId).set({
@@ -65,6 +73,28 @@ class FirebaseGroupProvider implements GroupProvider {
     required String userId,
   }) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
-    groupQuestionCollection.doc(todayQuestionId).collection('answers').add({userId: answerScript});
+    groupQuestionCollection.doc(todayQuestionId).collection(groupQuestionAnswerCollectionName).add({
+      answerUserIdFieldName: userId,
+      answerScriptFieldName: answerScript,
+    });
   }
+
+  Future<int> howManyPeopleAnswered({
+    required String groupId,
+    required String todayQuestionId,
+  }) async {
+    final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
+    final docSnap = await groupQuestionCollection
+        .doc(todayQuestionId).get() as DocumentSnapshot<Map<String, dynamic>>;
+    if(!docSnap.exists) throw GroupQuestionNotFoundGroupException();
+    return docSnap.data()?[answerCountFieldName];
+  }
+
+  Future<int?> howManyPeopleInGroup({required String groupId,}) async {
+    final docSnap = await groupCollection.doc(groupId).get();
+    if(!docSnap.exists) throw GroupNotFoundGroupException();
+    return docSnap.data()?[userCountFieldName];
+  }
+
+  
 }

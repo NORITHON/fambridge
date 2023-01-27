@@ -14,4 +14,11 @@ class AppStrings {
   static const String onBoardingSubTitle4 =
       "Tut app is an awesome flutter application using clean architecture #4";
   static const String skip = "Skip";
+
+  static const String login = "로그인";
+  static const String loginId = "아이디";
+  static const String loginPwd = "비밀번호";
+  static const String loginFind = "찾기";
+  static const String signup = "회원가입하기";
+  static const String registeredYet = "처음이세요?";
 }

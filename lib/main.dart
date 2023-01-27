@@ -12,8 +12,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
 );
-  //final fcmToken = await FirebaseMessaging.instance.getToken();
-  //log(fcmToken ?? "none");
 
   runApp(MyApp());
 }
