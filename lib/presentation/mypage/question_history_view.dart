@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class MyPageView extends StatefulWidget {
-  const MyPageView({super.key});
+class QuestionHistoryView extends StatefulWidget {
+  const QuestionHistoryView({super.key});
 
   @override
-  State<MyPageView> createState() => _MyPageViewState();
+  State<QuestionHistoryView> createState() => _QuestionHistoryViewState();
 }
 
-class _MyPageViewState extends State<MyPageView> with TickerProviderStateMixin {
+class _QuestionHistoryViewState extends State<QuestionHistoryView> with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -47,7 +47,7 @@ class _MyPageViewState extends State<MyPageView> with TickerProviderStateMixin {
           "질문 목록",
           style: getMediumStyle(
             fontSize: 18,
-            color: ColorManager.grey,
+            color: ColorManager.lightGrey,
           ),
         ),
         centerTitle: true,
@@ -155,7 +155,7 @@ class _TapBar extends StatelessWidget {
         ],
         indicator: BoxDecoration(
           border: Border(
-            bottom: BorderSide(width: 3, color: ColorManager.orange),
+            bottom: BorderSide(width: 3, color: ColorManager.point),
           ),
           gradient: LinearGradient(
             //배경 그라데이션 적용
@@ -188,16 +188,16 @@ class QuestListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(28, 30, 28, 30),
+      padding: const EdgeInsets.fromLTRB(28, 30, 28, 30),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
         color: ColorManager.white,
         boxShadow: [
           BoxShadow(
-            color: ColorManager.grey.withOpacity(0.1),
+            color: ColorManager.lightGrey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 0), // changes position of shadow
+            offset: const Offset(0, 0), // changes position of shadow
           )
         ],
       ),
@@ -206,7 +206,7 @@ class QuestListComponent extends StatelessWidget {
           Text(
             "${number.toString()}. ",
             style: getBoldStyle(
-              color: ColorManager.orange,
+              color: ColorManager.point,
               fontSize: 16,
             ),
           ),
@@ -214,7 +214,7 @@ class QuestListComponent extends StatelessWidget {
             child: Text(
               question,
               style: getMediumStyle(
-                color: ColorManager.grey,
+                color: ColorManager.lightGrey,
                 fontSize: 16,
               ),
             ),
