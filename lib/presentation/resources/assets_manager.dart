@@ -1,4 +1,5 @@
 const String IMAGE_PATH = "assets/images";
+const String RIVE_PATH = "assets/rive";
 
 class ImageAssets {
   static const String splashLogo = "$IMAGE_PATH/splash_logo.png";
@@ -24,4 +25,8 @@ class ImageAssets {
   static const String likeOff = "$IMAGE_PATH/like_off.svg";
   static const String likeOn = "$IMAGE_PATH/like_on.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
+}
+
+class RiveAssets {
+  static const String growingThree = "$RIVE_PATH/growing_tree.riv";
 }
