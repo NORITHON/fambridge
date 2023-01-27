@@ -73,7 +73,10 @@ class FirebaseGroupProvider implements GroupProvider {
     required String userId,
   }) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
-    groupQuestionCollection.doc(todayQuestionId).collection(groupQuestionAnswerCollectionName).add({
+    groupQuestionCollection
+        .doc(todayQuestionId)
+        .collection(groupQuestionAnswerCollectionName)
+        .add({
       answerUserIdFieldName: userId,
       answerScriptFieldName: answerScript,
     });
@@ -84,17 +87,17 @@ class FirebaseGroupProvider implements GroupProvider {
     required String todayQuestionId,
   }) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
-    final docSnap = await groupQuestionCollection
-        .doc(todayQuestionId).get() as DocumentSnapshot<Map<String, dynamic>>;
-    if(!docSnap.exists) throw GroupQuestionNotFoundGroupException();
+    final docSnap = await groupQuestionCollection.doc(todayQuestionId).get()
+        as DocumentSnapshot<Map<String, dynamic>>;
+    if (!docSnap.exists) throw GroupQuestionNotFoundGroupException();
     return docSnap.data()?[answerCountFieldName];
   }
 
-  Future<int?> howManyPeopleInGroup({required String groupId,}) async {
+  Future<int?> howManyPeopleInGroup({
+    required String groupId,
+  }) async {
     final docSnap = await groupCollection.doc(groupId).get();
-    if(!docSnap.exists) throw GroupNotFoundGroupException();
+    if (!docSnap.exists) throw GroupNotFoundGroupException();
     return docSnap.data()?[userCountFieldName];
   }
-
-  
 }

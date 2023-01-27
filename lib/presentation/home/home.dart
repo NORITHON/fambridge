@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     var textStyle = TextStyle(
-      color: ColorManager.grey,
+      color: ColorManager.darkGrey,
       fontFamily: "GmarketSans",
       fontWeight: FontWeightManager.regular,
       fontSize: FontSize.s16,
@@ -99,7 +99,7 @@ class _HomeViewState extends State<HomeView> {
             fontWeight: FontWeightManager.medium, fontSize: FontSize.s16),
         onTap: _onItemTapped,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: ColorManager.orange,
+        selectedItemColor: ColorManager.point,
       ),
     );
   }
@@ -124,7 +124,7 @@ class _HomeTop extends StatelessWidget {
             color: ColorManager.white,
             boxShadow: [
               BoxShadow(
-                color: ColorManager.grey.withOpacity(0.25),
+                color: ColorManager.darkGrey.withOpacity(0.25),
                 spreadRadius: 5,
                 blurRadius: 10,
                 offset: const Offset(1, 1),
