@@ -19,4 +19,9 @@ class ImageAssets {
   static const String saveFalse = "$IMAGE_PATH/save_false.svg";
   static const String saveTrue = "$IMAGE_PATH/save_true.svg";
   static const String lock = "$IMAGE_PATH/lock.svg";
+  static const String profileData = "$IMAGE_PATH/profile_data.svg";
+
+  static const String likeOff = "$IMAGE_PATH/like_off.svg";
+  static const String likeOn = "$IMAGE_PATH/like_on.svg";
+  static const String logoColor = "$IMAGE_PATH/logo_color.svg";
 }

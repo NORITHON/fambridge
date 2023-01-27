@@ -420,7 +420,7 @@ class SvgIcon extends StatelessWidget {
         padding: EdgeInsets.zero,
         constraints: BoxConstraints(),
         icon: SvgPicture.asset(
-          ImageAssets.bookmark,
+          asset,
           width: 40,
           height: 40,
         ),

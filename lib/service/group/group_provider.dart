@@ -1,5 +1,3 @@
 // provide FirebaseAuth user
 
-abstract class GroupProvider {
-  
-}
+abstract class GroupProvider {}
