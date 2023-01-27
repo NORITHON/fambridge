@@ -18,14 +18,11 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Container(
-          color: ColorManager.primary,
-          child: Column(
-            children: [
-              Loginbody(),
-              LoginBottom(),
-            ],
-          ),
+        child: Column(
+          children: [
+            Loginbody(),
+            LoginBottom(),
+          ],
         ),
       ),
     );
@@ -37,6 +34,7 @@ class Loginbody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
+        color: ColorManager.primary,
         child: Row(
           children: [
             Container(
@@ -68,11 +66,28 @@ class _LoginFormState extends State<LoginForm> {
   String id = "";
   String password = "";
 
-  var pointStyle = TextStyle(
-    color: ColorManager.orange,
+  _LoginFormState() {
+    idController.addListener(() {
+      setState(
+        () {
+          id = idController.text;
+        },
+      );
+    });
+    passwordController.addListener(() {
+      setState(
+        () {
+          password = passwordController.text;
+        },
+      );
+    });
+  }
+
+  var textStyle = TextStyle(
     fontFamily: 'GmarketSans',
   );
-  var textStyle = TextStyle(
+  var pointStyle = TextStyle(
+    color: ColorManager.orange,
     fontFamily: 'GmarketSans',
   );
 
@@ -87,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
             Container(
               width: 150,
               height: 150,
-              color: Colors.red,
+              color: Colors.black,
             ),
             SizedBox(height: 30),
             Text(
@@ -139,8 +154,10 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 onPressed: () {
-                  print(idController.value);
-                  print(passwordController.value);
+                  print("id");
+                  print(id);
+                  print("password");
+                  print(password);
                   return;
                 },
                 child: Text(
@@ -149,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-            SizedBox(height: 60),
+            SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -174,20 +191,25 @@ class LoginBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.red,
+      color: ColorManager.primary,
       child: Row(
         children: [
           Container(
             width: MediaQuery.of(context).size.width * 0.13,
-            color: Color(0xffFF0000).withOpacity(0.2),
+            height: 50,
+            color: Color(0xffFF9B92),
+          ),
+          Expanded(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.13,
+              height: 50,
+              color: Color(0xffFF0000).withOpacity(0.2),
+            ),
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.13,
-            color: Color(0xffFF0000).withOpacity(0.2),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.13,
-            color: Color(0xffFF0000).withOpacity(0.2),
+            height: 50,
+            color: Color(0xffFF9B92),
           ),
         ],
       ),
