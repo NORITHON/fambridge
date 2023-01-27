@@ -151,6 +151,8 @@ class _LoginFormState extends State<LoginForm> {
                   print(id);
                   print("password");
                   print(password);
+
+                  Get.toNamed(Routes.homeRoute);
                   return;
                 },
                 child: Text(
