@@ -17,3 +17,12 @@ const String userFamilyRoleFieldName = 'family-role';
 const String userBirthOrderFieldName = 'birth-order';
 const String userRegisterTimeFieldName = 'register-time';
 const String userGroupIdFieldName = 'group-id';
+
+const String groupIdFieldName = 'group-id';
+const String groupNameFieldName = 'group-name';
+const String userIdsInGroupFieldName = 'user-ids-in-group';
+
+const String userIdsWhoHaveAnsweredFieldName = 'answers';
+const String groupQuestionIdFieldName = 'group-question-id';
+const String groupQuestionScriptFieldName = 'question-script';
+const String groupQuestionCreatedTimeFieldName = 'created-time';
