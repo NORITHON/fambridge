@@ -1,9 +1,12 @@
+import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+var idController; //family code
 
 class codeshareview extends StatefulWidget {
   const codeshareview({super.key});
@@ -36,34 +39,62 @@ class _codeshareState extends State<codeshareview> {
               Text(
                 "Fambridge.",
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style: getMediumStyle(
+                  color: ColorManager.point,
+                  fontSize: FontSize.s16,
+                ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "우리라는 이름 아래 모인 우리.",
-                textAlign: TextAlign.center,
-                style: textStyle,
+              Row(
+                children: [
+                  const Text(
+                    "우리",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    "라는 이름 아래 모인 우리.",
+                    textAlign: TextAlign.center,
+                    style: getMediumStyle(
+                      color: ColorManager.black,
+                      fontSize: FontSize.s14,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 40,
               ),
-              Text(
-                "모든 '우리'가 모여야",
-                textAlign: TextAlign.center,
-                style: textStyle,
+              Container(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      Text('아빠'),
+                      Text('엄마'),
+                      Text('첫째'),
+                      Text('뚤째'),
+                      Text('셋째'),
+                    ]),
+              ),
+              Row(
+                children: [
+                  const Text(
+                    "가족 코드",
+                    // style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    idController, //family code
+                    textAlign: TextAlign.center,
+                    style: getMediumStyle(
+                      color: ColorManager.black.withOpacity(0.7),
+                      fontSize: FontSize.s18,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "서비스가 시작됩니다.",
-                textAlign: TextAlign.center,
-                style: textStyle,
-              ),
-              const SizedBox(
-                height: 70,
+                height: 50,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -79,7 +110,26 @@ class _codeshareState extends State<codeshareview> {
                     return;
                   },
                   child: Text(
-                    "확인",
+                    "복사하기",
+                    style: textStyle,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorManager.white,
+                    padding: const EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    return;
+                  },
+                  child: Text(
+                    "공유하기",
                     style: textStyle,
                   ),
                 ),
