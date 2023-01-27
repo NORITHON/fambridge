@@ -55,7 +55,7 @@ class GroupService implements GroupProvider {
       provider.howManyPeopleInGroup(groupId: groupId);
 
   @override
-  void submitAnswerForGroupQuestion({
+  Future<void> submitAnswerForGroupQuestion({
     required String groupId,
     required String answerScript,
     required String userId,

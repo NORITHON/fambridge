@@ -14,7 +14,7 @@ abstract class GroupProvider {
   Future<GroupQuestion> getTodayGroupQuestion({required String groupId});
   String createGroupQuestion(
       {required String groupId, required Question question});
-  void submitAnswerForGroupQuestion({
+  Future<void> submitAnswerForGroupQuestion({
     required String groupId,
     required String answerScript,
     required String userId,

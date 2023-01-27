@@ -84,8 +84,12 @@ class FirebaseGroupProvider implements GroupProvider {
     return groupQuestionId;
   }
 
-  void _incrementAnswerCount(String groupId){
+  Future<void> _incrementAnswerCount(String groupId, String todayQuestionId) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
+    final answerCount = await howManyPeopleAnswered(groupId: groupId);
+    groupQuestionCollection.doc(todayQuestionId).update({
+      answerCountFieldName: answerCount+1
+    });
   }
 
   @override
@@ -96,6 +100,7 @@ class FirebaseGroupProvider implements GroupProvider {
   }) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
     final todayQuestionId = await _getTodayGroupQuestionId(groupId);
+    _incrementAnswerCount(groupId, todayQuestionId);
     groupQuestionCollection
         .doc(todayQuestionId)
         .collection(groupQuestionAnswerCollectionName)

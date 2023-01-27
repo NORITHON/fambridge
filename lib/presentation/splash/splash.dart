@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:fambridge/presentation/login/login.dart';
+import 'package:fambridge/presentation/login/login_view.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 

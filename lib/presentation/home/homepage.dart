@@ -5,13 +5,18 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:rive/rive.dart' as rive;
+
 
 import '../resources/font_manager.dart';
 import '../resources/values_manager.dart';
+import 'widgets/answer_button.dart';
+import 'widgets/answer_progress_indicator.dart';
+import 'widgets/answer_progress_indicator_with_title.dart';
+import 'widgets/buttom_sheet_background.dart';
+import 'widgets/growing_tree.dart';
+import 'widgets/question_sheet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -38,7 +43,7 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               Top(),
-              const Tree(),
+              const GrowingTree(),
               const Bottom(),
             ],
           ),
@@ -174,27 +179,17 @@ class Bottom extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomCenter,
       children: const [
-        BottomGround(),
-        BottomQuestion(),
+        BottomSheetBackground(),
+        QuestionSheetWithAnswerButton(),
       ],
     );
   }
 }
 
-class BottomQuestion extends StatefulWidget {
-  const BottomQuestion({
-    Key? key,
-  }) : super(key: key);
+class BottonSheetFrame extends StatelessWidget {
+  const BottonSheetFrame({super.key, required this.child});
 
-  @override
-  State<BottomQuestion> createState() => _BottomQuestionState();
-}
-
-class _BottomQuestionState extends State<BottomQuestion> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -208,251 +203,25 @@ class _BottomQuestionState extends State<BottomQuestion> {
         ),
         color: ColorManager.white,
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 15),
-          Text(
-            "첫번째 질문",
-            style: getMediumStyle(
-              color: ColorManager.lightGrey,
-              fontSize: 16,
-            ),
-          ),
-          const SizedBox(height: 20),
-          FutureBuilder(
-            future: GroupService.firebase().getTodayGroupQuestion(
-                groupId: AuthService.nonSyncronizedUser!.groupId!),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.done:
-                  return Text(snapshot.hasData
-                      ? snapshot.data!.questionScript
-                      : "no Data");
-                default:
-                  return CircularProgressIndicator(
-                    color: ColorManager.buttonDisable,
-                  );
-              }
-            },
-          ),
-          const SizedBox(height: 25),
-          const AnswerProgressIndicatorWithTitle(),
-          const SizedBox(height: 35),
-          Container(
-            width: 350,
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(Routes.checkCommentRoute);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "대답하기",
-                      style: getMediumStyle(
-                        color: ColorManager.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Icon(Icons.navigate_next),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      child: child,
     );
   }
 }
 
-class AnswerProgressIndicatorWithTitle extends StatelessWidget {
-  const AnswerProgressIndicatorWithTitle({
-    Key? key,
-  }) : super(key: key);
+class QuestionSheetWithAnswerButton extends StatelessWidget {
+  const QuestionSheetWithAnswerButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    AuthService.nonSyncronizedUser!.groupId;
-    final totalCountFuture = GroupService.firebase().howManyPeopleInGroup(
-        groupId: AuthService.nonSyncronizedUser!.groupId!);
-    final answerCountFuture = GroupService.firebase().howManyPeopleAnswered(
-        groupId: AuthService.nonSyncronizedUser!.groupId!);
-    return FutureBuilder(
-      future: Future.wait([totalCountFuture, answerCountFuture]),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.done:
-            final totalCount = snapshot.data?[0] ?? 0;
-            final answerCount = snapshot.data?[1] ?? 0;
-            return Column(
-              children: [
-                Text(
-                  "$answerCount명이 답변했어요.",
-                  style: getMediumStyle(
-                    color: ColorManager.lightGrey,
-                    fontSize: 12,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.center,
-                  child: AnswerProgressIndicator(
-                      total: totalCount, count: answerCount),
-                ),
-              ],
-            );
-          default:
-            return CircularProgressIndicator(
-              color: ColorManager.point,
-            );
-        }
-      },
-    );
-  }
-}
-
-class AnswerProgressIndicator extends StatelessWidget {
-  const AnswerProgressIndicator(
-      {super.key, required this.total, required this.count});
-
-  final int total;
-  final int count;
-
-  Widget _getBar(bool isColored) {
-    return Container(
-      width: AppSize.s35,
-      color: isColored ? ColorManager.point : ColorManager.lightGrey,
-      height: AppSize.s3,
-    );
-  }
-
-  Widget _getGap(bool isLockLocation) {
-    return isLockLocation
-        ? SvgPicture.asset(ImageAssets.lock)
-        : const SizedBox(
-            width: AppSize.s2,
-          );
-  }
-
-  List<Widget> _getIndicatorBar() {
-    final List<Widget> indicatorBar = [];
-    int lockLocation = (total / 2).round();
-    for (int i = 1; i <= total; i++) {
-      indicatorBar.addAll([_getBar(i <= count), _getGap(i == lockLocation)]);
-    }
-    return indicatorBar;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: _getIndicatorBar(),
-    );
-  }
-}
-
-class BottomGround extends StatelessWidget {
-  const BottomGround({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 260,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          //배경 그라데이션 적용
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            ColorManager.white,
-            ColorManager.point,
+    return BottonSheetFrame(child: Column(
+          children:  [
+            const QuestionSheet(),
+            const SizedBox(height: AppSize.s35),
+            AnswerButton(onPressed: () {
+          Get.toNamed(Routes.answerQuestionRoute);
+        }),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class Tree extends StatefulWidget {
-  const Tree({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<Tree> createState() => _TreeState();
-}
-
-class _TreeState extends State<Tree> {
-  bool get isPlaying => _controller?.isActive ?? false;
-
-  rive.Artboard? _riveArtboard;
-  rive.StateMachineController? _controller;
-  rive.SMIInput<double>? _input;
-
-  @override
-  void initState() {
-    super.initState();
-
-    rootBundle.load(RiveAssets.growingThree).then(
-      (data) async {
-        // Load the RiveFile from the binary data.
-        final file = rive.RiveFile.import(data);
-
-        // The artboard is the root of the animation and gets drawn in the
-        // Rive widget.
-        final artboard = file.mainArtboard;
-        var controller =
-            rive.StateMachineController.fromArtboard(artboard, 'GrowingTree');
-        if (controller != null) {
-          artboard.addController(controller);
-          _input = controller.findInput('xpForTree');
-        }
-        setState(() => _riveArtboard = artboard);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        child: Center(
-          child: _riveArtboard == null
-              ? const SizedBox()
-              : GestureDetector(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      Slider(
-                        value: _input!.value,
-                        min: 0,
-                        max: 100,
-                        thumbColor: ColorManager.point,
-                        activeColor: ColorManager.point,
-                        inactiveColor: ColorManager.buttonDisable,
-                        label: _input!.value.round().toString(),
-                        onChanged: (double value) => setState(() {
-                          _input!.value = value;
-                        }),
-                      ),
-                      const SizedBox(height: 10),
-                      Expanded(
-                        child: rive.Rive(
-                          artboard: _riveArtboard!,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
@@ -471,7 +240,7 @@ class Top extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
-            TopIconBar(),
+            const TopIconBar(),
             const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
@@ -513,8 +282,8 @@ class TopIconBar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 50),
-        SvgIcon(asset: ImageAssets.bookmark),
-        SvgIcon(asset: ImageAssets.profile),
+        profileFrameForSvg(asset: ImageAssets.bookmark),
+        profileFrameForSvg(asset: ImageAssets.profile),
       ],
     );
   }
@@ -550,9 +319,9 @@ class FambridgeIcon extends StatelessWidget {
   }
 }
 
-class SvgIcon extends StatelessWidget {
+class profileFrameForSvg extends StatelessWidget {
   String asset;
-  SvgIcon({
+  profileFrameForSvg({
     Key? key,
     required this.asset,
   }) : super(key: key);

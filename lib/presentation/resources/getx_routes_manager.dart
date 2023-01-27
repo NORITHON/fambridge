@@ -1,10 +1,11 @@
 import 'package:fambridge/presentation/familyCode/input_family_code.dart';
 import 'package:fambridge/presentation/forgot_id/forgot_id.dart';
 import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
-import 'package:fambridge/presentation/home/check_comment.dart';
-import 'package:fambridge/presentation/home/home.dart';
-import 'package:fambridge/presentation/login/login.dart';
-import 'package:fambridge/presentation/onboarding/%08numbersOfFamily.dart';
+import 'package:fambridge/presentation/home/answer_question_view.dart';
+import 'package:fambridge/presentation/home/check_comment_sheet.dart';
+import 'package:fambridge/presentation/home/homepage.dart';
+import 'package:fambridge/presentation/login/login_view.dart';
+import 'package:fambridge/presentation/onboarding/numbersOfFamily.dart';
 import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
 import 'package:fambridge/presentation/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
@@ -25,7 +26,7 @@ class Routes {
   static const String startRoute = "/start";
   static const String homeRoute = "/home";
   static const String myPageRoute = "/myPage";
-  static const String checkCommentRoute = "/check-comment";
+  static const String answerQuestionRoute = "/answer-question";
   static const String verifyEmailRoute = "/verify-email";
   static const String inputFamilyCodeRoute = "/add-familyCode";
   static const String numbersofFamilyRoute = "/number-family";
@@ -100,8 +101,8 @@ List<GetPage<dynamic>> getPages = [
     transition: Transition.downToUp,
   ),
   GetPage(
-    name: Routes.checkCommentRoute,
-    page: () => const CheckCommentView(),
+    name: Routes.answerQuestionRoute,
+    page: () => const AnswerQuestionView(),
     transition: Transition.downToUp,
   ),
 ];

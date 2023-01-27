@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 ThemeData getApplicationTheme() {
   return ThemeData(
       // main colors of the app
+      highlightColor: ColorManager.buttonDisable,
       primaryColor: ColorManager.primary,
-      primaryColorLight: ColorManager.primary,
+      primaryColorLight: ColorManager.buttonDisable,
       primaryColorDark: ColorManager.primary,
       disabledColor: ColorManager.buttonDisable,
       // ripple color
@@ -18,6 +19,10 @@ ThemeData getApplicationTheme() {
           color: ColorManager.backgroundColor,
           shadowColor: ColorManager.shadowColor,
           elevation: AppSize.s4),
+          
+      scrollbarTheme: const ScrollbarThemeData().copyWith(
+          thumbColor: MaterialStateProperty.all(ColorManager.buttonDisable),
+      ),
       // App bar theme
       appBarTheme: AppBarTheme(
           centerTitle: true,

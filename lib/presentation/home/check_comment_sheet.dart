@@ -24,24 +24,21 @@ class _CheckCommentViewState extends State<CheckCommentView> {
       resizeToAvoidBottomInset: false,
       appBar: _AppBar(),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            children: [
-              Top(),
-              Column(
-                children: [
-                  Stack(
-                    children: [CommentBuilder(), Container()],
-                  ),
-                  // BackdropFilter(
-                  //   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  //   child: Text("fe"),
-                  // ),
-                ],
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
+        child: Column(
+          children: [
+            const Top(),
+            Column(
+              children: [
+                Stack(
+                  children: [
+                    const CommentBuilder(),
+                    Container(),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
@@ -100,13 +97,13 @@ class AnswerTextField extends StatelessWidget {
           color: ColorManager.lightGrey,
           fontSize: 18,
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.all(Radius.circular((10)))),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.all(Radius.circular((10)))),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
             borderRadius: BorderRadius.all(Radius.circular((10)))),
       ),
@@ -118,7 +115,7 @@ class CustomButton extends StatelessWidget {
   final String fieldName;
   final VoidCallback onPressed;
 
-  CustomButton({
+  const CustomButton({
     Key? key,
     required this.fieldName,
     required this.onPressed,
@@ -127,7 +124,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       width: double.infinity,
       height: 45,
       child: ElevatedButton(
@@ -151,26 +148,14 @@ class CommentBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 350,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 20, 40, 10),
-        child: ListView.separated(
-          itemBuilder: ((context, index) {
-            return Comment();
-          }),
-          separatorBuilder: ((context, index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 7),
-              child: Container(
-                height: 2,
-                color: ColorManager.white,
-              ),
-            );
-          }),
-          itemCount: 5,
-        ),
-      ),
+    return ListView.separated(
+      itemBuilder: ((context, index) {
+        return const Comment();
+      }),
+      separatorBuilder: ((context, index) {
+        return const Divider(height: 2,);
+      }),
+      itemCount: 10,
     );
   }
 }
@@ -182,44 +167,42 @@ class Comment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              CircleProfile(size: 25),
-              SizedBox(width: 10),
-              Text(
-                "첫째",
-                style: getMediumStyle(
-                  color: ColorManager.lightGrey,
-                  fontSize: 14,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          children: [
+            CircleProfile(size: 25),
+            const SizedBox(width: 10),
+            Text(
+              "첫째",
+              style: getMediumStyle(
+                color: ColorManager.lightGrey,
+                fontSize: 14,
               ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 0),
-            child: Text("서로에게 무관심하나 마음만은 서로를 향해있는 가족",
-                style: getMediumStyle(
-                  color: ColorManager.lightGrey,
-                  fontSize: 16,
-                )),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CircleProfile(size: 30),
-              CircleProfile(size: 30),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: SvgPicture.asset(ImageAssets.likeOn),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 5, bottom: 0),
+          child: Text("서로에게 무관심하나 마음만은 서로를 향해있는 가족",
+              style: getMediumStyle(
+                color: ColorManager.lightGrey,
+                fontSize: 16,
+              )),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CircleProfile(size: 30),
+            CircleProfile(size: 30),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: SvgPicture.asset(ImageAssets.likeOn),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -262,14 +245,14 @@ class Top extends StatelessWidget {
             color: ColorManager.black,
             blurRadius: 10,
             spreadRadius: -10,
-            offset: Offset(0.0, 3),
+            offset: const Offset(0.0, 3),
           )
         ],
         color: ColorManager.white,
       ),
       child: Column(
         children: [
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Text(
             "첫번째 질문",
             style: getMediumStyle(
@@ -277,7 +260,7 @@ class Top extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             "\"우리는 어떤 가족인가요?\"",
             style: getMediumStyle(
@@ -285,7 +268,7 @@ class Top extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           Text(
             "답변이 열렸어요!",
             style: getMediumStyle(
@@ -293,7 +276,7 @@ class Top extends StatelessWidget {
               fontSize: 12,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: 12345.toString().split("").map((e) {
@@ -308,14 +291,14 @@ class Top extends StatelessWidget {
                   ),
                   e == '3'
                       ? SvgPicture.asset(ImageAssets.lock)
-                      : SizedBox(
+                      : const SizedBox(
                           width: 2,
                         ),
                 ],
               );
             }).toList(),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );
