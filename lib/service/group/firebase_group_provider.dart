@@ -16,18 +16,21 @@ class FirebaseGroupProvider implements GroupProvider {
 
   DocumentReference findDocRef(String docId) => groupCollection.doc(docId);
 
-  void createNewGroup({
+  @override
+  Future<Group> createNewGroup({
     required String groupName,
     required String creatorUserId,
-  }) {
+  }) async {
     final String groupId = const Uuid().v4();
-    groupCollection.doc(groupId).set({
+    await groupCollection.doc(groupId).set({
       groupIdFieldName: groupId,
       groupNameFieldName: groupName,
       userIdsInGroupFieldName: [creatorUserId],
     });
+    return Group.fromSnapshot(await groupCollection.doc(groupId).get());
   }
 
+  @override
   Future<Group?> getGroup({required String groupId}) async {
     final docSnap = await findDocRef(groupId).get();
     if (!docSnap.exists) {
@@ -39,6 +42,7 @@ class FirebaseGroupProvider implements GroupProvider {
   CollectionReference getGroupQuestionCollectionRef(String groupId) =>
       findDocRef(groupId).collection(groupQuestionCollectionName);
 
+  @override
   Stream<Iterable<GroupQuestion>> getAllGroupQuestion(
       {required String groupId}) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
@@ -46,6 +50,7 @@ class FirebaseGroupProvider implements GroupProvider {
         (event) => event.docs.map((doc) => GroupQuestion.fromSnapshot(doc)));
   }
 
+  @override
   Future<GroupQuestion> getTodayGroupQuestion(
       {required String groupId, required String todayQuestionId}) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
@@ -55,6 +60,7 @@ class FirebaseGroupProvider implements GroupProvider {
         .then(((value) => GroupQuestion.fromSnapshot(value)));
   }
 
+  @override
   void createGroupQuestion(
       {required String groupId, required Question question}) {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
@@ -67,6 +73,7 @@ class FirebaseGroupProvider implements GroupProvider {
     });
   }
 
+  @override
   void submitAnswerForGroupQuestion({
     required String groupId,
     required String answerScript,
@@ -83,6 +90,7 @@ class FirebaseGroupProvider implements GroupProvider {
     });
   }
 
+  @override
   Future<int> howManyPeopleAnswered({
     required String groupId,
     required String todayQuestionId,
@@ -94,6 +102,7 @@ class FirebaseGroupProvider implements GroupProvider {
     return docSnap.data()?[answerCountFieldName];
   }
 
+  @override
   Future<int> howManyPeopleInGroup({required String groupId,}) async {
     final docSnap = await groupCollection.doc(groupId).get();
     if(!docSnap.exists) throw GroupNotFoundGroupException();
@@ -104,6 +113,7 @@ class FirebaseGroupProvider implements GroupProvider {
     return answerCount*1.0 / userCount*1.0 > 0.5;
   }
 
+  @override
   Future<bool?> checkIfAnswerShouldBeOpen({
     required String groupId,
     required String todayQuestionId,

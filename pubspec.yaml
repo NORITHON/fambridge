@@ -46,6 +46,7 @@ dependencies:
   uuid: ^3.0.7
   firebase_database: ^10.0.9
   fk_toggle: ^0.1.4
+  rive: ^0.10.1
 
 dev_dependencies:
   flutter_test:
