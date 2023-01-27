@@ -30,7 +30,7 @@ class InputFamilybody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        color: ColorManager.white,
+        color: ColorManager.backgroundColor,
         child: Row(
           children: [
             Container(
@@ -84,7 +84,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
     fontSize: 16,
   );
   var pointStyle = TextStyle(
-    color: ColorManager.orange,
+    color: ColorManager.point,
     fontFamily: 'GmarketSans',
   );
 
@@ -127,7 +127,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
               width: MediaQuery.of(context).size.width,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorManager.orange,
+                  backgroundColor: ColorManager.point,
                   padding: EdgeInsets.all(12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),

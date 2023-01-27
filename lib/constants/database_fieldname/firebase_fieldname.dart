@@ -21,8 +21,14 @@ const String userGroupIdFieldName = 'group-id';
 const String groupIdFieldName = 'group-id';
 const String groupNameFieldName = 'group-name';
 const String userIdsInGroupFieldName = 'user-ids-in-group';
+const String userCountFieldName = 'user-count';
 
 const String userIdsWhoHaveAnsweredFieldName = 'answers';
 const String groupQuestionIdFieldName = 'group-question-id';
 const String groupQuestionScriptFieldName = 'question-script';
+const String isAnswerVisibleFieldName = 'is-answer-visible';
 const String groupQuestionCreatedTimeFieldName = 'created-time';
+const String answerCountFieldName = 'answer-count';
+
+const String answerUserIdFieldName = "user-id";
+const String answerScriptFieldName = "answer-script";

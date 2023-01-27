@@ -36,12 +36,12 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
+      backgroundColor: ColorManager.backgroundColor,
       appBar: AppBar(
-        backgroundColor: ColorManager.white,
+        backgroundColor: ColorManager.backgroundColor,
         elevation: AppSize.s0,
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: ColorManager.white,
+          statusBarColor: ColorManager.backgroundColor,
           statusBarBrightness: Brightness.dark,
           statusBarIconBrightness: Brightness.dark,
         ),
@@ -58,7 +58,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             return OnBoardingPage(_list[index]);
           }),
       bottomSheet: Container(
-        color: ColorManager.white,
+        color: ColorManager.backgroundColor,
         height: AppSize.s100,
         child: Column(
           children: [

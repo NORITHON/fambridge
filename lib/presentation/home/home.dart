@@ -16,6 +16,13 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +34,44 @@ class _HomeViewState extends State<HomeView> {
             Bottom(),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/images/Home.svg",
+              width: 30,
+              height: 35,
+            ),
+            label: '홈',
+          ),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset("assets/images/Today.svg",
+                  width: 30, height: 35),
+              label: '일정'),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/images/Dashboard.svg",
+                width: 30,
+                height: 35,
+              ),
+              label: "피드"),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                "assets/images/Store.svg",
+                width: 30,
+                height: 35,
+              ),
+              label: "스토어"),
+        ],
+        currentIndex: _selectedIndex,
+        selectedLabelStyle:
+            getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
+        unselectedLabelStyle:
+            getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: ColorManager.point,
       ),
     );
   }
@@ -122,7 +167,7 @@ class TopIconBar extends StatelessWidget {
         Expanded(
           child: Text(
             "Fambridge",
-            style: getMediumStyle(color: ColorManager.grey, fontSize: 16),
+            style: getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
           ),
         ),
         SizedBox(width: 50),
@@ -147,7 +192,7 @@ class FambridgeIcon extends StatelessWidget {
         color: ColorManager.white,
         boxShadow: [
           BoxShadow(
-            color: ColorManager.grey.withOpacity(0.25),
+            color: ColorManager.darkGrey.withOpacity(0.25),
             spreadRadius: 5,
             blurRadius: 10,
             offset: Offset(1, 1),
