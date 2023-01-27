@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 
 import '../../resources/values_manager.dart';
-import '../check_comment_sheet.dart';
 import '../homepage.dart';
 import '../view_model.dart';
 import 'answer_bottom_sheet.dart';
+import 'answer_list.dart';
 
 class BlurredAnswerList extends StatelessWidget {
   const BlurredAnswerList({

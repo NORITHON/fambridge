@@ -4,7 +4,6 @@ import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
 import 'package:fambridge/presentation/home/answer_question_view.dart';
 import 'package:fambridge/presentation/home/homepage.dart';
 import 'package:fambridge/presentation/login/login_view.dart';
-import 'package:fambridge/presentation/onboarding/numbersOfFamily.dart';
 import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
 import 'package:fambridge/presentation/onboarding/checkMyself.dart';
 import 'package:fambridge/presentation/onboarding/codesharepage.dart';
@@ -16,6 +15,8 @@ import 'package:fambridge/presentation/splash/splash.dart';
 import 'package:fambridge/presentation/start/startPage.dart';
 import 'package:fambridge/presentation/store_details/store_details.dart';
 import 'package:get/route_manager.dart';
+
+import '../onboarding/numbersofFamily.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -92,7 +93,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.numbersofFamilyRoute,
-    page: () => NumbersofFamilyView(),
+    page: () => const NumbersofFamilyView(),
     transition: Transition.downToUp,
   ),
   GetPage(

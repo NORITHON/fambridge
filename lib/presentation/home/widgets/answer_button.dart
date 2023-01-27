@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/getx_routes_manager.dart';
 import '../../resources/styles_manager.dart';
+import '../view_model.dart';
 
 class AnswerButton extends StatelessWidget {
   const AnswerButton({
@@ -24,13 +25,17 @@ class AnswerButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "대답하기",
-                style: getMediumStyle(
-                  color: ColorManager.white,
-                  fontSize: 16,
+              GetBuilder<AnswerViewModel>(
+            init: AnswerViewModel(),
+            builder: (_) => Text(
+                  Get.find<AnswerViewModel>().hasAnswered.value ? "대답보기" : "대답하기",
+                  style: getMediumStyle(
+                    color: ColorManager.white,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
+          ),
+              
               const Icon(Icons.navigate_next),
             ],
           ),
