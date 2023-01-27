@@ -1,13 +1,10 @@
 import 'dart:async';
 
+import 'package:fambridge/presentation/login/login.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-import 'package:get/get.dart';
 
-import '../main/main_view.dart';
 import '../resources/assets_manager.dart';
-import '../resources/color_manager.dart';
-import '../resources/routes_manager.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -31,7 +28,7 @@ class _SplashViewState extends State<SplashView> {
             builder: (context, snapshot) {
               switch(snapshot.connectionState){
                 case ConnectionState.done:
-                  return const MainView();
+                  return const LoginView();
                 default:
                   return const AppLogo();
               }

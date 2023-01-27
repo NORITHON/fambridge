@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/constants/database_fieldname/firebase_collection_name.dart';
+import 'package:fambridge/model/answer.dart';
 import 'package:fambridge/model/group_question.dart';
 import 'package:fambridge/model/question.dart';
 import 'package:uuid/uuid.dart';
@@ -93,11 +94,29 @@ class FirebaseGroupProvider implements GroupProvider {
     return docSnap.data()?[answerCountFieldName];
   }
 
-  Future<int?> howManyPeopleInGroup({
-    required String groupId,
-  }) async {
+  Future<int> howManyPeopleInGroup({required String groupId,}) async {
     final docSnap = await groupCollection.doc(groupId).get();
-    if (!docSnap.exists) throw GroupNotFoundGroupException();
-    return docSnap.data()?[userCountFieldName];
+    if(!docSnap.exists) throw GroupNotFoundGroupException();
+    return docSnap.data()?[userCountFieldName] ?? 1;
+  }
+
+  bool logicForOpeningAnswer({required int answerCount, required int userCount,}){
+    return answerCount*1.0 / userCount*1.0 > 0.5;
+  }
+
+  Future<bool?> checkIfAnswerShouldBeOpen({
+    required String groupId,
+    required String todayQuestionId,
+  }) async {
+    try{
+      final answerCount = await howManyPeopleAnswered(groupId: groupId, todayQuestionId: todayQuestionId);
+      final userCount = await howManyPeopleInGroup(groupId: groupId);
+      return logicForOpeningAnswer(answerCount: answerCount, userCount: userCount);
+    } on GroupQuestionNotFoundGroupException catch(_){
+      return false;
+    } on GroupNotFoundGroupException catch(_){
+      return false;
+    }
+
   }
 }
