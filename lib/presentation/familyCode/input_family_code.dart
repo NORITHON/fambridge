@@ -1,6 +1,8 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InputFamilyCode extends StatefulWidget {
   const InputFamilyCode({Key? key}) : super(key: key);
@@ -134,7 +136,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                   ),
                 ),
                 onPressed: () {
-                  return;
+                  Get.toNamed(Routes.
                 },
                 child: Text(
                   "새로운 코드 받기",
