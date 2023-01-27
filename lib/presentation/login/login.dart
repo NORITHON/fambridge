@@ -1,4 +1,5 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
@@ -92,7 +93,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             SizedBox(height: 100),
             SvgPicture.asset(
-              "assets/images/Frame_15682.svg",
+              ImageAssets.fambridgeIcon,
               width: 150,
               height: 150,
             ),
