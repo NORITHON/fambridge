@@ -7,8 +7,10 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
+import 'package:fambridge/presentation/utilities/generating_dialog.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/group/group_service.dart';
+import 'package:fambridge/service/question/question_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -120,11 +122,16 @@ class _LoginFormState extends State<LoginForm> {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () async {
+              loadingDialog(context);
               await AuthService.firebase().logIn();
               final user = await AuthService.firebase().currentUser;
-              final group = await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user!.id);
-              await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1, groupId: group.groupId);
-              
+              if(user!.name == null){
+                final question = await QuestionService.firebase().getNextQuestion();
+                final group = await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user!.id, question: question);
+                await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1, groupId: group.groupId);
+                
+              }
+              AuthService.nonSyncronizedUser = await AuthService.firebase().currentUser;
               Get.offAllNamed(Routes.homeRoute);
             },
             child: const Text(

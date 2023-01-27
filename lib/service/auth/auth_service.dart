@@ -23,6 +23,8 @@ class AuthService implements AuthProvider {
   @override
   Future<AuthUser?> get currentUser => provider.currentUser;
 
+  static AuthUser? nonSyncronizedUser;
+
   @override
   Future<AuthUser> logIn() =>
       provider.logIn();
