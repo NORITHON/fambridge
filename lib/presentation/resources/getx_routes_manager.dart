@@ -1,6 +1,7 @@
 import 'package:fambridge/presentation/familyCode/input_family_code.dart';
 import 'package:fambridge/presentation/forgot_id/forgot_id.dart';
 import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
+import 'package:fambridge/presentation/home/home.dart';
 import 'package:fambridge/presentation/login/login.dart';
 import 'package:fambridge/presentation/main/main_view.dart';
 import 'package:fambridge/presentation/onboarding/onboarding.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String startRoute = "/start";
   static const String mainRoute = "/main";
+  static const String homeRoute = "/home";
   static const String verifyEmailRoute = "/verify-email";
   static const String inputFamilyCodeRoute = "/add-familyCode";
 }
@@ -58,6 +60,11 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.mainRoute,
     page: () => MainView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.homeRoute,
+    page: () => HomeView(),
     transition: Transition.downToUp,
   ),
   GetPage(
