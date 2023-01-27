@@ -1,7 +1,10 @@
 import 'package:fambridge/presentation/common/custom_textfield.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class InputFamilyCode extends StatefulWidget {
@@ -15,19 +18,30 @@ class _InputFamilyCodeState extends State<InputFamilyCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.navigate_next),
-            tooltip: 'Next page',
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: _AppBar(),
       resizeToAvoidBottomInset: false,
       body: const SafeArea(
         child: InputFamilybody(),
+      ),
+    );
+  }
+
+  PreferredSizeWidget _AppBar() {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(60),
+      child: AppBar(
+        centerTitle: true,
+        backgroundColor: ColorManager.white,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: SvgPicture.asset(
+            ImageAssets.back,
+            height: 20,
+            width: 20,
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        elevation: 0,
       ),
     );
   }
@@ -41,10 +55,15 @@ class InputFamilybody extends StatelessWidget {
     return Expanded(
       child: Container(
         color: ColorManager.backgroundColor,
-        child: Row(
-          children: const [
-            FamilyCodeForm(),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 30,
+          ),
+          child: Row(
+            children: const [
+              FamilyCodeForm(),
+            ],
+          ),
         ),
       ),
     );
@@ -136,7 +155,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                   ),
                 ),
                 onPressed: () {
-                  Get.toNamed(Routes.
+                  Get.toNamed(Routes.first_delayRoute);
                 },
                 child: Text(
                   "새로운 코드 받기",
