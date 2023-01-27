@@ -21,7 +21,7 @@ class Group{
     return Group(
       groupId: snapshot[groupIdFieldName],
       groupName: snapshot[groupNameFieldName], 
-      userIdsInGroup: snapshot[userIdsInGroupFieldName],
+      userIdsInGroup: snapshot[userIdsInGroupFieldName].cast<String>(),
       userCount: snapshot[userCountFieldName] ?? 0,
     );
   }

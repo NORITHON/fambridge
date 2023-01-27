@@ -121,9 +121,10 @@ class _LoginFormState extends State<LoginForm> {
           child: ElevatedButton(
             onPressed: () async {
               await AuthService.firebase().logIn();
-              await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1);
               final user = await AuthService.firebase().currentUser;
-              await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user!.id);
+              final group = await GroupService.firebase().createNewGroup(groupName: "groupName", creatorUserId: user!.id);
+              await AuthService.firebase().addAuthToDatabase(name: "shinhoo", familyRole: FamilyRole.son, birthOrder: 1, groupId: group.groupId);
+              
               Get.offAllNamed(Routes.homeRoute);
             },
             child: const Text(
