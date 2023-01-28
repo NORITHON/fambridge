@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:fambridge/presentation/login/login_view.dart';
-import 'package:fambridge/presentation/onboarding/onboarding.dart';
+import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../resources/assets_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../resources/values_manager.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -30,7 +33,10 @@ class _SplashViewState extends State<SplashView> {
                 case ConnectionState.done:
                   return const LoginView();
                 default:
-                  return const AppLogo();
+                  return Scaffold(
+                    backgroundColor: ColorManager.buttonDisable,
+                    body: const Center(child: AppLogo()),
+                  );
               }
             },
           );
@@ -39,20 +45,24 @@ class _SplashViewState extends State<SplashView> {
             child: Text("Something went Wrong!"),
           );
         } else {
-          return const OnBoardingView();
+          return const LoginView();
         }
     },);
   }
 }
 class AppLogo extends StatelessWidget {
-  const AppLogo({super.key});
+  const AppLogo({super.key, this.size = AppSize.s100});
+
+  final double size;
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: Image(
-          image: AssetImage(ImageAssets.splashLogo),
-        ),
-      );
+    return SvgPicture.asset(
+            ImageAssets.appLogo,
+            width: size,
+            height: size,
+    );
   }
 }
+
+

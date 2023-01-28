@@ -9,6 +9,7 @@ class Group{
   final String groupName;
   final int userCount;
   final String todayGroupQuestionId;
+  final double treeXp;
 
   Group({
     required this.userIdsInGroup,
@@ -16,6 +17,7 @@ class Group{
     required this.groupName,
     required this.userCount, 
     required this.todayGroupQuestionId,
+    required this.treeXp,
   });
 
   factory Group.fromSnapshot(DocumentSnapshot snap){
@@ -25,7 +27,8 @@ class Group{
       groupName: snapshot[groupNameFieldName], 
       userIdsInGroup: snapshot[userIdsInGroupFieldName].cast<String>(),
       userCount: snapshot[userCountFieldName] ?? 0,
-      todayGroupQuestionId: snapshot[todayGroupQuestionIdFieldName],
+      todayGroupQuestionId: snapshot[todayGroupQuestionIdFieldName], 
+      treeXp: snapshot[treeXpFieldName] ?? 0,
     );
   }
 }

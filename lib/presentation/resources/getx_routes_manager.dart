@@ -1,6 +1,4 @@
 import 'package:fambridge/presentation/familyCode/input_family_code.dart';
-import 'package:fambridge/presentation/forgot_id/forgot_id.dart';
-import 'package:fambridge/presentation/forgot_password/forgot_password.dart';
 import 'package:fambridge/presentation/home/answer_question_view.dart';
 import 'package:fambridge/presentation/home/homepage.dart';
 import 'package:fambridge/presentation/login/login_view.dart';
@@ -8,7 +6,6 @@ import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
 import 'package:fambridge/presentation/onboarding/checkMyself.dart';
 import 'package:fambridge/presentation/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/onboarding/first_delayonboarding.dart';
-import 'package:fambridge/presentation/onboarding/onboarding.dart';
 import 'package:fambridge/presentation/onboarding/second_delayonboarding.dart';
 import 'package:fambridge/presentation/register/register.dart';
 import 'package:fambridge/presentation/splash/splash.dart';
@@ -51,26 +48,13 @@ List<GetPage<dynamic>> getPages = [
     page: () => const LoginView(),
     transition: Transition.downToUp,
   ),
-  GetPage(
-    name: Routes.onBoardingRoute,
-    page: () => const OnBoardingView(),
-    transition: Transition.downToUp,
-  ),
+  
   GetPage(
     name: Routes.registerRoute,
     page: () => const RegisterView(),
     transition: Transition.downToUp,
   ),
-  GetPage(
-    name: Routes.forgotPasswordRoute,
-    page: () => const ForgotPasswordView(),
-    transition: Transition.downToUp,
-  ),
-  GetPage(
-    name: Routes.forgotIdRoute,
-    page: () => const ForgotIdView(),
-    transition: Transition.downToUp,
-  ),
+  
   GetPage(
     name: Routes.startRoute,
     page: () => const StartPage(),
@@ -113,7 +97,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.firstDelayRoute,
-    page: () => const first_delayView(),
+    page: () => const firstDelayView(),
     transition: Transition.downToUp,
   ),
   GetPage(

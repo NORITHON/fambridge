@@ -65,4 +65,10 @@ class GroupService implements GroupProvider {
         answerScript: answerScript,
         userId: userId,
       );
+  
+  @override
+  Future<double> getTreeXp({required String groupId}) => provider.getTreeXp(groupId: groupId);
+
+  @override
+  Future<bool> hasAnsweredTheQuestion({required String groupId, required String userId, required String questionId}) =>provider.hasAnsweredTheQuestion(groupId: groupId, userId: userId, questionId: questionId);
 }

@@ -8,6 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../constants/enums/family_role.dart';
+import '../../service/auth/auth_service.dart';
+import '../../service/group/group_service.dart';
+import '../../service/question/question_service.dart';
+import '../utilities/loading_dialog.dart';
+
 class InputFamilyCode extends StatefulWidget {
   const InputFamilyCode({Key? key}) : super(key: key);
 
@@ -79,17 +85,11 @@ class FamilyCodeForm extends StatefulWidget {
 }
 
 class _FamilyCodeFormState extends State<FamilyCodeForm> {
-  TextEditingController codeController = TextEditingController();
-  String code = "";
-
-  _FamilyCodeFormState() {
-    codeController.addListener(() {
-      setState(
-        () {
-          code = codeController.text;
-        },
-      );
-    });
+  late final TextEditingController codeController;
+  @override
+  void initState() {
+    super.initState();
+    codeController = TextEditingController();
   }
 
   @override
@@ -100,70 +100,84 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
 
   @override
   Widget build(BuildContext context) {
-    print(code);
     return Expanded(
-      child: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 230),
-            Text(
-              "가족 코드를 입력하세요.",
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.darkGrey,
-                fontSize: 16,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 230),
+          Text(
+            "가족 코드를 입력하세요.",
+            textAlign: TextAlign.center,
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
             ),
-            const SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: const Offset(0, 0), // changes position of shadow
-                  )
-                ],
-              ),
-              child: InputCodeTextField(
-                  hintText: "공유 받은 코드 입력", controller: codeController),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: const Offset(0, 0), // changes position of shadow
+                )
+              ],
             ),
-            const SizedBox(height: 150),
-            Text(
-              "제가 시작하는 사람이에요!",
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.darkGrey,
-                fontSize: 16,
-              ),
+            child: InputCodeTextField(
+                hintText: "공유 받은 코드 입력", controller: codeController),
+          ),
+          const SizedBox(height: 150),
+          Text(
+            "제가 시작하는 사람이에요!",
+            textAlign: TextAlign.center,
+            style: getMediumStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 16,
             ),
-            const SizedBox(height: 7),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorManager.point,
-                  padding: const EdgeInsets.all(12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                ),
-                onPressed: () {
-                  Get.toNamed(Routes.firstDelayRoute);
-                },
-                child: Text(
-                  "새로운 코드 받기",
-                  style: getMediumStyle(
-                    color: ColorManager.white,
-                    fontSize: 16,
-                  ),
+          ),
+          const SizedBox(height: 7),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorManager.point,
+                padding: const EdgeInsets.all(12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
+              onPressed: () async {
+                loadingDialog(context);
+                final user = await AuthService.firebase().currentUser;
+                final question =
+                    await QuestionService.firebase().getNextQuestion();
+                final group = await GroupService.firebase().createNewGroup(
+                    groupName: "groupName",
+                    creatorUserId: user!.id,
+                    question: question,
+                    );
+                await AuthService.firebase().addAuthToDatabase(
+                    name: "shinhoo",
+                    familyRole: FamilyRole.son,
+                    birthOrder: 1,
+                    groupId: group.groupId);
+                AuthService.nonSyncronizedUser =
+                    await AuthService.firebase().currentUser;
+                Get.back();
+                Get.toNamed(Routes.firstDelayRoute);
+              },
+              child: Text(
+                "새로운 코드 받기",
+                style: getMediumStyle(
+                  color: ColorManager.white,
+                  fontSize: 16,
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

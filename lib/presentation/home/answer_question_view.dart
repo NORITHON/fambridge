@@ -56,8 +56,8 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             onPressed: () async {
               await GroupService.firebase().submitAnswerForGroupQuestion(groupId: AuthService.nonSyncronizedUser!.groupId!, answerScript: Get.find<AnswerViewModel>().answerScript.value, userId: AuthService.nonSyncronizedUser!.id);
               final newVal = await GroupService.firebase().checkIfAnswerShouldBeOpen(groupId: AuthService.nonSyncronizedUser!.groupId!);
-              Get.find<AnswerViewModel>().setHasAnswered(newVal: true, listen: true);
               Get.find<AnswerViewModel>().setIsAnswerOpen(newVal: newVal, listen: true);
+              Get.find<AnswerViewModel>().setHasAnswered(newVal: true, listen: true);
             },
           ),
         ),

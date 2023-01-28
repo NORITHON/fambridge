@@ -23,6 +23,7 @@ const String groupNameFieldName = 'group-name';
 const String userIdsInGroupFieldName = 'user-ids-in-group';
 const String userCountFieldName = 'user-count';
 const String todayGroupQuestionIdFieldName = 'today-group-question-id';
+const String treeXpFieldName = 'tree-xp';
 
 const String userIdsWhoHaveAnsweredFieldName = 'answers';
 const String groupQuestionIdFieldName = 'group-question-id';

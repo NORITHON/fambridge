@@ -1,13 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../constants/database_fieldname/firebase_fieldname.dart';
+
 class Answer{
-  final String answerId;
   final String userId;
-  final String createdTimeStamp;
   final String answerScript;
 
-  Answer(
-    this.answerId,
-    this.userId,
-    this.createdTimeStamp,
-    this.answerScript,
-  );
+  Answer({
+  required  this.userId,
+  required  this.answerScript,
+});
+
+  factory Answer.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snap){
+    final snapshot = snap.data();
+    return Answer(
+      userId: snapshot[answerUserIdFieldName],
+      answerScript: snapshot[answerScriptFieldName],
+    );
+  }
 }

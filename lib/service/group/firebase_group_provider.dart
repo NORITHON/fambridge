@@ -80,6 +80,7 @@ class FirebaseGroupProvider implements GroupProvider {
       originalQuestionIdFieldName: question.questionId,
       isAnswerVisibleFieldName: false,
       answerCountFieldName: 0,
+      treeXpFieldName: 0,
     });
     return groupQuestionId;
   }
@@ -92,6 +93,19 @@ class FirebaseGroupProvider implements GroupProvider {
     });
   }
 
+  Future<double> getTreeXp({required String groupId}) async {
+    final docSnap = await groupCollection.doc(groupId).get();
+    if(!docSnap.exists) throw GroupNotFoundGroupException();
+    return docSnap.data()?[treeXpFieldName] ?? 0;
+  }
+
+  Future<void> _incrementTreeXp({required String groupId, double xp = 10}) async {
+    final currXp = await getTreeXp(groupId: groupId);
+    groupCollection.doc(groupId).update({
+      treeXpFieldName: currXp+xp
+    });
+  }
+
   @override
   Future<void> submitAnswerForGroupQuestion({
     required String groupId,
@@ -101,6 +115,7 @@ class FirebaseGroupProvider implements GroupProvider {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
     final todayQuestionId = await _getTodayGroupQuestionId(groupId);
     _incrementAnswerCount(groupId, todayQuestionId);
+    _incrementTreeXp(groupId: groupId);
     groupQuestionCollection
         .doc(todayQuestionId)
         .collection(groupQuestionAnswerCollectionName)
@@ -147,5 +162,16 @@ class FirebaseGroupProvider implements GroupProvider {
       return false;
     }
 
+  }
+
+  @override
+  Future<bool> hasAnsweredTheQuestion({required String groupId, required String userId, required String questionId}) async {
+    final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
+    final groupQuestionAnswerCollection = groupQuestionCollection.doc(questionId).collection(groupQuestionAnswerCollectionName);
+    final listAnswers = await groupQuestionAnswerCollection.get().then((value) => value.docs.map((e) => Answer.fromSnapshot(e),));
+    for(final answer in listAnswers){
+      if(answer.userId == userId) return true;
+    }
+    return false;
   }
 }

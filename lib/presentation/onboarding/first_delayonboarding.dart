@@ -9,14 +9,14 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class first_delayView extends StatefulWidget {
-  const first_delayView({super.key});
+class firstDelayView extends StatefulWidget {
+  const firstDelayView({super.key});
 
   @override
-  _first_delayState createState() => _first_delayState();
+  _firstDelayViewState createState() => _firstDelayViewState();
 }
 
-class _first_delayState extends State<first_delayView> {
+class _firstDelayViewState extends State<firstDelayView> {
   @override
   void initState() {
     super.initState();

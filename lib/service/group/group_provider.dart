@@ -28,4 +28,6 @@ abstract class GroupProvider {
   Future<bool?> checkIfAnswerShouldBeOpen({
     required String groupId,
   });
+  Future<double> getTreeXp({required String groupId});
+  Future<bool> hasAnsweredTheQuestion({required String groupId, required String userId, required String questionId});
 }

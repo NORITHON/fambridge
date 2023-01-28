@@ -6,6 +6,10 @@ import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constants/enums/family_role.dart';
+import '../../../service/auth/auth_service.dart';
+import '../../utilities/loading_dialog.dart';
+
 class InputCodeTextField extends StatefulWidget {
   String hintText;
   TextEditingController controller;
@@ -33,13 +37,11 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
             color: ColorManager.lightGrey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 10,
-            offset: Offset(0, 0), // changes position of shadow
+            offset: const Offset(0, 0), // changes position of shadow
           )
         ],
       ),
       child: TextField(
-        maxLength: 5,
-        onChanged: onChanged,
         controller: widget.controller,
         style: getMediumStyle(
           color: ColorManager.lightGrey,
@@ -52,15 +54,19 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
           fillColor: Colors.white,
           hintText: widget.hintText,
           hintStyle: textStyle,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
           isDense: true,
-          focusedBorder: OutlineInputBorder(
+          suffixIcon: IconButton(
+          icon: Icon(Icons.send, color: ColorManager.point,),
+          onPressed: onSubmitted,
+          ),
+          focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
         ),
@@ -68,19 +74,26 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
     );
   }
 
-  void onChanged(value) async {
-    print(widget.controller.text);
-    //db에 widget.controller.text값이 존재하는지 확인하는 조건 추가.
-
-    if (widget.controller.text.length == 5) {
-      var groupId = widget.controller.text;
+  Future<void> onSubmitted() async {
+    
+      var groupId = widget.controller.text == "" ? null : widget.controller.text;
+      if(groupId == null) return;
       try {
+        loadingDialog(context);
         var result = await GroupService.firebase().getGroup(groupId: groupId);
+        await AuthService.firebase().addAuthToDatabase(
+                    name: "shinhoo",
+                    familyRole: FamilyRole.son,
+                    birthOrder: 1,
+                    groupId: result!.groupId);
+        AuthService.nonSyncronizedUser = await AuthService.firebase().currentUser;
+        Get.back();
         Get.toNamed(Routes.secondDelayRoute);
       } on GroupNotFoundGroupException catch (e) {
+        Get.back();
         Get.defaultDialog(
           title: "없는 가족 코드입니다.",
-          titlePadding: EdgeInsets.only(top: 40),
+          titlePadding: const EdgeInsets.only(top: 40),
           titleStyle: getMediumStyle(
             color: ColorManager.darkGrey,
             fontSize: 18,
@@ -105,6 +118,6 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
           ),
         );
       }
-    }
+    
   }
 }

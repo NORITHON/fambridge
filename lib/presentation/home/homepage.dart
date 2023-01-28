@@ -2,18 +2,16 @@ import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/presentation/splash/splash.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-
 import '../resources/font_manager.dart';
 import '../resources/values_manager.dart';
 import 'widgets/answer_button.dart';
-import 'widgets/answer_progress_indicator.dart';
-import 'widgets/answer_progress_indicator_with_title.dart';
 import 'widgets/buttom_sheet_background.dart';
 import 'widgets/growing_tree.dart';
 import 'widgets/question_sheet.dart';
@@ -26,7 +24,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  String point = "326";
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
@@ -96,79 +93,6 @@ class _HomeViewState extends State<HomeView> {
   );
 }
 
-class _HomeTop extends StatelessWidget {
-  const _HomeTop({
-    Key? key,
-    required this.textStyle,
-  }) : super(key: key);
-
-  final TextStyle textStyle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(7),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: ColorManager.white,
-            boxShadow: [
-              BoxShadow(
-                color: ColorManager.darkGrey.withOpacity(0.25),
-                spreadRadius: 5,
-                blurRadius: 10,
-                offset: const Offset(1, 1),
-              ),
-            ],
-          ),
-          child: SvgPicture.asset(
-            ImageAssets.fambridgeIcon,
-            width: AppSize.s40,
-            height: AppSize.s40,
-          ),
-        ),
-        const SizedBox(width: 15),
-        Text(
-          "Fambridge",
-          style: textStyle,
-        ),
-        const SizedBox(width: 50),
-        Container(
-          padding: const EdgeInsets.all(0.0),
-          child: IconButton(
-            iconSize: AppSize.s40,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            icon: SvgPicture.asset(
-              ImageAssets.bookmark,
-              width: AppSize.s40,
-              height: AppSize.s40,
-            ),
-            onPressed: () {}, //do something,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(0.0),
-          child: IconButton(
-            iconSize: AppSize.s40,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(),
-            icon: SvgPicture.asset(
-              ImageAssets.profile,
-              width: AppSize.s40,
-              height: AppSize.s40,
-            ),
-            onPressed: () {
-              Get.toNamed(Routes.myPageRoute);
-            }, //do something,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class Bottom extends StatelessWidget {
   const Bottom({
     Key? key,
@@ -213,15 +137,16 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottonSheetFrame(child: Column(
-          children:  [
-            const QuestionSheet(),
-            const SizedBox(height: AppSize.s35),
-            AnswerButton(onPressed: () {
+    return BottonSheetFrame(
+        child: Column(
+      children: [
+        const QuestionSheet(),
+        const SizedBox(height: AppSize.s35),
+        AnswerButton(onPressed: () {
           Get.toNamed(Routes.answerQuestionRoute);
         }),
-          ],
-        ));
+      ],
+    ));
   }
 }
 
@@ -252,12 +177,25 @@ class Top extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              "${point}p",
-              style: getBoldStyle(
-                color: ColorManager.darkGrey,
-                fontSize: 20,
-              ),
+            FutureBuilder(
+              future: GroupService.firebase()
+                  .getTreeXp(groupId: AuthService.nonSyncronizedUser!.groupId!),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.done:
+                    return Text(
+                      "${snapshot.data}p",
+                      style: getBoldStyle(
+                        color: ColorManager.darkGrey,
+                        fontSize: 20,
+                      ),
+                    );
+                  default:
+                    return CircularProgressIndicator(
+                      color: ColorManager.point,
+                    );
+                }
+              },
             ),
           ],
         ),
@@ -275,15 +213,19 @@ class TopIconBar extends StatelessWidget {
       children: [
         const FambridgeIcon(),
         const SizedBox(width: 15),
-        Expanded(
+        FittedBox(
           child: Text(
             "Fambridge",
             style: getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
           ),
         ),
-        const SizedBox(width: 50),
-        profileFrameForSvg(asset: ImageAssets.bookmark),
-        profileFrameForSvg(asset: ImageAssets.profile),
+        const Spacer(),
+        IconButton(
+            onPressed: () {
+              AuthService.firebase().logOut();
+              Get.offAllNamed(Routes.loginRoute);
+            },
+            icon: const Icon(Icons.logout))
       ],
     );
   }
@@ -310,10 +252,8 @@ class FambridgeIcon extends StatelessWidget {
           ),
         ],
       ),
-      child: SvgPicture.asset(
-        ImageAssets.fambridgeIcon,
-        width: 40,
-        height: 40,
+      child: const AppLogo(
+        size: AppSize.s40,
       ),
     );
   }
