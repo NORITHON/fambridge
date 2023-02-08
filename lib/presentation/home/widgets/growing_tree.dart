@@ -51,22 +51,25 @@ class _GrowingTreeState extends State<GrowingTree> {
         child: _riveArtboard == null
             ? const SizedBox()
             : GestureDetector(
+                onTap: () {
+                  _input!.value = _input!.value + 5;
+                },
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
-                    Slider(
-                      value: _input!.value,
-                      min: 0,
-                      max: 100,
-                      thumbColor: ColorManager.point,
-                      activeColor: ColorManager.point,
-                      inactiveColor: ColorManager.buttonDisable,
-                      label: _input!.value.round().toString(),
-                      onChanged: (double value) => setState(() {
-                        _input!.value = value;
-                      }),
-                    ),
-                    const SizedBox(height: 10),
+                    // const SizedBox(height: 10),
+                    // Slider(
+                    //   value: _input!.value,
+                    //   min: 0,
+                    //   max: 100,
+                    //   thumbColor: ColorManager.point,
+                    //   activeColor: ColorManager.point,
+                    //   inactiveColor: ColorManager.buttonDisable,
+                    //   label: _input!.value.round().toString(),
+                    //   onChanged: (double value) => setState(() {
+                    //     _input!.value = value;
+                    //   }),
+                    // ),
+                    // const SizedBox(height: 10),
                     Expanded(
                       child: rive.Rive(
                         artboard: _riveArtboard!,
