@@ -93,10 +93,11 @@ class FirebaseGroupProvider implements GroupProvider {
     });
   }
 
+  @override
   Future<double> getTreeXp({required String groupId}) async {
     final docSnap = await groupCollection.doc(groupId).get();
     if(!docSnap.exists) throw GroupNotFoundGroupException();
-    return docSnap.data()?[treeXpFieldName] ?? 0;
+    return docSnap.data()?[treeXpFieldName] == null ? 0.0 : docSnap.data()?[treeXpFieldName] is int ? (docSnap.data()?[treeXpFieldName] as int).toDouble() : docSnap.data()?[treeXpFieldName];
   }
 
   Future<void> _incrementTreeXp({required String groupId, double xp = 10}) async {
@@ -114,8 +115,8 @@ class FirebaseGroupProvider implements GroupProvider {
   }) async {
     final groupQuestionCollection = getGroupQuestionCollectionRef(groupId);
     final todayQuestionId = await _getTodayGroupQuestionId(groupId);
-    _incrementAnswerCount(groupId, todayQuestionId);
-    _incrementTreeXp(groupId: groupId);
+    await _incrementAnswerCount(groupId, todayQuestionId);
+    await _incrementTreeXp(groupId: groupId);
     groupQuestionCollection
         .doc(todayQuestionId)
         .collection(groupQuestionAnswerCollectionName)

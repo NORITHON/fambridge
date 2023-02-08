@@ -1,59 +1,16 @@
 {
   "project_info": {
     "project_number": "672451599743",
+    "firebase_url": "https://hackerton2023-default-rtdb.firebaseio.com",
     "project_id": "hackerton2023",
     "storage_bucket": "hackerton2023.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:672451599743:android:7a78211601a15d20f74e4a",
+        "mobilesdk_app_id": "1:672451599743:android:856d9d8162000c8af74e4a",
         "android_client_info": {
           "package_name": "com.example.fambridge"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "672451599743-o52pkba0i4la1ds269h75n6cf7sdgfhv.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.fambridge",
-            "certificate_hash": "526138988d1ccc9515e4d614d1c5f50d2c9bb58a"
-          }
-        },
-        {
-          "client_id": "672451599743-9epa9d2n9d1faicu07pdja4fphjmqlt1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAQzVFrugK0G3SyZAK_PA4U6HdoXYaiOhc"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "672451599743-9epa9d2n9d1faicu07pdja4fphjmqlt1.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.fambridge"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:672451599743:android:630037646751c4f7f74e4a",
-        "android_client_info": {
-          "package_name": "com.minafarid.complete_advanced_flutter"
         }
       },
       "oauth_client": [

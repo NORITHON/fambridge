@@ -45,38 +45,44 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyA_i_xG55ZTdXaK9MFwPqn5l5y_wvugFpk',
-    appId: '1:672451599743:web:852796bb11f2b03df74e4a',
+    appId: '1:672451599743:web:f636dd1bce30d5b4f74e4a',
     messagingSenderId: '672451599743',
     projectId: 'hackerton2023',
     authDomain: 'hackerton2023.firebaseapp.com',
+    databaseURL: 'https://hackerton2023-default-rtdb.firebaseio.com',
     storageBucket: 'hackerton2023.appspot.com',
-    measurementId: 'G-ZSR3C3ZPBE',
+    measurementId: 'G-4V8GEF624B',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAQzVFrugK0G3SyZAK_PA4U6HdoXYaiOhc',
-    appId: '1:672451599743:android:7a78211601a15d20f74e4a',
+    appId: '1:672451599743:android:856d9d8162000c8af74e4a',
     messagingSenderId: '672451599743',
     projectId: 'hackerton2023',
+    databaseURL: 'https://hackerton2023-default-rtdb.firebaseio.com',
     storageBucket: 'hackerton2023.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA4zXutFXdDDzSJB12x13OhzcoA6Dep7Is',
-    appId: '1:672451599743:ios:2de562de0a0e10c6f74e4a',
+    appId: '1:672451599743:ios:831f5d8372ae7b52f74e4a',
     messagingSenderId: '672451599743',
     projectId: 'hackerton2023',
+    databaseURL: 'https://hackerton2023-default-rtdb.firebaseio.com',
     storageBucket: 'hackerton2023.appspot.com',
+    androidClientId: '672451599743-o52pkba0i4la1ds269h75n6cf7sdgfhv.apps.googleusercontent.com',
     iosClientId: '672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com',
     iosBundleId: 'com.example.fambridge',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyA4zXutFXdDDzSJB12x13OhzcoA6Dep7Is',
-    appId: '1:672451599743:ios:2de562de0a0e10c6f74e4a',
+    appId: '1:672451599743:ios:831f5d8372ae7b52f74e4a',
     messagingSenderId: '672451599743',
     projectId: 'hackerton2023',
+    databaseURL: 'https://hackerton2023-default-rtdb.firebaseio.com',
     storageBucket: 'hackerton2023.appspot.com',
+    androidClientId: '672451599743-o52pkba0i4la1ds269h75n6cf7sdgfhv.apps.googleusercontent.com',
     iosClientId: '672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com',
     iosBundleId: 'com.example.fambridge',
   );

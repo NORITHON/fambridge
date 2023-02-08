@@ -32,7 +32,7 @@ class AnswerViewModel extends GetxController {
   }
 
   Future<void> init({required String groupId, String? userId, String? todayGroupQuestionId}) async {
-    setTreeXp(newVal: await GroupService.firebase().getTreeXp(groupId: groupId), listen: false);
+    setTreeXp(newVal: (await GroupService.firebase().getTreeXp(groupId: groupId)), listen: false);
     setIsAnswerOpen(newVal: await GroupService.firebase().checkIfAnswerShouldBeOpen(groupId: groupId), listen: false);
     if(userId != null && todayGroupQuestionId != null){
       setHasAnswered(newVal: await GroupService.firebase().hasAnsweredTheQuestion(groupId: groupId, userId: userId, questionId: todayGroupQuestionId));

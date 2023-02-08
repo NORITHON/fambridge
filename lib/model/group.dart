@@ -28,7 +28,7 @@ class Group{
       userIdsInGroup: snapshot[userIdsInGroupFieldName].cast<String>(),
       userCount: snapshot[userCountFieldName] ?? 0,
       todayGroupQuestionId: snapshot[todayGroupQuestionIdFieldName], 
-      treeXp: snapshot[treeXpFieldName] ?? 0,
+      treeXp: snapshot[treeXpFieldName] == null ? 0 : snapshot[treeXpFieldName] is int ? (snapshot[treeXpFieldName] as int).toDouble() : snapshot[treeXpFieldName],
     );
   }
 }

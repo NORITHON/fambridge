@@ -5,6 +5,8 @@ import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 
+List<String> names = ["첫째", "둘째", "엄마", "아빠", "셋째"];
+
 class CommentBuilder extends StatelessWidget {
   const CommentBuilder({
     Key? key,
@@ -14,20 +16,22 @@ class CommentBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: ((context, index) {
-        return const Comment();
+        return Comment(name: names[index],);
       }),
       separatorBuilder: ((context, index) {
         return const Divider(height: 2,);
       }),
-      itemCount: 10,
+      itemCount: names.length,
     );
   }
 }
 
 class Comment extends StatelessWidget {
   const Comment({
-    Key? key,
+    Key? key, required this.name,
   }) : super(key: key);
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class Comment extends StatelessWidget {
             CircleProfile(size: 25),
             const SizedBox(width: 10),
             Text(
-              "첫째",
+              name,
               style: getMediumStyle(
                 color: ColorManager.lightGrey,
                 fontSize: 14,
