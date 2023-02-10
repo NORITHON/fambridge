@@ -22,8 +22,7 @@ class _second_delayState extends State<second_delayView> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
-      Get.put(AnswerViewModel()).init(groupId: AuthService.nonSyncronizedUser!.groupId!);
+    Timer(const Duration(seconds: 2), () {
       Get.offAllNamed(Routes.homeRoute);
     });
   }
@@ -31,38 +30,36 @@ class _second_delayState extends State<second_delayView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 220),
-              const FamilyList(),
-              const SizedBox(
-                height: 50,
+      body: Padding(
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 220),
+            const FamilyList(),
+            const SizedBox(
+              height: 50,
+            ),
+            Text(
+              "가장 가깝지만 멀었던",
+              textAlign: TextAlign.center,
+              style: getMediumStyle(
+                color: ColorManager.point,
+                fontSize: FontSize.s16,
               ),
-              Text(
-                "가장 가깝지만 멀었던",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.point,
-                  fontSize: FontSize.s16,
-                ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "'우리'를 알아가는 시간을 보내세요",
+              textAlign: TextAlign.center,
+              style: getMediumStyle(
+                color: ColorManager.point,
+                fontSize: FontSize.s16,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                "'우리'를 알아가는 시간을 보내세요",
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: ColorManager.point,
-                  fontSize: FontSize.s16,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -92,9 +89,9 @@ class FamilyList extends StatelessWidget {
 }
 
 class FamilyMember extends StatelessWidget {
-  String type;
-  String profile;
-  FamilyMember({
+  final String type;
+  final String profile;
+  const FamilyMember({
     required this.type,
     required this.profile,
     Key? key,
@@ -105,7 +102,7 @@ class FamilyMember extends StatelessWidget {
     return Column(
       children: [
         CircleProfile(size: 44, profile: profile),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(

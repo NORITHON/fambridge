@@ -1,4 +1,4 @@
-import 'package:fambridge/service/group/group_service.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -31,13 +31,4 @@ class AnswerViewModel extends GetxController {
     if(listen) update();
   }
 
-  Future<void> init({required String groupId, String? userId, String? todayGroupQuestionId}) async {
-    setTreeXp(newVal: (await GroupService.firebase().getTreeXp(groupId: groupId)), listen: false);
-    setIsAnswerOpen(newVal: await GroupService.firebase().checkIfAnswerShouldBeOpen(groupId: groupId), listen: false);
-    if(userId != null && todayGroupQuestionId != null){
-      setHasAnswered(newVal: await GroupService.firebase().hasAnsweredTheQuestion(groupId: groupId, userId: userId, questionId: todayGroupQuestionId));
-    } else{
-      setHasAnswered(newVal: null); 
-    }
-  }
 }

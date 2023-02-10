@@ -1,16 +1,22 @@
+import 'dart:developer';
+
+import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/familyCode/widget/input_code_field.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/service/crud/group_state_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
-import '../../constants/enums/family_role.dart';
+import '../../app/app.dart';
+import '../../app/constants/enums/family_role.dart';
 import '../../service/auth/auth_service.dart';
-import '../../service/group/group_service.dart';
+import '../../service/crud/group_service.dart';
 import '../../service/question/question_service.dart';
 import '../utilities/loading_dialog.dart';
 
@@ -150,21 +156,26 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
               ),
               onPressed: () async {
                 loadingDialog(context);
+                try{
                 final user = await AuthService.firebase().currentUser;
-                final question =
-                    await QuestionService.firebase().getNextQuestion();
-                final group = await GroupService.firebase().createNewGroup(
-                    groupName: "groupName",
-                    creatorUserId: user!.id,
-                    question: question,
-                    );
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.familyGroupCodeFieldname] = const Uuid().v4();
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.groupIdFieldName] = const Uuid().v4();
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.groupNameFieldName] = "group";
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.joinedUserIdsFieldName] = [user!.id];
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName] = 5;
+                GroupStateProvider().newGroupInfo[GroupFirestoreFieldName.treeXpFieldName] = 0;
+                final group = await GroupService.firebase().createNewGroup();
                 await AuthService.firebase().addAuthToDatabase(
+                  authUser: user,
                     name: "shinhoo",
                     familyRole: FamilyRole.son,
                     birthOrder: 1,
-                    groupId: group.groupId);
-                AuthService.nonSyncronizedUser =
+                    groupId: group.familyGroupId);
+                  MyApp.unsyncronizedAuthUser =
                     await AuthService.firebase().currentUser;
+                } catch(e){
+                  log(e.toString());
+                }
                 Get.back();
                 Get.toNamed(Routes.firstDelayRoute);
               },

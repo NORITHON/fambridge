@@ -1,6 +1,8 @@
 import 'dart:developer';
 
-import 'package:fambridge/constants/enums/family_role.dart';
+import 'package:fambridge/app/app.dart';
+import 'package:fambridge/app/constants/app_state_fieldname/auth_state.dart';
+import 'package:fambridge/app/constants/enums/family_role.dart';
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/home/view_model.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
@@ -10,7 +12,8 @@ import 'package:fambridge/presentation/resources/strings_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/presentation/utilities/loading_dialog.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-import 'package:fambridge/service/group/group_service.dart';
+import 'package:fambridge/service/crud/firebase_provider.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:fambridge/service/question/question_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -122,22 +125,13 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: () async {
                 loadingDialog(context);
-                await AuthService.firebase().logIn();
-                final user = await AuthService.firebase().currentUser;
-                if (user!.name == null) {
+                MyApp.unsyncronizedAuthUser = await AuthService.firebase().logIn();
+                if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
                   Get.back();
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else{
-                  AuthService.nonSyncronizedUser = user;
-                  final question = await GroupService.firebase().getTodayGroupQuestion(groupId: user.groupId!);
-                  Get.put(AnswerViewModel())
-                      .init(
-                          groupId: user.groupId!,
-                          userId: user.id,
-                          todayGroupQuestionId: question.groupQuestionId)
-                      .then((_) => Get.offAllNamed(Routes.homeRoute));
+                  Get.offAllNamed(Routes.homeRoute);
                 }
-                
               },
               child: const Text(
                 AppStrings.login,

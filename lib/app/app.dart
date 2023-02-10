@@ -1,16 +1,25 @@
+import 'package:fambridge/model/auth_user.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import '../presentation/resources/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
+import 'constants/app_state_fieldname/auth_state.dart';
+
 @immutable
 class MyApp extends StatefulWidget {
-  MyApp._internal(); // private named constructor
-  int appState = 0;
+  MyApp._internal();
   static final MyApp instance =
       MyApp._internal(); // single instance -- singleton
 
   factory MyApp() => instance; // factory for the class instance
+
+  static final Map<String, Map<String, dynamic>> appState = {
+    authStateFieldName : {
+      hasGroupFieldName: false,
+    },
+  };
+  static AuthUser? unsyncronizedAuthUser;
 
   @override
   _MyAppState createState() => _MyAppState();

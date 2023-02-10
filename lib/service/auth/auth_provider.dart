@@ -1,8 +1,9 @@
 // provide FirebaseAuth user
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import '../../constants/enums/family_role.dart';
+import '../../app/constants/enums/family_role.dart';
 import '../../model/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
@@ -15,13 +16,15 @@ abstract class AuthProvider {
     required String password,
   });
   Future<void> logOut();
-  Future<void> addAuthToDatabase({
+  Future<AuthUser?> addAuthToDatabase({
     required String name,
     required FamilyRole familyRole,
-    required int birthOrder,
+    required AuthUser? authUser,
+    int? birthOrder,
     String? groupId,
   });
   Future<firebase_auth.UserCredential> signInWithGoogle();
   Stream<User?> getAuthStateChanges();
   Future<void> sendEmailVerification();
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetUserFromFirestore({required String userId});
 }

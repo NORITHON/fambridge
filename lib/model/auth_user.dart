@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth show User;
 import 'package:flutter/foundation.dart';
 
-import '../constants/enums/family_role.dart';
-import '../constants/database_fieldname/firebase_fieldname.dart';
+import '../app/constants/enums/family_role.dart';
 
 @immutable
 class AuthUser {
+  final String? docId;
   final String id;
   final String? name;
   final FamilyRole? familyRole;
@@ -23,6 +23,7 @@ class AuthUser {
     this.birthOrder,
     this.registerTime,
     this.groupId,
+    this.docId,
   });
 
   // create authuser from firebase user
@@ -32,15 +33,16 @@ class AuthUser {
   );
 
   factory AuthUser.fromSnapshot(
-      DocumentSnapshot<Map<String, dynamic>> snap) {
-        var snapshot = snap.data() as Map<String, dynamic>;
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+        var snapshotData = snapshot.data() as Map<String, dynamic>;
     return AuthUser(
-      id: snapshot[userIdFieldName], 
-      name: snapshot[userNameFieldName], 
-      familyRole: _castStringToFamiltyRole(snapshot[userFamilyRoleFieldName]), 
-      registerTime: snapshot[userRegisterTimeFieldName] as Timestamp,
-      birthOrder: snapshot[userBirthOrderFieldName],
-      groupId: snapshot[userGroupIdFieldName],
+      docId: snapshot.id,
+      id: snapshotData[AuthUserFirestoreFieldName.userIdFieldName], 
+      name: snapshotData[AuthUserFirestoreFieldName.userNameFieldName], 
+      familyRole: _castStringToFamiltyRole(snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName]), 
+      registerTime: snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName] as Timestamp,
+      birthOrder: snapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
+      groupId: snapshotData[AuthUserFirestoreFieldName.userGroupIdFieldName],
     );
   }
   
@@ -52,4 +54,13 @@ class AuthUser {
     }
     return null;
   }
+}
+
+class AuthUserFirestoreFieldName{
+  static const String userIdFieldName = 'user-id';
+  static const String userNameFieldName = 'name';
+  static const String userFamilyRoleFieldName = 'family-role';
+  static const String userBirthOrderFieldName = 'birth-order';
+  static const String userRegisterTimeFieldName = 'register-time';
+  static const String userGroupIdFieldName = 'group-id';
 }

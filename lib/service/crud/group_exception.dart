@@ -7,3 +7,5 @@ class GroupQuestionNotFoundGroupException implements Exception{
 class GenericGroupException implements Exception{
 
 }
+
+class CannotFindMatchingQuestionFromQuestionResException implements Exception{}

@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:fambridge/constants/enums/family_role.dart';
+import 'package:fambridge/app/constants/enums/family_role.dart';
 
+import '../../app/app.dart';
 import 'firebase_auth_provider.dart';
 import 'auth_provider.dart';
 import '../../model/auth_user.dart';
@@ -13,6 +15,8 @@ class AuthService implements AuthProvider {
   factory AuthService.firebase() => AuthService(FirebaseAuthProvider());
   factory AuthService.mockTesting(AuthProvider p) => AuthService(p);
 
+  static AuthUser? nonSyncronizedUser;
+
   @override
   Future<AuthUser> createUser({
     required String email,
@@ -23,11 +27,19 @@ class AuthService implements AuthProvider {
   @override
   Future<AuthUser?> get currentUser => provider.currentUser;
 
-  static AuthUser? nonSyncronizedUser;
+  
 
   @override
-  Future<AuthUser> logIn() =>
-      provider.logIn();
+  Future<AuthUser> logIn() async {
+    final user = await provider.logIn();
+    if(await hasAuthbeenAddedInDatabase(userId: user.id)){
+      MyApp.appState['auth-state']!['has-group'] = true;
+      return user;
+    } else{
+      MyApp.appState['auth-state']!['has-group'] = false;
+      return user;
+    }
+  }
 
   @override
   Future<void> logOut() => provider.logOut();
@@ -37,8 +49,14 @@ class AuthService implements AuthProvider {
   Future<void> initialize() => provider.initialize();
 
   @override
-  Future<void> addAuthToDatabase({required String name, required FamilyRole familyRole, required int birthOrder, String? groupId}) =>
-    provider.addAuthToDatabase(name: name, familyRole: familyRole, birthOrder: birthOrder, groupId: groupId);
+  Future<AuthUser?> addAuthToDatabase({
+    required String name,
+    required FamilyRole familyRole,
+    required AuthUser? authUser,
+    int? birthOrder,
+    String? groupId,
+  }) =>
+    provider.addAuthToDatabase(name: name, familyRole: familyRole, birthOrder: birthOrder, groupId: groupId, authUser: authUser);
 
   @override
   Future<UserCredential> signInWithGoogle() => provider.signInWithGoogle();
@@ -48,4 +66,12 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> sendEmailVerification() => provider.sendEmailVerification();
+
+  Future<bool> hasAuthbeenAddedInDatabase({required String userId}) async {
+    return (await maybeGetUserFromFirestore(userId: userId)) != null;
+  }
+  
+  @override
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetUserFromFirestore({required String userId}) => provider.maybeGetUserFromFirestore(userId: userId);
+  
 }

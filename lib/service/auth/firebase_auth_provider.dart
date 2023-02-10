@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fambridge/constants/database_fieldname/firebase_collection_name.dart';
+import 'package:fambridge/app/constants/database_fieldname/firebase_collection_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../constants/database_fieldname/firebase_fieldname.dart';
-import '../../constants/enums/family_role.dart';
+import '../../app/constants/enums/family_role.dart';
 import '../../firebase_options.dart';
 
 import 'auth_exceptions.dart';
@@ -14,7 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 class FirebaseAuthProvider implements AuthProvider {
   final authCollection =
-         FirebaseFirestore.instance.collection(userCollectionName);
+      FirebaseFirestore.instance.collection(userCollectionName);
   @override
   Future<AuthUser> createUser({
     required String email,
@@ -48,11 +47,12 @@ class FirebaseAuthProvider implements AuthProvider {
   Future<AuthUser?> get currentUser async {
     final user = firebase_auth.FirebaseAuth.instance.currentUser;
     if (user != null) {
-      final DocumentSnapshot<Map<String, dynamic>> snap = await authCollection.doc(user.uid).get();
-      if(!snap.exists){
-        return AuthUser.fromFirebase(user);
-      }else{
+      final QueryDocumentSnapshot<Map<String, dynamic>>? snap =
+          await maybeGetUserFromFirestore(userId: user.uid);
+      if (snap != null) {
         return AuthUser.fromSnapshot(snap);
+      } else {
+        return AuthUser.fromFirebase(user);
       }
     } else {
       return null;
@@ -60,26 +60,41 @@ class FirebaseAuthProvider implements AuthProvider {
   }
 
   @override
-  Future<void> addAuthToDatabase({
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetUserFromFirestore({required String userId}) async {
+    final auth = await authCollection
+          .where(AuthUserFirestoreFieldName.userIdFieldName, isEqualTo: userId).get();
+    if(auth.docs.isNotEmpty){
+      return auth.docs.first;
+    }
+    return null;
+  }
+
+  Future<bool> hasAuthbeenAddedInDatabase({required String userId}) async {
+    return (await maybeGetUserFromFirestore(userId: userId)) != null;
+  }
+
+  @override
+  Future<AuthUser?> addAuthToDatabase({
     required String name,
     required FamilyRole familyRole,
-    required int birthOrder,
+    required AuthUser? authUser,
+    int? birthOrder,
     String? groupId,
   }) async {
-    final AuthUser? user = await currentUser;
-    if(user != null){
-      if(user.name == null){
-        await authCollection.doc(user.id).set({
-          userIdFieldName: user.id,
-          userNameFieldName: name,
-          userFamilyRoleFieldName: familyRole.toString(),
-          userBirthOrderFieldName: birthOrder,
-          userGroupIdFieldName: groupId,
-          userRegisterTimeFieldName: FieldValue.serverTimestamp(),
-        });
-      }
-    }
+    if (authUser == null) return null;
+    if (await hasAuthbeenAddedInDatabase(userId: authUser.id)) return null;
+    
+    final docRef = await authCollection.add({
+      AuthUserFirestoreFieldName.userIdFieldName: authUser.id,
+      AuthUserFirestoreFieldName.userNameFieldName: name,
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.toString(),
+      AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder,
+      AuthUserFirestoreFieldName.userGroupIdFieldName: groupId,
+      AuthUserFirestoreFieldName.userRegisterTimeFieldName: FieldValue.serverTimestamp(),
+    });
+    return AuthUser.fromSnapshot(await docRef.get());
   }
+  
 
   @override
   Future<firebase_auth.UserCredential> signInWithGoogle() async {
@@ -96,14 +111,24 @@ class FirebaseAuthProvider implements AuthProvider {
       idToken: googleAuth?.idToken,
     );
     // Once signed in, return the UserCredential
-    return await firebase_auth.FirebaseAuth.instance.signInWithCredential(credential);
+    return await firebase_auth.FirebaseAuth.instance
+        .signInWithCredential(credential);
   }
 
+  Future<void> deleteUserInfo() async {
+    final user = firebase_auth.FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      await logIn();
+      deleteUserInfo();
+    } else {
+      await user.delete();
+    }
+  }
 
   @override
   Future<AuthUser> logIn() async {
     try {
-      final u = await signInWithGoogle();
+      await signInWithGoogle();
       final AuthUser? user = await currentUser;
       if (user != null) {
         return user;
@@ -147,9 +172,10 @@ class FirebaseAuthProvider implements AuthProvider {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   }
-  
+
   @override
-  Stream<firebase_auth.User?> getAuthStateChanges() => FirebaseAuth.instance.authStateChanges();
+  Stream<firebase_auth.User?> getAuthStateChanges() =>
+      FirebaseAuth.instance.authStateChanges();
 
   @override
   Future<void> sendEmailVerification() async {

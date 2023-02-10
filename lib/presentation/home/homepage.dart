@@ -1,10 +1,12 @@
+import 'package:fambridge/app/app.dart';
+import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/splash/splash.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-import 'package:fambridge/service/group/group_service.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -34,18 +36,35 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: ColorManager.white,
-          child: Column(
-            children: [
-              Top(),
-              const GrowingTree(),
-              const Bottom(),
-            ],
-          ),
-        ),
-      ),
+      body: MyApp.unsyncronizedAuthUser == null
+          ? const Center(
+              child: Text("cannot find login info"),
+            )
+          : StreamBuilder<Group>(
+              stream: GroupService.firebase()
+                  .getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!),
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("cannot find family group info"),
+                      );
+                    }
+                    return Column(
+                      children: [
+                        Top(
+                          group: snapshot.data!,
+                        ),
+                        GrowingTree(group: snapshot.data!),
+                        Bottom(group: snapshot.data!),
+                      ],
+                    );
+                  default:
+                    return const CircularProgressIndicator();
+                }
+              }),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -96,15 +115,18 @@ class _HomeViewState extends State<HomeView> {
 class Bottom extends StatelessWidget {
   const Bottom({
     Key? key,
+    required this.group,
   }) : super(key: key);
+
+  final Group group;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomCenter,
-      children: const [
-        BottomSheetBackground(),
-        QuestionSheetWithAnswerButton(),
+      children: [
+        const BottomSheetBackground(),
+        QuestionSheetWithAnswerButton(group: group),
       ],
     );
   }
@@ -133,28 +155,31 @@ class BottonSheetFrame extends StatelessWidget {
 }
 
 class QuestionSheetWithAnswerButton extends StatelessWidget {
-  const QuestionSheetWithAnswerButton({super.key});
+  const QuestionSheetWithAnswerButton({super.key, required this.group});
+
+  final Group group;
 
   @override
   Widget build(BuildContext context) {
     return BottonSheetFrame(
-        child: Column(
-      children: [
-        const QuestionSheet(),
-        const SizedBox(height: AppSize.s35),
-        AnswerButton(onPressed: () {
-          Get.toNamed(Routes.answerQuestionRoute);
-        }),
-      ],
-    ));
+      child: Column(
+        children: [
+          QuestionSheet(group: group),
+          const SizedBox(height: AppSize.s35),
+          AnswerButton(
+            onPressed: () {
+              Get.toNamed(Routes.answerQuestionRoute);
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
 
 class Top extends StatelessWidget {
-  String point = "326";
-
-  Top({super.key});
-
+  const Top({super.key, required this.group});
+  final Group group;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -170,32 +195,19 @@ class Top extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
               child: Text(
-                "'우리'나무",
+                group.groupName,
                 style: getMediumStyle(
                   color: ColorManager.darkGrey,
                   fontSize: 20,
                 ),
               ),
             ),
-            FutureBuilder(
-              future: GroupService.firebase()
-                  .getTreeXp(groupId: AuthService.nonSyncronizedUser!.groupId!),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.done:
-                    return Text(
-                      "${snapshot.data}p",
-                      style: getBoldStyle(
-                        color: ColorManager.darkGrey,
-                        fontSize: 20,
-                      ),
-                    );
-                  default:
-                    return CircularProgressIndicator(
-                      color: ColorManager.point,
-                    );
-                }
-              },
+            Text(
+              "${group.treeXp}p",
+              style: getBoldStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 20,
+              ),
             ),
           ],
         ),

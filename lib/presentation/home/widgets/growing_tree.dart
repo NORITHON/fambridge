@@ -1,14 +1,22 @@
+import 'dart:developer';
+
+import 'package:fambridge/model/group.dart';
+import 'package:fambridge/presentation/utilities/loading_dialog.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:flutter/material.dart';
 
 import '../../resources/assets_manager.dart';
-import '../../resources/color_manager.dart';
 
 class GrowingTree extends StatefulWidget {
   const GrowingTree({
     Key? key,
+    required this.group,
   }) : super(key: key);
+
+  final Group group;
 
   @override
   State<GrowingTree> createState() => _GrowingTreeState();
@@ -39,41 +47,48 @@ class _GrowingTreeState extends State<GrowingTree> {
           artboard.addController(controller);
           _input = controller.findInput('xpForTree');
         }
+        _input!.value = widget.group.treeXp.toDouble();
         setState(() => _riveArtboard = artboard);
       },
     );
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    _input?.value = widget.group.treeXp.toDouble();
     return Expanded(
       child: Center(
         child: _riveArtboard == null
             ? const SizedBox()
-            : GestureDetector(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    Slider(
-                      value: _input!.value,
-                      min: 0,
-                      max: 100,
-                      thumbColor: ColorManager.point,
-                      activeColor: ColorManager.point,
-                      inactiveColor: ColorManager.buttonDisable,
-                      label: _input!.value.round().toString(),
-                      onChanged: (double value) => setState(() {
-                        _input!.value = value;
-                      }),
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
+            : Column(
+                children: [
+                  const SizedBox(height: 10),
+                  GestureDetector(
+                    onVerticalDragEnd: (details) async {
+                      log(details.velocity.pixelsPerSecond.toString());
+                      final int setVal;
+                      if(details.velocity.pixelsPerSecond.dy > 500){
+                        setVal = -1;
+                      } else if(details.velocity.pixelsPerSecond.dy < -500){
+                        setVal = 1;
+                      } else{
+                        setVal = 0;
+                      }
+                      if(setVal != 0) {
+                        await GroupService.firebase().setTreeXp(group: widget.group, setVal: setVal);
+                      }
+                      
+                    },
+                    child: SizedBox(
+                      width: 300.0,
+                      height: 294.8,
                       child: rive.Rive(
                         artboard: _riveArtboard!,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
       ),
     );

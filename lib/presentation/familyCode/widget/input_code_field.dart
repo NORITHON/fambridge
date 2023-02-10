@@ -1,12 +1,12 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:fambridge/service/group/group_exception.dart';
-import 'package:fambridge/service/group/group_service.dart';
+import 'package:fambridge/service/crud/group_exception.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../constants/enums/family_role.dart';
+import '../../../app/constants/enums/family_role.dart';
 import '../../../service/auth/auth_service.dart';
 import '../../utilities/loading_dialog.dart';
 
@@ -80,12 +80,13 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
       if(groupId == null) return;
       try {
         loadingDialog(context);
-        var result = await GroupService.firebase().getGroup(groupId: groupId);
+        final user = await AuthService.firebase().currentUser;
         await AuthService.firebase().addAuthToDatabase(
+          groupId: groupId,
+          authUser: user,
                     name: "shinhoo",
                     familyRole: FamilyRole.son,
-                    birthOrder: 1,
-                    groupId: result!.groupId);
+                    birthOrder: 1,);
         AuthService.nonSyncronizedUser = await AuthService.firebase().currentUser;
         Get.back();
         Get.toNamed(Routes.secondDelayRoute);
