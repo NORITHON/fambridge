@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:fambridge/presentation/home/view_model.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
-import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';

@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 import '../../../model/group.dart';
-import '../../../service/auth/auth_service.dart';
-import '../../../service/crud/group_service.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
-import '../view_model.dart';
 import 'answer_progress_indicator.dart';
 
 class AnswerProgressIndicatorWithTitle extends StatelessWidget {
   const AnswerProgressIndicatorWithTitle({
-    Key? key, required this.group,
+    Key? key,
+    required this.group,
   }) : super(key: key);
 
   final Group group;

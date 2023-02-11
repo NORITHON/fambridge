@@ -1,10 +1,10 @@
+import 'package:fambridge/presentation/pages/home/homepage.dart';
+import 'package:fambridge/presentation/pages/home/view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 
 import '../../resources/values_manager.dart';
-import '../homepage.dart';
-import '../view_model.dart';
 import 'answer_bottom_sheet.dart';
 import 'answer_list.dart';
 

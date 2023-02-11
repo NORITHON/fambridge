@@ -1,24 +1,15 @@
-import 'dart:developer';
-
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/app_state_fieldname/auth_state.dart';
-import 'package:fambridge/app/constants/enums/family_role.dart';
-import 'package:fambridge/presentation/common/custom_textfield.dart';
-import 'package:fambridge/presentation/home/view_model.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
+import 'package:fambridge/presentation/component/custom_textfield.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/strings_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/presentation/utilities/loading_dialog.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-import 'package:fambridge/service/crud/firebase_provider.dart';
-import 'package:fambridge/service/crud/group_service.dart';
-import 'package:fambridge/service/question/question_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../resources/styles_manager.dart';
 import '../splash/splash.dart';
 
 class LoginView extends StatefulWidget {
@@ -89,7 +80,8 @@ class _LoginFormState extends State<LoginForm> {
             style: getRegularStyle(color: ColorManager.darkGrey),
           ),
           const SizedBox(height: AppPadding.p14),
-          CustomTextfield(hintText: AppStrings.loginId, controller: idController),
+          CustomTextfield(
+              hintText: AppStrings.loginId, controller: idController),
           const SizedBox(
             height: AppPadding.p8,
           ),
@@ -125,11 +117,12 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: () async {
                 loadingDialog(context);
-                MyApp.unsyncronizedAuthUser = await AuthService.firebase().logIn();
+                MyApp.unsyncronizedAuthUser =
+                    await AuthService.firebase().logIn();
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
                   Get.back();
                   Get.toNamed(Routes.inputFamilyCodeRoute);
-                } else{
+                } else {
                   Get.offAllNamed(Routes.homeRoute);
                 }
               },

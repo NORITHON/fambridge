@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class SpecialHeart extends StatelessWidget {
-const SpecialHeart({ Key? key }) : super(key: key);
+  const SpecialHeart({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container();
   }
 }

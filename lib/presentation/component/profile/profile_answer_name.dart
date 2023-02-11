@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class ProfileAnswerName extends StatelessWidget {
-const ProfileAnswerName({ Key? key }) : super(key: key);
+  const ProfileAnswerName({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container();
   }
 }

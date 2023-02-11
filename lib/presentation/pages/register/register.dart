@@ -1,9 +1,9 @@
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/utilities/show_error_dialog.dart';
+import 'package:fambridge/service/auth/auth_exceptions.dart';
+import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../service/auth/auth_exceptions.dart';
-import '../../service/auth/auth_service.dart';
-import '../utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -74,10 +74,8 @@ class _RegisterViewState extends State<RegisterView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                await AuthService.firebase().createUser(
-                  email: email, 
-                  password: password
-                );
+                await AuthService.firebase()
+                    .createUser(email: email, password: password);
                 await AuthService.firebase().sendEmailVerification();
                 await Get.toNamed(Routes.verifyEmailRoute);
               } on WeakPasswordAuthException {
@@ -89,7 +87,8 @@ class _RegisterViewState extends State<RegisterView> {
               } on GenericAuthException {
                 await showErrorDialog(context, "Failed to register");
               } catch (e) {
-                await showErrorDialog(context, "unknown error occured \nerror message: $e");
+                await showErrorDialog(
+                    context, "unknown error occured \nerror message: $e");
               }
             },
             child: const Text('register'),

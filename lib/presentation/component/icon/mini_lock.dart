@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class MiniLock extends StatelessWidget {
-const MiniLock({ Key? key }) : super(key: key);
+  const MiniLock({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container();
   }
 }

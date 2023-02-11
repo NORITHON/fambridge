@@ -1,22 +1,20 @@
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
+import 'package:fambridge/presentation/component/widgets/answer_button.dart';
+import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
+import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
+import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
+import 'package:fambridge/presentation/pages/splash/splash.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:fambridge/presentation/splash/splash.dart';
+import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../resources/font_manager.dart';
-import '../resources/values_manager.dart';
-import 'widgets/answer_button.dart';
-import 'widgets/buttom_sheet_background.dart';
-import 'widgets/growing_tree.dart';
-import 'widgets/question_sheet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

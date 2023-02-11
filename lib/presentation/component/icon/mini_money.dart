@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 class MiniMoney extends StatelessWidget {
-const MiniMoney({ Key? key }) : super(key: key);
+  const MiniMoney({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container();
   }
 }

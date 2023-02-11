@@ -1,10 +1,10 @@
+import 'package:fambridge/presentation/resources/assets_manager.dart';
+import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/resources/strings_manager.dart';
+import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:get/get.dart';
 
-import '../resources/assets_manager.dart';
-import '../resources/color_manager.dart';
-import '../resources/strings_manager.dart';
-import '../resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
