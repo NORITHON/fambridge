@@ -38,6 +38,10 @@ android {
         jvmTarget = '1.8'
     }
 
+    android {
+        ndkVersion "25.1.8937393"
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
