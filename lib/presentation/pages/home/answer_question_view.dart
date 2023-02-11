@@ -1,7 +1,9 @@
+import 'package:fambridge/presentation/component/question/list_title.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/blurred_answer_list.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,7 +39,8 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
           elevation: 1,
           shadowColor: ColorManager.shadowColor,
         ),
-        body: Column(children: const [
+        body: const Column(children: [
+          ListTitle(),
           //QuestionSheet(),
           SizedBox(
             height: AppPadding.p20,
