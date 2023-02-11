@@ -1,7 +1,8 @@
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
+import 'package:fambridge/presentation/component/bar/bottom_nav.dart';
 import 'package:fambridge/presentation/component/logo/homelogo.dart';
-import 'package:fambridge/presentation/component/profile/home_profile.dart';
+import 'package:fambridge/presentation/component/logo/home_profile.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
@@ -64,41 +65,9 @@ class _HomeViewState extends State<HomeView> {
                     return const CircularProgressIndicator();
                 }
               }),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              "assets/images/Home.svg",
-              width: 25,
-              height: 25,
-            ),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/Dashboard.svg",
-                width: 25,
-                height: 25,
-              ),
-              label: "리스트"),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/Store.svg",
-                width: 25,
-                height: 25,
-              ),
-              label: "스토어"),
-        ],
-        currentIndex: _selectedIndex,
-        selectedLabelStyle: textStyle.copyWith(
-            fontWeight: FontWeightManager.medium,
-            fontSize: FontSize.s16,
-            height: 2),
-        unselectedLabelStyle: textStyle.copyWith(
-            fontWeight: FontWeightManager.medium, fontSize: FontSize.s16),
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: ColorManager.point,
+      bottomNavigationBar: BottomnavButton(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }
@@ -226,6 +195,27 @@ class TopBar extends StatelessWidget {
         const Spacer(),
         HomeProfile(),
       ],
+    );
+  }
+}
+
+class FambridgeIcon extends StatelessWidget {
+  const FambridgeIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: ColorManager.white,
+      ),
+      child: SvgPicture.asset(
+        ImageAssets.homeLogo,
+        width: 35,
+        height: 35,
+      ),
     );
   }
 }

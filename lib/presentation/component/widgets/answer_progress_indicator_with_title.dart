@@ -25,7 +25,7 @@ class AnswerProgressIndicatorWithTitle extends StatelessWidget {
             fontSize: 12,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         Align(
           alignment: Alignment.center,
           child: AnswerProgressIndicator(total: totalCount, count: answerCount),

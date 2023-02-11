@@ -31,10 +31,10 @@ class _QuestionSheetState extends State<QuestionSheet> {
       children: [
         const SizedBox(height: 15),
         Text(
-          "${widget.group.todayQuestion.questionOrder}번째 질문",
+          "#${widget.group.todayQuestion.questionOrder}",
           style: getMediumStyle(
             color: ColorManager.lightGrey,
-            fontSize: 16,
+            fontSize: 14,
           ),
         ),
         const SizedBox(height: 20),
@@ -42,7 +42,7 @@ class _QuestionSheetState extends State<QuestionSheet> {
           widget.group.todayQuestion.question.questionScript,
           style: getMediumStyle(color: ColorManager.black, fontSize: 20),
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 35),
         AnswerProgressIndicatorWithTitle(group: widget.group),
       ],
     );
