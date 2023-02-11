@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import '../../resources/color_manager.dart';
@@ -11,7 +10,7 @@ class BottomSheetBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260,
+      height: 250,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           //배경 그라데이션 적용

@@ -1,3 +1,4 @@
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:flutter/material.dart';
 
 class HomeProfile extends StatelessWidget {
@@ -5,6 +6,8 @@ class HomeProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Image.asset(ImageAssets.userProfile),
+    );
   }
 }

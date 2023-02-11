@@ -1,17 +1,17 @@
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
+import 'package:fambridge/presentation/component/logo/homelogo.dart';
+import 'package:fambridge/presentation/component/profile/home_profile.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
 import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
-import 'package:fambridge/presentation/pages/splash/splash.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
-import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -189,7 +189,7 @@ class Top extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
-            const TopIconBar(),
+            const TopBar(),
             const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
@@ -215,71 +215,17 @@ class Top extends StatelessWidget {
   }
 }
 
-class TopIconBar extends StatelessWidget {
-  const TopIconBar({super.key});
+class TopBar extends StatelessWidget {
+  const TopBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const FambridgeIcon(),
-        const SizedBox(width: 12),
-        FittedBox(
-          child: Text(
-            "Fambridge",
-            style: getBoldStyle(color: ColorManager.darkGrey, fontSize: 16),
-          ),
-        ),
+        HomelogoWithText(),
         const Spacer(),
-        Image.asset(ImageAssets.userProfile),
+        HomeProfile(),
       ],
-    );
-  }
-}
-
-class FambridgeIcon extends StatelessWidget {
-  const FambridgeIcon({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: ColorManager.white,
-      ),
-      child: SvgPicture.asset(
-        ImageAssets.homeLogo,
-        width: 35,
-        height: 35,
-      ),
-    );
-  }
-}
-
-class profileFrameForSvg extends StatelessWidget {
-  String asset;
-  profileFrameForSvg({
-    Key? key,
-    required this.asset,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(0.0),
-      child: IconButton(
-        iconSize: 40,
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        icon: SvgPicture.asset(
-          asset,
-          width: 40,
-          height: 40,
-        ),
-        onPressed: () {}, //do something,
-      ),
     );
   }
 }
