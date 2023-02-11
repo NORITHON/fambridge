@@ -5,6 +5,7 @@ import 'package:fambridge/presentation/component/widgets/buttom_sheet_background
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
 import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
 import 'package:fambridge/presentation/pages/splash/splash.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -222,20 +223,15 @@ class TopIconBar extends StatelessWidget {
     return Row(
       children: [
         const FambridgeIcon(),
-        const SizedBox(width: 15),
+        const SizedBox(width: 12),
         FittedBox(
           child: Text(
             "Fambridge",
-            style: getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
+            style: getBoldStyle(color: ColorManager.darkGrey, fontSize: 16),
           ),
         ),
         const Spacer(),
-        IconButton(
-            onPressed: () {
-              AuthService.firebase().logOut();
-              Get.offAllNamed(Routes.loginRoute);
-            },
-            icon: const Icon(Icons.logout))
+        Image.asset(ImageAssets.userProfile),
       ],
     );
   }
@@ -249,21 +245,14 @@ class FambridgeIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(7),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: ColorManager.white,
-        boxShadow: [
-          BoxShadow(
-            color: ColorManager.darkGrey.withOpacity(0.25),
-            spreadRadius: 5,
-            blurRadius: 10,
-            offset: const Offset(1, 1),
-          ),
-        ],
       ),
-      child: const AppLogo(
-        size: AppSize.s40,
+      child: SvgPicture.asset(
+        ImageAssets.homeLogo,
+        width: 35,
+        height: 35,
       ),
     );
   }
