@@ -83,40 +83,36 @@ class _TapbarView extends StatelessWidget {
       controller: _tabController,
       children: [
         //전체 목록
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: ListView.separated(
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                return QuestListComponent(
-                  number: index,
-                  question: "이것은 질문입니다.",
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(
-                height: 8,
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: ListView.separated(
+            itemCount: 7,
+            itemBuilder: (context, index) {
+              return QuestListComponent(
+                number: index,
+                question: "이것은 질문입니다.",
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(
+              height: 8,
             ),
           ),
         ),
         //저장 목록
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: ListView.separated(
-              itemCount: 7,
-              itemBuilder: (context, index) {
-                return QuestListComponent(
-                  number: index,
-                  question: "이것은 질문입니다.",
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const SizedBox(
-                height: 8,
-              ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: ListView.separated(
+            itemCount: 7,
+            itemBuilder: (context, index) {
+              return QuestListComponent(
+                number: index,
+                question: "이것은 질문입니다.",
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(
+              height: 8,
             ),
           ),
         ),
@@ -136,42 +132,40 @@ class _TapBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TabBar(
-        tabs: [
-          Container(
-            height: 60,
-            alignment: Alignment.center,
-            child: const Text(
-              '전체',
-            ),
-          ),
-          Container(
-            height: 60,
-            alignment: Alignment.center,
-            child: const Text(
-              '저장',
-            ),
-          ),
-        ],
-        indicator: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(width: 3, color: ColorManager.point),
-          ),
-          gradient: LinearGradient(
-            //배경 그라데이션 적용
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.white,
-              Colors.orange.withOpacity(0.1),
-            ],
+    return TabBar(
+      tabs: [
+        Container(
+          height: 60,
+          alignment: Alignment.center,
+          child: const Text(
+            '전체',
           ),
         ),
-        labelColor: Colors.black,
-        unselectedLabelColor: Colors.grey,
-        controller: _tabController,
+        Container(
+          height: 60,
+          alignment: Alignment.center,
+          child: const Text(
+            '저장',
+          ),
+        ),
+      ],
+      indicator: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(width: 3, color: ColorManager.point),
+        ),
+        gradient: LinearGradient(
+          //배경 그라데이션 적용
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.white,
+            Colors.orange.withOpacity(0.1),
+          ],
+        ),
       ),
+      labelColor: Colors.black,
+      unselectedLabelColor: Colors.grey,
+      controller: _tabController,
     );
   }
 }

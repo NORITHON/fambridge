@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fambridge/app/constants/database_fieldname/firebase_collection_name.dart';
+import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -55,7 +55,7 @@ class FirebaseAuthProvider implements AuthProvider {
         return AuthUser.fromFirebase(user);
       }
     } else {
-      return null;
+      throw  UserNotLoggedInAuthException();
     }
   }
 
@@ -69,9 +69,13 @@ class FirebaseAuthProvider implements AuthProvider {
     return null;
   }
 
+ 
+
   Future<bool> hasAuthbeenAddedInDatabase({required String userId}) async {
     return (await maybeGetUserFromFirestore(userId: userId)) != null;
   }
+
+
 
   @override
   Future<AuthUser?> addAuthToDatabase({

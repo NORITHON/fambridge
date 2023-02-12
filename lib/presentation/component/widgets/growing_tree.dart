@@ -1,10 +1,8 @@
 import 'dart:developer';
 
 import 'package:fambridge/model/group.dart';
-import 'package:fambridge/presentation/utilities/loading_dialog.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:rive/rive.dart' as rive;
 import 'package:flutter/material.dart';
 

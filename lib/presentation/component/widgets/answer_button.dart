@@ -1,17 +1,17 @@
-import 'package:fambridge/presentation/pages/home/view_model.dart';
+import 'package:fambridge/app/app.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
+import '../../../model/group.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 
 class AnswerButton extends StatelessWidget {
   const AnswerButton({
-    Key? key,
-    required this.onPressed,
+    Key? key, required this.onPressed, required this.group,
   }) : super(key: key);
 
-  final VoidCallback onPressed;
+  final VoidCallback onPressed; 
+  final Group group;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +24,14 @@ class AnswerButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              GetBuilder<AnswerViewModel>(
-                init: AnswerViewModel(),
-                builder: (_) => Text(
-                  Get.find<AnswerViewModel>().hasAnswered.value
-                      ? "대답보기"
-                      : "대답하기",
+              Text(
+                  GroupService.firebase().hasUserAnsweredTodayQuestion(group: group, userId: MyApp.unsyncronizedAuthUser!.id) ? "대답보기" : "대답하기",
                   style: getMediumStyle(
                     color: ColorManager.white,
                     fontSize: 16,
                   ),
                 ),
-              ),
+              
               const Icon(Icons.navigate_next),
             ],
           ),

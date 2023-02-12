@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 
 RxInt target = 0.obs;
 
-class checkMyselfView extends StatefulWidget {
-  const checkMyselfView({super.key});
+class CheckMyselfView extends StatefulWidget {
+  const CheckMyselfView({super.key});
 
   @override
   _checkMyselfState createState() => _checkMyselfState();
 }
 
-class _checkMyselfState extends State<checkMyselfView> {
+class _checkMyselfState extends State<CheckMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +38,7 @@ class _checkMyselfState extends State<checkMyselfView> {
                 ),
               ),
               const SizedBox(height: 85),
-              ChoiceForm(),
+              const ChoiceForm(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -133,7 +133,7 @@ class _MenberCountButtonState extends State<MenberCountButton> {
           child: FittedBox(
             fit: BoxFit.fitWidth,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
               decoration: BoxDecoration(
                 color: widget.index == target.value
                     ? ColorManager.point

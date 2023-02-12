@@ -1,7 +1,6 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fambridge/app/constants/database_fieldname/firebase_collection_name.dart';
+import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';
 import 'package:fambridge/model/answer.dart';
 import 'package:fambridge/model/group_question.dart';
 import 'package:fambridge/model/question_res.dart';
@@ -30,8 +29,9 @@ class FirebaseGroupProvider implements GroupProvider {
         .where(QuestionResFirestoreFieldName.questionOrderFieldName,
             isEqualTo: questionOrder)
         .get();
-    if (snapshot.docs.isEmpty)
+    if (snapshot.docs.isEmpty) {
       throw CannotFindMatchingQuestionFromQuestionResException();
+    }
     return QuestionRes.fromSnapshot(snapshot.docs.first);
   }
 
@@ -92,9 +92,16 @@ class FirebaseGroupProvider implements GroupProvider {
 
   @override
   Stream<Group> getGroup({required String groupId}) {
-    return findGroupReference(groupId).snapshots().map(
-          (docSnap) => Group.fromFirestore(docSnap),
-        );
+    try {
+      return findGroupReference(groupId).snapshots().map(
+            (docSnap) {
+              final group = Group.fromFirestore(docSnap);
+              return group;
+            }
+          );
+    } catch (_) {
+      rethrow;
+    }
   }
 
   @override
@@ -105,6 +112,19 @@ class FirebaseGroupProvider implements GroupProvider {
         (event) => event.docs.map((doc) => GroupQuestion.fromFirestore(doc)));
   }
 
+   @override
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetGroupFromFirestore({required String groupId}) async {
+    final groups = await groupCollection
+          .where(GroupFirestoreFieldName.groupIdFieldName, isEqualTo: groupId).get();
+    if(groups.docs.isNotEmpty){
+      return groups.docs.first;
+    }
+    return null;
+  }
+
+  Future<void> deleteGroupQuestion({required Group group, required String questionIdToDelete}) async {
+    return await getGroupQuestionCollectionRef(group.familyGroupId).doc(questionIdToDelete).delete();
+  }
   @override
   Future<GroupQuestion> addTodayQuestionToGroupQuestion(
       {required String groupId, required GroupQuestion groupQuestion}) async {
@@ -134,11 +154,11 @@ class FirebaseGroupProvider implements GroupProvider {
     return await groupCollection.doc(docId).update({
       GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName:
           totalNumOfFamilyMember ??
-              doc[GroupFirestoreFieldName.todayQuestionFieldName],
+              doc[GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName],
       GroupFirestoreFieldName.groupNameFieldName:
           groupName ?? doc[GroupFirestoreFieldName.groupNameFieldName],
       GroupFirestoreFieldName.todayQuestionFieldName:
-          todayQuestion ?? doc[GroupFirestoreFieldName.todayQuestionFieldName],
+          todayQuestion?.toMap() ?? doc[GroupFirestoreFieldName.todayQuestionFieldName],
       GroupFirestoreFieldName.treeXpFieldName:
           treeXp ?? doc[GroupFirestoreFieldName.treeXpFieldName],
       GroupFirestoreFieldName.joinedUserIdsFieldName: targetUserId == null

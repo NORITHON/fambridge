@@ -1,17 +1,12 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:fambridge/service/crud/group_exception.dart';
-import 'package:fambridge/service/crud/group_provider.dart';
-import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomTextfield extends StatefulWidget {
-  String hintText;
-  TextEditingController controller;
+  final String hintText;
+  final TextEditingController controller;
 
-  CustomTextfield({
+  const CustomTextfield({
     super.key,
     required this.hintText,
     required this.controller,
@@ -34,7 +29,7 @@ class _CustomTextfieldState extends State<CustomTextfield> {
             color: ColorManager.lightGrey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 10,
-            offset: Offset(0, 0), // changes position of shadow
+            offset: const Offset(0, 0), // changes position of shadow
           )
         ],
       ),
@@ -51,15 +46,15 @@ class _CustomTextfieldState extends State<CustomTextfield> {
           fillColor: Colors.white,
           hintText: widget.hintText,
           hintStyle: textStyle,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
           isDense: true,
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent),
               borderRadius: BorderRadius.all(Radius.circular((8)))),
         ),

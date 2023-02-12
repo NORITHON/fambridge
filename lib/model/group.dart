@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../service/crud/group_exception.dart';
 import 'group_question.dart';
 
 class Group {
@@ -28,7 +29,7 @@ class Group {
   factory Group.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot) {
     if (snapshot.data() == null) {
       log("doc snapshot data is null");
-      throw Exception();
+      throw GroupNotFoundGroupException;
     }
     var snapshotData = snapshot.data()!;
     return Group(

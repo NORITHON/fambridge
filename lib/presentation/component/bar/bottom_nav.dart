@@ -15,50 +15,48 @@ class BottomnavButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            "assets/images/Home.svg",
+            width: 24,
+            height: 24,
+          ),
+          label: '홈',
+        ),
+        BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/images/Home.svg",
+              "assets/images/Dashboard.svg",
               width: 24,
               height: 24,
             ),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/Dashboard.svg",
-                width: 24,
-                height: 24,
-              ),
-              label: "리스트"),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                "assets/images/Store.svg",
-                width: 24,
-                height: 24,
-              ),
-              label: "스토어"),
-        ],
-        currentIndex: selectedIndex,
-        // selectedIconTheme: ,
-        // unselectedIconTheme: ,
-        selectedLabelStyle: textStyle.copyWith(
-          fontWeight: FontWeightManager.medium,
-          fontSize: FontSize.s12,
-          height: 3.5,
-        ),
-        unselectedLabelStyle: textStyle.copyWith(
-          fontWeight: FontWeightManager.medium,
-          fontSize: FontSize.s12,
-          height: 3.5,
-        ),
-        onTap: onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: ColorManager.point,
-        selectedIconTheme: IconThemeData(color: ColorManager.point),
+            label: "리스트"),
+        BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              "assets/images/Store.svg",
+              width: 24,
+              height: 24,
+            ),
+            label: "스토어"),
+      ],
+      currentIndex: selectedIndex,
+      // selectedIconTheme: ,
+      // unselectedIconTheme: ,
+      selectedLabelStyle: textStyle.copyWith(
+        fontWeight: FontWeightManager.medium,
+        fontSize: FontSize.s12,
+        height: 3.5,
       ),
+      unselectedLabelStyle: textStyle.copyWith(
+        fontWeight: FontWeightManager.medium,
+        fontSize: FontSize.s12,
+        height: 3.5,
+      ),
+      onTap: onItemTapped,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: ColorManager.point,
+      selectedIconTheme: IconThemeData(color: ColorManager.point),
     );
   }
 }

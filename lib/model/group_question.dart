@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/model/answer.dart';
-import 'package:uuid/uuid.dart';
 import 'question_res.dart';
 
 class GroupQuestion {

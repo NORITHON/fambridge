@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../model/group.dart';
-import '../../../service/auth/auth_service.dart';
-import '../../../service/crud/group_service.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import 'answer_progress_indicator_with_title.dart';
