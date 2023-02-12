@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/app/constants/database_fieldname/firebase_collection_name.dart';
@@ -30,8 +29,9 @@ class FirebaseGroupProvider implements GroupProvider {
         .where(QuestionResFirestoreFieldName.questionOrderFieldName,
             isEqualTo: questionOrder)
         .get();
-    if (snapshot.docs.isEmpty)
+    if (snapshot.docs.isEmpty) {
       throw CannotFindMatchingQuestionFromQuestionResException();
+    }
     return QuestionRes.fromSnapshot(snapshot.docs.first);
   }
 

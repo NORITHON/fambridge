@@ -2,7 +2,6 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/crud/group_exception.dart';
-import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +10,10 @@ import '../../../service/auth/auth_service.dart';
 import '../../utilities/loading_dialog.dart';
 
 class InputCodeTextField extends StatefulWidget {
-  String hintText;
-  TextEditingController controller;
+  final String hintText;
+  final TextEditingController controller;
 
-  InputCodeTextField({
+  const InputCodeTextField({
     super.key,
     required this.hintText,
     required this.controller,

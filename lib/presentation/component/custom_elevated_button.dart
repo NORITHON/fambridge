@@ -1,13 +1,13 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
-class CustumButton extends StatelessWidget {
-  double width;
-  TextEditingController? id;
-  TextEditingController? password;
-  VoidCallback onpress;
+class LoginButton extends StatelessWidget {
+  final double width;
+  final TextEditingController? id;
+  final TextEditingController? password;
+  final VoidCallback onpress;
 
-  CustumButton({
+  LoginButton({
     super.key,
     this.id,
     this.password,
@@ -15,18 +15,18 @@ class CustumButton extends StatelessWidget {
     required this.onpress,
   });
 
-  var textStyle = TextStyle(
+  var textStyle = const TextStyle(
     fontFamily: 'GmarketSans',
   );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: ColorManager.point,
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),

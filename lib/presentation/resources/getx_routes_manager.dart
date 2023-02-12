@@ -3,7 +3,7 @@ import 'package:fambridge/presentation/pages/home/answer_question_view.dart';
 import 'package:fambridge/presentation/pages/home/homepage.dart';
 import 'package:fambridge/presentation/pages/login/login_view.dart';
 import 'package:fambridge/presentation/pages/onboarding/Lastquestion.dart';
-import 'package:fambridge/presentation/pages/onboarding/checkMyself.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself.dart';
 import 'package:fambridge/presentation/pages/onboarding/codesharepage.dart';
 import 'package:fambridge/presentation/pages/onboarding/first_delayonboarding.dart';
 import 'package:fambridge/presentation/pages/onboarding/numbersofFamily.dart';
@@ -104,7 +104,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.checkMyselfRoute,
-    page: () => const checkMyselfView(),
+    page: () => const CheckMyselfView(),
     transition: Transition.downToUp,
   ),
 ];

@@ -150,35 +150,33 @@ class Top extends StatelessWidget {
   final Group group;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const TopBar(),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Text(
-                group.groupName,
-                style: getMediumStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Text(
-              "${group.treeXp}p",
-              style: getBoldStyle(
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 50),
+          const TopBar(),
+          const SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
+            child: Text(
+              group.groupName,
+              style: getMediumStyle(
                 color: ColorManager.darkGrey,
                 fontSize: 20,
               ),
             ),
-          ],
-        ),
+          ),
+          Text(
+            "${group.treeXp}p",
+            style: getBoldStyle(
+              color: ColorManager.darkGrey,
+              fontSize: 20,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -190,9 +188,9 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [
+      children: const [
         HomelogoWithText(),
-        const Spacer(),
+        Spacer(),
         HomeProfile(),
       ],
     );

@@ -40,7 +40,7 @@ class Comment extends StatelessWidget {
       children: [
         Row(
           children: [
-            CircleProfile(size: 25),
+            const CircleProfile(size: 25),
             const SizedBox(width: 10),
             Text(
               name,
@@ -62,8 +62,8 @@ class Comment extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CircleProfile(size: 30),
-            CircleProfile(size: 30),
+            const CircleProfile(size: 30),
+            const CircleProfile(size: 30),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: SvgPicture.asset(ImageAssets.likeOn),
@@ -76,8 +76,8 @@ class Comment extends StatelessWidget {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  CircleProfile({
+  final double size;
+  const CircleProfile({
     Key? key,
     required this.size,
   }) : super(key: key);

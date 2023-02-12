@@ -1,11 +1,6 @@
-import 'package:fambridge/presentation/pages/home/homepage.dart';
-import 'package:fambridge/presentation/pages/home/view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:glass/glass.dart';
 
 import '../../resources/values_manager.dart';
-import 'answer_bottom_sheet.dart';
 import 'answer_list.dart';
 
 class BlurredAnswerList extends StatelessWidget {
@@ -18,8 +13,8 @@ class BlurredAnswerList extends StatelessWidget {
     return Flexible(
       child: Stack(
         alignment: Alignment.bottomCenter,
-        children: [
-          const Padding(
+        children: const [
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: AppPadding.p45),
             child: CommentBuilder(),
           ),
