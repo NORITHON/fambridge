@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../app/app.dart';
+import '../../../app/constants/app_state_fieldname/question_state.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../../resources/values_manager.dart';
@@ -41,7 +43,7 @@ class _AnswerFormBottomSheetState extends State<AnswerFormBottomSheet> {
                 Flexible(
                   child: TextField(
                     onChanged: (script) {
-                      Get.find<AnswerViewModel>().setAnswerScript(newVal: script);
+                      MyApp.appState[questionStateFieldName]![userAnswerTextInputFieldName] = script;
                     },
                     controller: myAnswerTextEditinController,
                     maxLines: 5,
@@ -50,7 +52,6 @@ class _AnswerFormBottomSheetState extends State<AnswerFormBottomSheet> {
                 decoration:  InputDecoration(
                   contentPadding: const EdgeInsets.only(top: 20),
                   hintText: "대답을 입력하세요.",
-                  
                   hintStyle: getMediumStyle(color: ColorManager.lightGrey, fontSize: AppSize.s18),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide.none,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/app_state_fieldname/auth_state.dart';
+import 'package:fambridge/app/constants/app_state_fieldname/group_state.dart';
 import 'package:fambridge/app/constants/enums/family_role.dart';
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/home/view_model.dart';
@@ -125,11 +126,16 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: () async {
                 loadingDialog(context);
+                try{
                 MyApp.unsyncronizedAuthUser = await AuthService.firebase().logIn();
+                } catch(_){
+
+                }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
                   Get.back();
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else{
+                  MyApp.appState[groupStateFieldName]![groupFieldName] = GroupService.firebase().getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!);
                   Get.offAllNamed(Routes.homeRoute);
                 }
               },

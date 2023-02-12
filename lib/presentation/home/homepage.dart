@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
+import 'package:fambridge/presentation/common/group_stream_builder.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -35,36 +38,36 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    log(MyApp.unsyncronizedAuthUser!.groupId!);
     return Scaffold(
       body: MyApp.unsyncronizedAuthUser == null
           ? const Center(
               child: Text("cannot find login info"),
             )
-          : StreamBuilder<Group>(
-              stream: GroupService.firebase()
-                  .getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.active:
-                    if (snapshot.data == null) {
-                      return const Center(
-                        child: Text("cannot find family group info"),
-                      );
-                    }
-                    return Column(
-                      children: [
-                        Top(
-                          group: snapshot.data!,
-                        ),
-                        GrowingTree(group: snapshot.data!),
-                        Bottom(group: snapshot.data!),
-                      ],
+          : GroupStreamBuilder(
+            groupId: MyApp.unsyncronizedAuthUser!.groupId!,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: Text("cannot find family group info"),
                     );
-                  default:
-                    return const CircularProgressIndicator();
-                }
-              }),
+                  }
+                  return Column(
+                    children: [
+                      Top(
+                        group: snapshot.data!,
+                      ),
+                      GrowingTree(group: snapshot.data!),
+                      Bottom(group: snapshot.data!),
+                    ],
+                  );
+                default:
+                  return const CircularProgressIndicator();
+              }
+            }),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -167,6 +170,7 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
           QuestionSheet(group: group),
           const SizedBox(height: AppSize.s35),
           AnswerButton(
+            group: group,
             onPressed: () {
               Get.toNamed(Routes.answerQuestionRoute);
             },
