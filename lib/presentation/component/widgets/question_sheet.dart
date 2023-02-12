@@ -29,7 +29,7 @@ class _QuestionSheetState extends State<QuestionSheet> {
       children: [
         const SizedBox(height: 15),
         Text(
-          "#${widget.group.todayQuestion.questionOrder}",
+          "#${widget.group.todayQuestion.questionOrder} 번째 질문",
           style: getMediumStyle(
             color: ColorManager.lightGrey,
             fontSize: 14,
