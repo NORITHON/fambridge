@@ -44,15 +44,7 @@ class _HomeViewState extends State<HomeView> {
           : GroupStreamBuilder(
             groupId: MyApp.unsyncronizedAuthUser!.groupId!,
             builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.active:
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: Text("cannot find family group info"),
-                    );
-                  }
-                  return Column(
+              return Column(
                     children: [
                       Top(
                         group: snapshot.data!,
@@ -61,9 +53,6 @@ class _HomeViewState extends State<HomeView> {
                       Bottom(group: snapshot.data!),
                     ],
                   );
-                default:
-                  return const CircularProgressIndicator();
-              }
             }),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
