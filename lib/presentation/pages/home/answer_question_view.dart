@@ -39,7 +39,7 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
           elevation: 1,
           shadowColor: ColorManager.shadowColor,
         ),
-        body: const Column(children: [
+        body: Column(children: const [
           ListTitle(),
           //QuestionSheet(),
           SizedBox(
