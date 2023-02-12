@@ -1,19 +1,18 @@
-import 'package:fambridge/presentation/familyCode/input_family_code.dart';
-import 'package:fambridge/presentation/home/answer_question_view.dart';
-import 'package:fambridge/presentation/home/homepage.dart';
-import 'package:fambridge/presentation/login/login_view.dart';
-import 'package:fambridge/presentation/onboarding/Lastquestion.dart';
-import 'package:fambridge/presentation/onboarding/checkMyself.dart';
-import 'package:fambridge/presentation/onboarding/codesharepage.dart';
-import 'package:fambridge/presentation/onboarding/first_delayonboarding.dart';
-import 'package:fambridge/presentation/onboarding/second_delayonboarding.dart';
-import 'package:fambridge/presentation/register/register.dart';
-import 'package:fambridge/presentation/splash/splash.dart';
-import 'package:fambridge/presentation/start/startPage.dart';
-import 'package:fambridge/presentation/store_details/store_details.dart';
+import 'package:fambridge/presentation/pages/familyCode/input_family_code.dart';
+import 'package:fambridge/presentation/pages/home/answer_question_view.dart';
+import 'package:fambridge/presentation/pages/home/homepage.dart';
+import 'package:fambridge/presentation/pages/login/login_view.dart';
+import 'package:fambridge/presentation/pages/onboarding/Lastquestion.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself.dart';
+import 'package:fambridge/presentation/pages/onboarding/codesharepage.dart';
+import 'package:fambridge/presentation/pages/onboarding/first_delayonboarding.dart';
+import 'package:fambridge/presentation/pages/onboarding/numbersofFamily.dart';
+import 'package:fambridge/presentation/pages/onboarding/second_delayonboarding.dart';
+import 'package:fambridge/presentation/pages/register/register.dart';
+import 'package:fambridge/presentation/pages/splash/splash.dart';
+import 'package:fambridge/presentation/pages/start/startPage.dart';
+import 'package:fambridge/presentation/pages/store_details/store_details.dart';
 import 'package:get/route_manager.dart';
-
-import '../onboarding/numbersofFamily.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -48,13 +47,11 @@ List<GetPage<dynamic>> getPages = [
     page: () => const LoginView(),
     transition: Transition.downToUp,
   ),
-  
   GetPage(
     name: Routes.registerRoute,
     page: () => const RegisterView(),
     transition: Transition.downToUp,
   ),
-  
   GetPage(
     name: Routes.startRoute,
     page: () => const StartPage(),
@@ -107,7 +104,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.checkMyselfRoute,
-    page: () => const checkMyselfView(),
+    page: () => const CheckMyselfView(),
     transition: Transition.downToUp,
   ),
 ];

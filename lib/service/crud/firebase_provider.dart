@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';

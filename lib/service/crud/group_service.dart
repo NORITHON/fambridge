@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/model/group.dart';
-import 'package:fambridge/service/crud/group_state_provider.dart';
 
 import '../../model/answer.dart';
 import '../../model/group_question.dart';

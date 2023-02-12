@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import '../../app/constants/enums/family_role.dart';
 import '../../model/auth_user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
