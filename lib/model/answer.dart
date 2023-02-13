@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Answer{
   final String userId;
   final String answerScript;
-  final Timestamp answerdTime;
+  final Timestamp? answerdTime;
 
   Answer({
   required  this.userId,

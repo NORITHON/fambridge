@@ -97,6 +97,10 @@ class FirebaseGroupProvider implements GroupProvider {
         );
   }
 
+  Future<Group> test({required String groupId}) async {
+    return Group.fromFirestore(await FirebaseFirestore.instance.collection('group').doc(groupId).get());
+  }
+
   @override
   Stream<Iterable<GroupQuestion>> getAllGroupQuestion(
       {required String groupId}) {

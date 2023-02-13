@@ -13,6 +13,8 @@ import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
+import 'package:fambridge/service/crud/firebase_provider.dart';
+import 'package:fambridge/service/crud/group_provider.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

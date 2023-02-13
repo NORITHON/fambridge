@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/app_state_fieldname/auth_state.dart';
 import 'package:fambridge/presentation/component/custom_textfield.dart';
@@ -119,10 +121,13 @@ class _LoginFormState extends State<LoginForm> {
                 loadingDialog(context);
                 MyApp.unsyncronizedAuthUser =
                     await AuthService.firebase().logIn();
+                  
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
                   Get.back();
+                  log(MyApp.unsyncronizedAuthUser!.id);
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else {
+                  log(MyApp.unsyncronizedAuthUser!.id);
                   Get.offAllNamed(Routes.homeRoute);
                 }
               },
