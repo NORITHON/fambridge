@@ -1,37 +1,44 @@
+import 'package:fambridge/model/answer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../model/group.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 
-List<String> names = ["첫째", "둘째", "엄마", "아빠", "셋째"];
 
 class CommentBuilder extends StatelessWidget {
   const CommentBuilder({
-    Key? key,
+    Key? key, required this.group,
   }) : super(key: key);
+
+  final Group group;
+
+  List<Answer> _getAnswers(){
+    return group.todayQuestion.answers;
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: ((context, index) {
-        return Comment(name: names[index],);
+        return Comment(answer: _getAnswers()[index],);
       }),
       separatorBuilder: ((context, index) {
         return const Divider(height: 2,);
       }),
-      itemCount: names.length,
+      itemCount: _getAnswers().length,
     );
   }
 }
 
 class Comment extends StatelessWidget {
   const Comment({
-    Key? key, required this.name,
+    Key? key, required this.answer,
   }) : super(key: key);
 
-  final String name;
+  final Answer answer;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,7 @@ class Comment extends StatelessWidget {
             const CircleProfile(size: 25),
             const SizedBox(width: 10),
             Text(
-              name,
+              answer.userName ?? "no name",
               style: getMediumStyle(
                 color: ColorManager.lightGrey,
                 fontSize: 14,
@@ -53,7 +60,7 @@ class Comment extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 5, bottom: 0),
-          child: Text("서로에게 무관심하나 마음만은 서로를 향해있는 가족",
+          child: Text(answer.answerScript,
               style: getMediumStyle(
                 color: ColorManager.lightGrey,
                 fontSize: 16,
