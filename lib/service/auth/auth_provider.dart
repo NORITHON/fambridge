@@ -10,6 +10,13 @@ abstract class AuthProvider {
   Future<AuthUser?> get currentUser;
   Future<void> initialize();
   Future<AuthUser> logIn();
+   Future<AuthUser?> updateAuthUser({
+    String? name,
+    FamilyRole? familyRole,
+    required AuthUser? authUser,
+    int? birthOrder,
+    bool shouldUpdateLastLoginTime = true,
+  });
   Future<AuthUser> createUser({
     required String email,
     required String password,

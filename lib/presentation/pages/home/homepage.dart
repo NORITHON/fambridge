@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'dart:developer';
 
 import 'package:fambridge/app/app.dart';
@@ -8,7 +10,9 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/crud/firebase_provider.dart';
 import 'package:fambridge/service/crud/group_provider.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
+import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +24,7 @@ import '../../component/widgets/question_sheet.dart';
 import '../../resources/font_manager.dart';
 import '../../resources/values_manager.dart';
 import '../splash/splash.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -36,6 +41,17 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (MyApp.unsyncronizedAuthUser == null) return;
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await AuthService.firebase()
+          .updateLastLoginTime(authUser: MyApp.unsyncronizedAuthUser);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     log(MyApp.unsyncronizedAuthUser!.groupId!);
     return Scaffold(
@@ -44,29 +60,63 @@ class _HomeViewState extends State<HomeView> {
               child: Text("cannot find login info"),
             )
           : GroupStreamBuilder(
-            groupId: MyApp.unsyncronizedAuthUser!.groupId!,
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                case ConnectionState.active:
-                  if (snapshot.data == null) {
-                    return const Center(
-                      child: Text("cannot find family group info"),
-                    );
-                  }
-                  return Column(
-                    children: [
-                      Top(
+              groupId: MyApp.unsyncronizedAuthUser!.groupId!,
+              builder: (context, snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: Text("cannot find family group info"),
+                      );
+                    }
+                    if (GroupService.firebase().shouldReplaceTodayQuestion(
                         group: snapshot.data!,
-                      ),
-                      GrowingTree(group: snapshot.data!),
-                      Bottom(group: snapshot.data!),
-                    ],
-                  );
-                default:
-                  return const CircularProgressIndicator();
-              }
-            }),
+                        user: MyApp.unsyncronizedAuthUser!)) {
+                      return FutureBuilder(
+                        future: GroupService.firebase()
+                            .replaceTodayQuestionToTheNextQuestion(
+                                group: snapshot.data!),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<void> snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.done:
+                              return Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const [
+                                    const Text("rebuilt!"),
+                                    const CircularProgressIndicator()
+                                  ],
+                                ),
+                              );
+                            default:
+                              return Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const [
+                                    const Text("refreshing today question.."),
+                                    const CircularProgressIndicator()
+                                  ],
+                                ),
+                              );
+                          }
+                        },
+                      );
+                    }
+                    return Column(
+                      children: [
+                        Top(
+                          group: snapshot.data!,
+                        ),
+                        GrowingTree(group: snapshot.data!),
+                        Bottom(group: snapshot.data!),
+                      ],
+                    );
+                  default:
+                    return const CircularProgressIndicator();
+                }
+              }),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -9,7 +9,7 @@ class GroupQuestion {
   final String groupQuestionId;
   final Timestamp createdTime;
   final bool isVisible;
-  final Timestamp? visualizableTime;
+  final Timestamp? visualizedTime;
   final int questionOrder;
   final int rewardTreeXp;
   final List<Answer> answers;
@@ -20,7 +20,7 @@ class GroupQuestion {
     required this.groupQuestionId,
     required this.createdTime,
     required this.isVisible,
-    this.visualizableTime,
+    this.visualizedTime,
     required this.questionOrder,
     required this.rewardTreeXp,
   });
@@ -39,7 +39,7 @@ class GroupQuestion {
       questionOrder:
           map[GroupQuestionFirestoreFieldName.questionOrderFieldName],
       rewardTreeXp: map[GroupQuestionFirestoreFieldName.rewardTreeXpFieldName],
-      visualizableTime:
+      visualizedTime:
           map[GroupQuestionFirestoreFieldName.visualizableTimeFieldName],
     );
   }
@@ -65,7 +65,7 @@ class GroupQuestion {
       GroupQuestionFirestoreFieldName.questionOrderFieldName: questionOrder,
       GroupQuestionFirestoreFieldName.rewardTreeXpFieldName: rewardTreeXp,
       GroupQuestionFirestoreFieldName.visualizableTimeFieldName:
-          visualizableTime,
+          visualizedTime,
     };
   }
 }

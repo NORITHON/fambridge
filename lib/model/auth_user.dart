@@ -14,8 +14,9 @@ class AuthUser {
   final Timestamp? registerTime;
   final String? groupId;
   final bool? isEmailVerified;
+  final Timestamp? lastLoginTime;
 
-  const AuthUser({
+  const AuthUser( {
     required this.id,
     this.isEmailVerified,
     this.name,
@@ -24,6 +25,7 @@ class AuthUser {
     this.registerTime,
     this.groupId,
     this.docId,
+    this.lastLoginTime,
   });
 
   // create authuser from firebase user
@@ -40,9 +42,10 @@ class AuthUser {
       id: snapshotData[AuthUserFirestoreFieldName.userIdFieldName], 
       name: snapshotData[AuthUserFirestoreFieldName.userNameFieldName], 
       familyRole: _castStringToFamiltyRole(snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName]), 
-      registerTime: snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName] as Timestamp,
+      registerTime: snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName] as Timestamp?,
       birthOrder: snapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
       groupId: snapshotData[AuthUserFirestoreFieldName.userGroupIdFieldName],
+      lastLoginTime: snapshotData[AuthUserFirestoreFieldName.lastLoginTimeFieldName] as Timestamp?,
     );
   }
   
@@ -63,4 +66,5 @@ class AuthUserFirestoreFieldName{
   static const String userBirthOrderFieldName = 'birth-order';
   static const String userRegisterTimeFieldName = 'register-time';
   static const String userGroupIdFieldName = 'group-id';
+  static const String lastLoginTimeFieldName = 'last-login-time';
 }

@@ -87,7 +87,9 @@ class FirebaseGroupProvider implements GroupProvider {
           questionRes.questionOrder,
       GroupQuestionFirestoreFieldName.rewardTreeXpFieldName: questionRes.treeXp,
     });
-    return GroupQuestion.fromFirestore(await groupQuestionDocRef.get());
+    final newTodayQuestion = GroupQuestion.fromFirestore(await groupQuestionDocRef.get());
+    await updateFamilyGroup(docId: familyGroupId, todayQuestion: newTodayQuestion);
+    return newTodayQuestion;
   }
 
   @override

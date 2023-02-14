@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fambridge/model/auth_user.dart';
 import 'package:fambridge/model/group.dart';
 
 import '../../model/answer.dart';
@@ -103,13 +104,26 @@ class GroupService implements GroupProvider {
   @override
   Future<void> deleteGroupQuestion(
           {required Group group, required String questionIdToDelete}) async =>
-      provider.deleteGroupQuestion(
+      await provider.deleteGroupQuestion(
           group: group, questionIdToDelete: questionIdToDelete);
 
   Future<void> addUserIntoGroup(
       {required String groupId, required String userId}) async {
     await updateFamilyGroup(
         docId: groupId, targetUserId: userId, shouldAddUserId: true);
+  }
+
+  Future<void> replaceTodayQuestionToTheNextQuestion({required Group group}) async {
+    int currentQuestionOrder = group.todayQuestion.questionOrder;
+    await provider.createTodayQuestion(familyGroupId: group.familyGroupId, questionOrder: currentQuestionOrder + 1);
+  }
+
+  bool shouldReplaceTodayQuestion({required Group group, required AuthUser user}) {
+    if(group.todayQuestion.visualizedTime == null || user.lastLoginTime == null) return false;
+    if(!group.todayQuestion.isVisible) return false;
+    final visualizedDatetime = group.todayQuestion.visualizedTime!.toDate();
+    final userLastLoginDatetime = user.lastLoginTime!.toDate();
+    return visualizedDatetime.day + visualizedDatetime.month + visualizedDatetime.year < userLastLoginDatetime.day + userLastLoginDatetime.month + userLastLoginDatetime.year;
   }
 
   @override

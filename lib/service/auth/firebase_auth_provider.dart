@@ -91,12 +91,35 @@ class FirebaseAuthProvider implements AuthProvider {
     final docRef = await authCollection.add({
       AuthUserFirestoreFieldName.userIdFieldName: authUser.id,
       AuthUserFirestoreFieldName.userNameFieldName: name,
-      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.toString(),
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.name,
       AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder,
       AuthUserFirestoreFieldName.userGroupIdFieldName: groupId,
       AuthUserFirestoreFieldName.userRegisterTimeFieldName: FieldValue.serverTimestamp(),
     });
     return AuthUser.fromSnapshot(await docRef.get());
+  }
+
+  @override
+  Future<AuthUser?> updateAuthUser({
+    String? name,
+    FamilyRole? familyRole,
+    required AuthUser? authUser,
+    int? birthOrder,
+    bool shouldUpdateLastLoginTime = true,
+  }) async {
+    if (authUser == null) return null;
+    
+    final docSnapshot = await maybeGetUserFromFirestore(userId: authUser.id);
+    if(docSnapshot == null) return null;
+    final docSnapshotData = docSnapshot.data();
+    
+    await docSnapshot.reference.update({
+      AuthUserFirestoreFieldName.userNameFieldName: name ?? docSnapshotData[AuthUserFirestoreFieldName.userNameFieldName],
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole?.name ?? docSnapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName],
+      AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder ?? docSnapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
+      AuthUserFirestoreFieldName.lastLoginTimeFieldName: shouldUpdateLastLoginTime ? FieldValue.serverTimestamp() : docSnapshotData[AuthUserFirestoreFieldName.lastLoginTimeFieldName],
+    });
+    return AuthUser.fromSnapshot(await docSnapshot.reference.get());
   }
   
 
