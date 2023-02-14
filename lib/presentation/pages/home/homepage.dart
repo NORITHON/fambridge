@@ -279,32 +279,3 @@ class FambridgeIcon extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
-
-class profileFrameForSvg extends StatelessWidget {
-  String asset;
-  profileFrameForSvg({
-    Key? key,
-    required this.asset,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(0.0),
-      child: IconButton(
-        iconSize: 40,
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-        icon: SvgPicture.asset(
-          asset,
-          width: 40,
-          height: 40,
-        ),
-        onPressed: () {}, //do something,
-      ),
-    );
-  }
-}
-=======
->>>>>>> d621c9e (home Botton navBar 모듈화 - without text alignmnet)
