@@ -238,19 +238,23 @@ class Top extends StatelessWidget {
             const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Text(
-                group.groupName,
-                style: getMediumStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 20,
-                ),
-              ),
-            ),
-            Text(
-              "${group.treeXp}p",
-              style: getBoldStyle(
-                color: ColorManager.darkGrey,
-                fontSize: 20,
+              child: Row(
+                children: [
+                  Text(
+                    group.groupName,
+                    style: getMediumStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    "${group.treeXp}p",
+                    style: getBoldStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
