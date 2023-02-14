@@ -116,9 +116,24 @@ class _HomeViewState extends State<HomeView> {
                     return const CircularProgressIndicator();
                 }
               }),
-      bottomNavigationBar: CustomBottomNavbar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: ColorManager.white,
+          boxShadow: [
+            BoxShadow(
+              color: ColorManager.darkGrey.withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 10,
+              offset: const Offset(1, 1),
+            ),
+          ],
+        ),
+        padding: EdgeInsets.fromLTRB(0, 8, 0, 25),
+        child: CustomBottomNavbar(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ),
       ),
     );
   }
@@ -162,6 +177,14 @@ class BottonSheetFrame extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.95,
       height: 300,
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: ColorManager.darkGrey.withOpacity(0.2),
+            spreadRadius: 5,
+            blurRadius: 10,
+            offset: const Offset(1, 1),
+          ),
+        ],
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
           topLeft: Radius.circular(25),

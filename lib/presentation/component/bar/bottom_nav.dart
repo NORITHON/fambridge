@@ -1,4 +1,5 @@
 import 'package:fambridge/presentation/pages/onboarding/Lastquestion.dart';
+import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class CustomBottomNavbar extends StatelessWidget {
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            "assets/images/Home.svg",
+            selectedIndex == 0 ? ImageAssets.navHomeHover : ImageAssets.navHome,
             width: 24,
             height: 24,
           ),
@@ -27,31 +28,36 @@ class CustomBottomNavbar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/images/Dashboard.svg",
+              selectedIndex == 1
+                  ? ImageAssets.navListHover
+                  : ImageAssets.navList,
               width: 24,
               height: 24,
             ),
             label: "리스트"),
         BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              "assets/images/Store.svg",
+              selectedIndex == 2
+                  ? ImageAssets.navStoreHover
+                  : ImageAssets.navStore,
               width: 24,
               height: 24,
             ),
             label: "스토어"),
       ],
+      backgroundColor: ColorManager.white,
+      elevation: 0,
       currentIndex: selectedIndex,
       // selectedIconTheme: ,
       // unselectedIconTheme: ,
       selectedLabelStyle: textStyle.copyWith(
         fontWeight: FontWeightManager.medium,
         fontSize: FontSize.s12,
-        height: 3.5,
+        height: 2,
       ),
       unselectedLabelStyle: textStyle.copyWith(
         fontWeight: FontWeightManager.medium,
         fontSize: FontSize.s12,
-        height: 3.5,
       ),
       onTap: onItemTapped,
       type: BottomNavigationBarType.fixed,

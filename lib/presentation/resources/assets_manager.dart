@@ -29,6 +29,11 @@ class ImageAssets {
   static const String likeOn = "$IMAGE_PATH/like_on.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
   static const String navigateNext = "$IMAGE_PATH/navigate_next.png";
+
+  //bottom navbar
+  static const String navHome = "$IMAGE_PATH/Home.svg";
+  static const String navList = "$IMAGE_PATH/nav_list.svg";
+  static const String navStore = "$IMAGE_PATH/Store.svg";
   static const String navHomeHover = "$IMAGE_PATH/home_hover.svg";
   static const String navListHover = "$IMAGE_PATH/list_hover.svg";
   static const String navStoreHover = "$IMAGE_PATH/store_hover.svg";
