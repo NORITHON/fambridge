@@ -4,29 +4,15 @@ import 'dart:developer';
 
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-import 'package:fambridge/presentation/component/logo/homelogo.dart';
-import 'package:fambridge/presentation/component/profile/home_profile.dart';
->>>>>>> bfa66bd (home top 모듈화)
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
 import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
->>>>>>> b0eeae0 (home topbar UI 수정)
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-<<<<<<< HEAD
-import 'package:fambridge/service/crud/firebase_provider.dart';
-import 'package:fambridge/service/crud/group_provider.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-=======
-import 'package:fambridge/presentation/resources/values_manager.dart';
->>>>>>> bfa66bd (home top 모듈화)
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -34,13 +20,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../component/group_stream_builder.dart';
-import '../../component/widgets/answer_button.dart';
-import '../../component/widgets/buttom_sheet_background.dart';
-import '../../component/widgets/growing_tree.dart';
-import '../../component/widgets/question_sheet.dart';
 import '../../resources/font_manager.dart';
 import '../../resources/values_manager.dart';
-import '../splash/splash.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -210,7 +191,7 @@ class BottonSheetFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: 240,
+      height: 300,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(25),
@@ -234,13 +215,14 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
       child: Column(
         children: [
           QuestionSheet(group: group),
-          const SizedBox(height: AppSize.s35),
+          const SizedBox(height: AppSize.s20),
           AnswerButton(
             group: group,
             onPressed: () {
               Get.toNamed(Routes.answerQuestionRoute);
             },
           ),
+          const SizedBox(height: AppSize.s35),
         ],
       ),
     );
@@ -260,7 +242,7 @@ class Top extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
-            const TopBar(),
+            const TopIconBar(),
             const SizedBox(height: 25),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
@@ -286,17 +268,71 @@ class Top extends StatelessWidget {
   }
 }
 
-class TopBar extends StatelessWidget {
-  const TopBar({super.key});
+class TopIconBar extends StatelessWidget {
+  const TopIconBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        HomelogoWithText(),
+        const FambridgeIcon(),
+        const SizedBox(width: 12),
+        FittedBox(
+          child: Text(
+            "Fambridge",
+            style: getBoldStyle(color: ColorManager.darkGrey, fontSize: 16),
+          ),
+        ),
         const Spacer(),
-        HomeProfile(),
+        Image.asset(ImageAssets.userProfile),
       ],
+    );
+  }
+}
+
+class FambridgeIcon extends StatelessWidget {
+  const FambridgeIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: ColorManager.white,
+      ),
+      child: SvgPicture.asset(
+        ImageAssets.homeLogo,
+        width: 35,
+        height: 35,
+      ),
+    );
+  }
+}
+
+class profileFrameForSvg extends StatelessWidget {
+  String asset;
+  profileFrameForSvg({
+    Key? key,
+    required this.asset,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(0.0),
+      child: IconButton(
+        iconSize: 40,
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(),
+        icon: SvgPicture.asset(
+          asset,
+          width: 40,
+          height: 40,
+        ),
+        onPressed: () {}, //do something,
+      ),
     );
   }
 }
