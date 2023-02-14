@@ -4,8 +4,8 @@ import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class BottomnavButton extends StatelessWidget {
-  const BottomnavButton({
+class CustomBottomNavbar extends StatelessWidget {
+  const CustomBottomNavbar({
     Key? key,
     required this.selectedIndex,
     required this.onItemTapped,
