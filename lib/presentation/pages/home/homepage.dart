@@ -227,38 +227,35 @@ class Top extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const TopIconBar(),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Row(
-                children: [
-                  Text(
-                    group.groupName,
-                    style: getMediumStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    "${group.treeXp}p",
-                    style: getBoldStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: const TopIconBar(),
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                group.groupName,
+                style: getMediumStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
               ),
-            ),
-          ],
-        ),
+              Text(
+                "${group.treeXp}p",
+                style: getBoldStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
