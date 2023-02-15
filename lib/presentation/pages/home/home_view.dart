@@ -118,7 +118,6 @@ class _HomeViewState extends State<HomeView> {
               }),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
           color: ColorManager.white,
           boxShadow: [
             BoxShadow(
@@ -129,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        padding: EdgeInsets.fromLTRB(0, 8, 0, 25),
+        padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
         child: CustomBottomNavbar(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
@@ -175,7 +174,7 @@ class BottonSheetFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: 300,
+      height: 260,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(

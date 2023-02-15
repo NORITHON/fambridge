@@ -6,7 +6,7 @@ import 'package:glass/glass.dart';
 import '../../../app/app.dart';
 import '../../../app/constants/app_state_fieldname/group_state.dart';
 import '../../../model/group.dart';
-import '../../pages/home/homepage.dart';
+import '../../pages/home/home_view.dart';
 import '../../resources/values_manager.dart';
 import 'answer_bottom_sheet.dart';
 import 'answer_list.dart';
@@ -30,7 +30,8 @@ class BlurredAnswerList extends StatelessWidget {
             child: CommentBuilder(group: group),
           ),
           Visibility(
-            visible: !GroupService.firebase().checkIfAnswerCanBeVisualizable(group: group),
+            visible: !GroupService.firebase()
+                .checkIfAnswerCanBeVisualizable(group: group),
             child: SizedBox(
               width: double.infinity,
               height: double.infinity,
@@ -45,13 +46,13 @@ class BlurredAnswerList extends StatelessWidget {
             ),
           ),
           Visibility(
-            visible: !GroupService.firebase().checkIfAnswerCanBeVisualizable(group: group),
+            visible: !GroupService.firebase()
+                .checkIfAnswerCanBeVisualizable(group: group),
             child: BottonSheetFrame(
               child: !GroupService.firebase().hasUserAnsweredTodayQuestion(
                       group: group, userId: MyApp.unsyncronizedAuthUser!.id)
                   ? const AnswerFormBottomSheet()
-                  : Container(
-                  ),
+                  : Container(),
             ),
           ),
         ],
