@@ -174,7 +174,6 @@ class BottonSheetFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: 260,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -213,7 +212,7 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
               Get.toNamed(Routes.answerQuestionRoute);
             },
           ),
-          const SizedBox(height: AppSize.s35),
+          const SizedBox(height: 16),
         ],
       ),
     );

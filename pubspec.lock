@@ -455,6 +455,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  word_break_text:
+    dependency: "direct main"
+    description:
+      name: word_break_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  wrapped_korean_text:
+    dependency: "direct main"
+    description:
+      name: wrapped_korean_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   xml:
     dependency: transitive
     description:
