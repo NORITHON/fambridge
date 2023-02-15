@@ -118,7 +118,6 @@ class _HomeViewState extends State<HomeView> {
               }),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
           color: ColorManager.white,
           boxShadow: [
             BoxShadow(
@@ -129,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        padding: EdgeInsets.fromLTRB(0, 8, 0, 25),
+        padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
         child: CustomBottomNavbar(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
@@ -175,7 +174,6 @@ class BottonSheetFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: 300,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -214,7 +212,7 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
               Get.toNamed(Routes.answerQuestionRoute);
             },
           ),
-          const SizedBox(height: AppSize.s35),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -227,38 +225,35 @@ class Top extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const TopIconBar(),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Row(
-                children: [
-                  Text(
-                    group.groupName,
-                    style: getMediumStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    "${group.treeXp}p",
-                    style: getBoldStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 50),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: const TopIconBar(),
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                group.groupName,
+                style: getMediumStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
               ),
-            ),
-          ],
-        ),
+              Text(
+                "${group.treeXp}p",
+                style: getBoldStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -280,6 +275,15 @@ class TopIconBar extends StatelessWidget {
           ),
         ),
         const Spacer(),
+        IconButton(
+          onPressed: () {
+            AuthService.firebase().logOut();
+            Get.offAllNamed(Routes.loginRoute);
+          },
+          icon: const Icon(
+            Icons.logout,
+          ),
+        ),
         Image.asset(ImageAssets.userProfile),
       ],
     );

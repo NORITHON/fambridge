@@ -1,4 +1,4 @@
-import 'package:fambridge/presentation/pages/onboarding/Lastquestion.dart';
+import 'package:fambridge/presentation/pages/onboarding/last_question_view.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';

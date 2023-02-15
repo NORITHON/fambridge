@@ -50,6 +50,8 @@ dependencies:
   glass: ^1.0.1+1
   sliding_up_panel: ^2.0.0+1
   provider: ^6.0.5
+  word_break_text: ^0.1.0
+  wrapped_korean_text: ^0.0.3
 
 dev_dependencies:
   flutter_test:
