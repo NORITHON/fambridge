@@ -275,6 +275,15 @@ class TopIconBar extends StatelessWidget {
           ),
         ),
         const Spacer(),
+        IconButton(
+          onPressed: () {
+            AuthService.firebase().logOut();
+            Get.offAllNamed(Routes.loginRoute);
+          },
+          icon: const Icon(
+            Icons.logout,
+          ),
+        ),
         Image.asset(ImageAssets.userProfile),
       ],
     );
