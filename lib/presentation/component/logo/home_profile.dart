@@ -6,6 +6,6 @@ class HomeProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(ImageAssets.userProfile);
+    return Image.asset(ImageAssets.profile);
   }
 }

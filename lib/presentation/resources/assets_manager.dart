@@ -37,6 +37,9 @@ class ImageAssets {
   static const String navHomeHover = "$IMAGE_PATH/home_hover.svg";
   static const String navListHover = "$IMAGE_PATH/list_hover.svg";
   static const String navStoreHover = "$IMAGE_PATH/store_hover.svg";
+
+  //question view
+  static const String answerNotYet = "$IMAGE_PATH/answer_lock_yet.svg";
 }
 
 class RiveAssets {

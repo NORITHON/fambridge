@@ -1,5 +1,9 @@
+import 'package:fambridge/presentation/resources/assets_manager.dart';
+import 'package:fambridge/presentation/resources/color_manager.dart';
+import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 
@@ -37,8 +41,20 @@ class BlurredAnswerList extends StatelessWidget {
               height: double.infinity,
               child: Align(
                 alignment: const Alignment(0, -0.9),
-                child: Text(
-                    "${GroupService.firebase().requiredNumOfAnswersToVisualizeAnswers(group: group)}명만 더 대답하면 볼 수 있어요!"),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      ImageAssets.answerNotYet,
+                      width: 35,
+                      height: 35,
+                    ),
+                    Text(
+                      "${GroupService.firebase().requiredNumOfAnswersToVisualizeAnswers(group: group)}명만 더 대답하면 볼 수 있어요!",
+                      style: getMediumStyle(
+                          color: ColorManager.lightGrey, fontSize: 12),
+                    ),
+                  ],
+                ),
               ),
             ).asGlass(
               tintColor: Colors.transparent,

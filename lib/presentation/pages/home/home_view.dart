@@ -284,7 +284,11 @@ class TopIconBar extends StatelessWidget {
             Icons.logout,
           ),
         ),
-        Image.asset(ImageAssets.userProfile),
+        SvgPicture.asset(
+          ImageAssets.profile,
+          width: 40,
+          height: 40,
+        ),
       ],
     );
   }

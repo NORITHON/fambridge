@@ -10,14 +10,14 @@ import 'constants/app_state_fieldname/question_state.dart';
 
 @immutable
 class MyApp extends StatefulWidget {
-  MyApp._internal();
+  const MyApp._internal();
   static final MyApp instance =
       MyApp._internal(); // single instance -- singleton
 
   factory MyApp() => instance; // factory for the class instance
 
   static final Map<String, Map<String, dynamic>> appState = {
-    authStateFieldName : {
+    authStateFieldName: {
       hasGroupFieldName: false,
       newUserInputsFieldName: {
         newUserBirthOrderFieldName: null,
