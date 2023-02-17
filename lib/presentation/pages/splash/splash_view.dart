@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter/material.dart';
 
-import '../home/homepage.dart';
+import '../home/home_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -28,13 +28,19 @@ class _SplashViewState extends State<SplashView> {
           return const AppLogo();
         } else if (snapshot.hasData) {
           return FutureBuilder(
-            future: Future.wait([AuthService.firebase().currentUser.then((authUser) => AuthService.firebase().updateLastLoginTime(authUser: authUser),) ]),
+            future: Future.wait([
+              AuthService.firebase().currentUser.then(
+                    (authUser) => AuthService.firebase()
+                        .updateLastLoginTime(authUser: authUser),
+                  )
+            ]),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
-                  if(!snapshot.hasData) return const LoginView();
-                  if(snapshot.data!.first == null) return const LoginView();
-                  AuthService.firebase().initAuthStateForApp(authUser: snapshot.data!.first!);
+                  if (!snapshot.hasData) return const LoginView();
+                  if (snapshot.data!.first == null) return const LoginView();
+                  AuthService.firebase()
+                      .initAuthStateForApp(authUser: snapshot.data!.first!);
                   return const HomeView();
                 default:
                   return Scaffold(

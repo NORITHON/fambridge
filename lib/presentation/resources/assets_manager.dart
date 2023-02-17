@@ -18,6 +18,11 @@ class ImageAssets {
   static const String homeLogo = "$IMAGE_PATH/home_logo.svg";
   static const String userProfile2 = "$IMAGE_PATH/user_profile.svg";
   static const String userProfile = "$IMAGE_PATH/user_profile.png";
+  static const String profile1 = "$IMAGE_PATH/profile1.svg";
+  static const String profile2 = "$IMAGE_PATH/profile2.svg";
+  static const String profile3 = "$IMAGE_PATH/profile3.svg";
+  static const String profile4 = "$IMAGE_PATH/profile4.svg";
+  static const String profile5 = "$IMAGE_PATH/testtest.png";
 
   static const String back = "$IMAGE_PATH/back.svg";
   static const String saveFalse = "$IMAGE_PATH/save_false.svg";
@@ -27,6 +32,7 @@ class ImageAssets {
 
   static const String likeOff = "$IMAGE_PATH/like_off.svg";
   static const String likeOn = "$IMAGE_PATH/like_on.svg";
+  static const String newlikeOn = "$IMAGE_PATH/new_likeon.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
   static const String navigateNext = "$IMAGE_PATH/navigate_next.png";
 

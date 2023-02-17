@@ -517,6 +517,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  word_break_text:
+    dependency: "direct main"
+    description:
+      name: word_break_text
+      sha256: "232b5d949f8c9279b8addc1478f04b1de1867eb53ab2925caa70f5cf03a97d5a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
+  wrapped_korean_text:
+    dependency: "direct main"
+    description:
+      name: wrapped_korean_text
+      sha256: "050ec8462df883c0217009ed729b924ff3de56fd5fc9f06213af173c589e7ea8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   xml:
     dependency: transitive
     description:

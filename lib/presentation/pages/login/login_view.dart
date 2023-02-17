@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../component/custom_textfield.dart';
 import '../../resources/styles_manager.dart';
-import '../splash/splash.dart';
+import '../splash/splash_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -84,7 +84,8 @@ class _LoginFormState extends State<LoginForm> {
             style: getRegularStyle(color: ColorManager.darkGrey),
           ),
           const SizedBox(height: AppPadding.p14),
-          CustomTextfield(hintText: AppStrings.loginId, controller: idController),
+          CustomTextfield(
+              hintText: AppStrings.loginId, controller: idController),
           const SizedBox(
             height: AppPadding.p8,
           ),
@@ -120,17 +121,20 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: () async {
                 loadingDialog(context);
-                try{
-                  MyApp.unsyncronizedAuthUser = await AuthService.firebase().logIn();
-                } catch(_){
+                try {
+                  MyApp.unsyncronizedAuthUser =
+                      await AuthService.firebase().logIn();
+                } catch (_) {
                   return;
                 }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
                   Get.back();
                   log(MyApp.unsyncronizedAuthUser!.id);
                   Get.toNamed(Routes.inputFamilyCodeRoute);
-                } else{
-                  MyApp.appState[groupStateFieldName]![groupFieldName] = GroupService.firebase().getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!);
+                } else {
+                  MyApp.appState[groupStateFieldName]![groupFieldName] =
+                      GroupService.firebase().getGroup(
+                          groupId: MyApp.unsyncronizedAuthUser!.groupId!);
                   Get.offAllNamed(Routes.homeRoute);
                 }
               },

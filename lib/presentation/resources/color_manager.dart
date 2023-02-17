@@ -8,6 +8,7 @@ class ColorManager {
   static Color lightGrey = HexColor.fromHex("#A1A1A1");
   static Color primary = HexColor.fromHex("#FFF3E3");
   static Color point = HexColor.fromHex("#EA6F29");
+  static Color questionbackgroundColor = HexColor.fromHex("#F6F6F6");
 
   static Color backgroundColor = HexColor.fromHex("#FFFFFF");
   static Color textFieldbackgroundColor = HexColor.fromHex("#FFFFFF");

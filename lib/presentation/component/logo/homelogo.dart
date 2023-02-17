@@ -1,4 +1,4 @@
-import 'package:fambridge/presentation/pages/home/homepage.dart';
+import 'package:fambridge/presentation/pages/home/home_view.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
