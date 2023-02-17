@@ -49,7 +49,6 @@ class _GrowingTreeState extends State<GrowingTree> {
         setState(() => _riveArtboard = artboard);
       },
     );
-    
   }
 
   @override
@@ -66,21 +65,21 @@ class _GrowingTreeState extends State<GrowingTree> {
                     onVerticalDragEnd: (details) async {
                       log(details.velocity.pixelsPerSecond.toString());
                       final int setVal;
-                      if(details.velocity.pixelsPerSecond.dy > 500){
+                      if (details.velocity.pixelsPerSecond.dy > 500) {
                         setVal = -1;
-                      } else if(details.velocity.pixelsPerSecond.dy < -500){
+                      } else if (details.velocity.pixelsPerSecond.dy < -500) {
                         setVal = 1;
-                      } else{
+                      } else {
                         setVal = 0;
                       }
-                      if(setVal != 0) {
-                        await GroupService.firebase().setTreeXp(group: widget.group, setVal: setVal);
+                      if (setVal != 0) {
+                        await GroupService.firebase()
+                            .setTreeXp(group: widget.group, setVal: setVal);
                       }
-                      
                     },
                     child: SizedBox(
                       width: 300.0,
-                      height: 294.8,
+                      height: 240,
                       child: rive.Rive(
                         artboard: _riveArtboard!,
                       ),

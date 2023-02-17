@@ -1,4 +1,3 @@
-
 import 'package:fambridge/app/constants/app_state_fieldname/question_state.dart';
 import 'package:fambridge/model/answer.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -49,35 +48,62 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             elevation: 1,
             shadowColor: ColorManager.shadowColor,
           ),
-          body: Column(children: [
-              QuestionSheet(group: snapshot.data!,),
-              const SizedBox(
-                height: AppPadding.p20,
-              ),
-              BlurredAnswerList(group: snapshot.data!),
-          ],),
-          floatingActionButton: Visibility(
-            visible: !GroupService.firebase()
-                .hasUserAnsweredTodayQuestion(group: snapshot.data!, userId: MyApp.unsyncronizedAuthUser!.id),
-            child: AnswerButton(
-              group: snapshot.data!,
-              onPressed: () async {
-                final String answerScript = MyApp.appState[questionStateFieldName]![userAnswerTextInputFieldName];
-                if(answerScript.isEmpty) { 
-                  return;
-                }
-                final answer = Answer(userId: MyApp.unsyncronizedAuthUser!.id, answerScript: answerScript, userName: MyApp.unsyncronizedAuthUser!.name);
-                loadingDialog(context);
-                await GroupService.firebase().submitAnswerForTodayQuestion(group: snapshot.data!, answer: answer);
-                await GroupService.firebase().setTreeXp(group: snapshot.data!, setVal: 1);
-                await GroupService.firebase().makeTodayQuestionAnswerVisualizable(group: snapshot.data!);
-                Get.offAllNamed(Routes.homeRoute);
-              },
+          body: Container(
+            color: ColorManager.backgroundColor,
+            child: Column(
+              children: [
+                QuestionSheet(
+                  group: snapshot.data!,
+                ),
+                const SizedBox(
+                  height: AppPadding.p20,
+                ),
+                BlurredAnswerList(group: snapshot.data!),
+              ],
             ),
           ),
+          floatingActionButton: _FloatingActionButton(snapshot: snapshot),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         ),
+      ),
+    );
+  }
+}
+
+class _FloatingActionButton extends StatelessWidget {
+  const _FloatingActionButton({
+    Key? key,
+    required this.snapshot,
+  }) : super(key: key);
+  final AsyncSnapshot snapshot;
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: !GroupService.firebase().hasUserAnsweredTodayQuestion(
+          group: snapshot.data!, userId: MyApp.unsyncronizedAuthUser!.id),
+      child: AnswerButton(
+        group: snapshot.data!,
+        onPressed: () async {
+          final String answerScript = MyApp
+              .appState[questionStateFieldName]![userAnswerTextInputFieldName];
+          if (answerScript.isEmpty) {
+            return;
+          }
+          final answer = Answer(
+              userId: MyApp.unsyncronizedAuthUser!.id,
+              answerScript: answerScript,
+              userName: MyApp.unsyncronizedAuthUser!.name);
+          loadingDialog(context);
+          await GroupService.firebase().submitAnswerForTodayQuestion(
+              group: snapshot.data!, answer: answer);
+          await GroupService.firebase()
+              .setTreeXp(group: snapshot.data!, setVal: 1);
+          await GroupService.firebase()
+              .makeTodayQuestionAnswerVisualizable(group: snapshot.data!);
+          Get.offAllNamed(Routes.homeRoute);
+        },
       ),
     );
   }
