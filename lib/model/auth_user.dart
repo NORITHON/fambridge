@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth show User;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth show User;
 import 'package:flutter/foundation.dart';
 
 import '../app/constants/enums/family_role.dart';
@@ -29,7 +29,7 @@ class AuthUser {
   });
 
   // create authuser from firebase user
-  factory AuthUser.fromFirebase(FirebaseAuth.User user) => AuthUser(
+  factory AuthUser.fromFirebase(firebase_auth.User user) => AuthUser(
     id: user.uid,
     isEmailVerified: user.emailVerified,
   );
