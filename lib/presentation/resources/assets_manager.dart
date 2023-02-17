@@ -23,6 +23,7 @@ class ImageAssets {
   static const String profile3 = "$IMAGE_PATH/profile3.svg";
   static const String profile4 = "$IMAGE_PATH/profile4.svg";
   static const String profile5 = "$IMAGE_PATH/testtest.png";
+  static const String loginApplogo = "$IMAGE_PATH/loginApplogo.svg";
 
   static const String back = "$IMAGE_PATH/back.svg";
   static const String saveFalse = "$IMAGE_PATH/save_false.svg";

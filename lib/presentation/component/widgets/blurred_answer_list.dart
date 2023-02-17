@@ -1,11 +1,14 @@
+import 'package:fambridge/presentation/component/button/home_answer_back.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 
 import '../../../app/app.dart';
 import '../../../model/group.dart';
 import '../../pages/home/home_view.dart';
+import '../../resources/getx_routes_manager.dart';
 import '../../resources/values_manager.dart';
 import 'answer_bottom_sheet.dart';
 import 'answer_list.dart';
@@ -58,6 +61,14 @@ class BlurredAnswerList extends StatelessWidget {
                         group: group, userId: MyApp.unsyncronizedAuthUser!.id)
                     ? const AnswerFormBottomSheet()
                     : Container(),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 35),
+              child: HomeAnswerBack(
+                onPressed: () {
+                  Get.toNamed(Routes.homeRoute);
+                },
               ),
             ),
           ],

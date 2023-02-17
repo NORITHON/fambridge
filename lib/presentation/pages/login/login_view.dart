@@ -75,8 +75,8 @@ class _LoginFormState extends State<LoginForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: AppPadding.p180),
-          const AppLogo(size: AppSize.s85),
+          const SizedBox(height: AppPadding.p150),
+          const AppLogo(size: AppSize.s100),
           const SizedBox(height: AppPadding.p100),
           Text(
             AppStrings.login,
@@ -150,6 +150,7 @@ class _LoginFormState extends State<LoginForm> {
               const Text(AppStrings.registeredYet),
               TextButton(
                 onPressed: () => Get.toNamed(Routes.registerRoute),
+                //onPressed: () => Get.toNamed(Routes.splashRoute),
                 child: const Text(
                   AppStrings.signup,
                 ),
