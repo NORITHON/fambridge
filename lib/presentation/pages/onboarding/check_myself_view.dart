@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 RxInt target = 0.obs;
@@ -19,7 +18,7 @@ class _checkMyselfState extends State<CheckMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _MypageAppBar(),
+      appBar: onboardingAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         width: double.infinity,
@@ -33,7 +32,7 @@ class _checkMyselfState extends State<CheckMyselfView> {
                 "나는 '누구'인가요?",
                 textAlign: TextAlign.left,
                 style: getMediumStyle(
-                  color: ColorManager.darkGrey,
+                  color: ColorManager.point,
                   fontSize: 20,
                 ),
               ),
@@ -162,27 +161,14 @@ class _MenberCountButtonState extends State<MenberCountButton> {
   }
 }
 
-PreferredSizeWidget _MypageAppBar() {
+PreferredSize onboardingAppBar() {
   return PreferredSize(
     preferredSize: const Size.fromHeight(60),
     child: AppBar(
-      title: Text(
-        "",
-        style: getMediumStyle(
-          fontSize: 18,
-          color: ColorManager.darkGrey,
-        ),
-      ),
-      centerTitle: true,
       backgroundColor: ColorManager.white,
-      leading: IconButton(
+      leading: TextButton(
         onPressed: () => Get.back(),
-        icon: SvgPicture.asset(
-          ImageAssets.back,
-          height: 20,
-          width: 20,
-          fit: BoxFit.scaleDown,
-        ),
+        child: Text("취소", style: TextStyle(color: ColorManager.lightGrey)),
       ),
       elevation: 0.0,
     ),
