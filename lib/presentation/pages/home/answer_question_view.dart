@@ -48,16 +48,19 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             elevation: 1,
             shadowColor: ColorManager.shadowColor,
           ),
-          body: Column(
-            children: [
-              QuestionSheet(
-                group: snapshot.data!,
-              ),
-              const SizedBox(
-                height: AppPadding.p20,
-              ),
-              BlurredAnswerList(group: snapshot.data!),
-            ],
+          body: Container(
+            color: ColorManager.backgroundColor,
+            child: Column(
+              children: [
+                QuestionSheet(
+                  group: snapshot.data!,
+                ),
+                const SizedBox(
+                  height: AppPadding.p20,
+                ),
+                BlurredAnswerList(group: snapshot.data!),
+              ],
+            ),
           ),
           floatingActionButton: _FloatingActionButton(snapshot: snapshot),
           floatingActionButtonLocation:
