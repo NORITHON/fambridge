@@ -116,24 +116,10 @@ class _HomeViewState extends State<HomeView> {
                     return const CircularProgressIndicator();
                 }
               }),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          boxShadow: [
-            BoxShadow(
-              color: ColorManager.darkGrey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(1, 1),
-            ),
-          ],
-        ),
-        padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
-        child: CustomBottomNavbar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ),
-      ),
+      // bottomNavigationBar: CustomBottomNavbar(
+      //   selectedIndex: _selectedIndex,
+      //   onItemTapped: _onItemTapped,
+      // ),
     );
   }
 

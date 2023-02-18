@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/enums/family_role.dart';
 import 'package:fambridge/model/group.dart';
-import 'package:fambridge/presentation/component/widget/input_code_field.dart';
+import 'package:fambridge/presentation/component/widgets/input_code_field.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
