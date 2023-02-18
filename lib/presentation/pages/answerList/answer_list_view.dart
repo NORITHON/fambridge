@@ -1,11 +1,7 @@
 import 'package:fambridge/presentation/component/bar/category_list.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 class AnswerListView extends StatelessWidget {
   const AnswerListView({super.key});
@@ -20,25 +16,19 @@ class AnswerListView extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: ColorManager.white,
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: SvgPicture.asset(
-              ImageAssets.back,
-              height: 20,
-              width: 20,
-              fit: BoxFit.scaleDown,
-            ),
-          ),
           elevation: 0,
-          title: const Text("질문"),
+          title: const Text("질문 목록"),
           toolbarHeight: AppSize.s60,
           backgroundColor: ColorManager.backgroundColor,
           shadowColor: ColorManager.shadowColor,
         ),
         body: Column(
           children: [
-            AnswerListTabbar(),
+            Container(
+              child: AnswerListTabbar(),
+            ),
             Expanded(
               child: TabBarView(
                 children: _views,
