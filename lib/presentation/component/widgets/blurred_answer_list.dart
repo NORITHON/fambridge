@@ -28,12 +28,13 @@ class BlurredAnswerList extends StatelessWidget {
     return Flexible(
       child: Container(
         color: ColorManager.questionbackgroundColor,
+        padding: const EdgeInsets.only(top: 16),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  AppPadding.p45, AppPadding.p40, AppPadding.p45, 0),
+              padding: const EdgeInsets.fromLTRB(AppPadding.p35, AppPadding.p18,
+                  AppPadding.p35, AppPadding.p16),
               // padding: const EdgeInsets.symmetric(
               //   horizontal: AppPadding.p45,
               // ),
