@@ -86,6 +86,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    //tabbar + underline container
     return Column(
       children: [
         TabBar(
@@ -96,16 +97,9 @@ class _CustomTabbarState extends State<CustomTabbar>
           },
           controller: _tabController,
           tabs: CustomTabbar._tabs,
+          //indicator style start
           indicatorColor: ColorManager.point,
           indicatorWeight: 2,
-          labelStyle: getMediumStyle(
-            color: ColorManager.darkGrey,
-            fontSize: AppSize.s16,
-          ),
-          unselectedLabelStyle: getMediumStyle(
-            color: ColorManager.lightGrey,
-            fontSize: AppSize.s16,
-          ),
           indicator: BoxDecoration(
             color: ColorManager.point,
             //배경 그라데이션 적용
@@ -118,7 +112,22 @@ class _CustomTabbarState extends State<CustomTabbar>
               ],
             ),
           ),
+          //indicator style end
+
+          //label style start
+          labelStyle: getMediumStyle(
+            color: ColorManager.darkGrey,
+            fontSize: AppSize.s16,
+          ),
+          labelColor: ColorManager.darkGrey,
+          unselectedLabelStyle: getMediumStyle(
+            color: ColorManager.point,
+            fontSize: AppSize.s16,
+          ),
+          unselectedLabelColor: ColorManager.lightGrey,
+          //label style end
         ),
+        //underline container
         Row(
           children: [
             Container(
