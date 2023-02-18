@@ -1,13 +1,16 @@
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
+import 'package:fambridge/presentation/component/button/home_answer_back.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:glass/glass.dart';
 
 import '../../../app/app.dart';
 import '../../../model/group.dart';
+import '../../resources/getx_routes_manager.dart';
 import '../../resources/values_manager.dart';
 import 'answer_bottom_sheet.dart';
 import 'answer_list.dart';
@@ -23,39 +26,55 @@ class BlurredAnswerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Flexible(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p45),
-            child: CommentBuilder(group: group),
-          ),
-          Visibility(
-            visible: !GroupService.firebase()
-                .checkIfAnswerCanBeVisualizable(group: group),
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Align(
-                alignment: const Alignment(0, -1),
-                child: AnswerNotYet(group: group),
+      child: Container(
+        color: ColorManager.questionbackgroundColor,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  AppPadding.p45, AppPadding.p40, AppPadding.p45, 0),
+              // padding: const EdgeInsets.symmetric(
+              //   horizontal: AppPadding.p45,
+              // ),
+              child: CommentBuilder(group: group),
+            ),
+            Visibility(
+              visible: !GroupService.firebase()
+                  .checkIfAnswerCanBeVisualizable(group: group),
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Align(
+                  alignment: const Alignment(0, -0.9),
+                  child: Text(
+                      "${GroupService.firebase().requiredNumOfAnswersToVisualizeAnswers(group: group)}명만 더 대답하면 볼 수 있어요!"),
+                ),
+              ).asGlass(
+                tintColor: Colors.transparent,
+                clipBorderRadius: BorderRadius.circular(15.0),
               ),
-            ).asGlass(
-              tintColor: Colors.transparent,
-              clipBorderRadius: BorderRadius.circular(15.0),
             ),
-          ),
-          Visibility(
-            visible: !GroupService.firebase()
-                .checkIfAnswerCanBeVisualizable(group: group),
-            child: AnswerBottonSheetFrame(
-              child: !GroupService.firebase().hasUserAnsweredTodayQuestion(
-                      group: group, userId: MyApp.unsyncronizedAuthUser!.id)
-                  ? AnswerFormBottomSheet()
-                  : Container(),
+            Visibility(
+              visible: !GroupService.firebase()
+                  .checkIfAnswerCanBeVisualizable(group: group),
+              child: AnswerBottonSheetFrame(
+                child: !GroupService.firebase().hasUserAnsweredTodayQuestion(
+                        group: group, userId: MyApp.unsyncronizedAuthUser!.id)
+                    ? const AnswerFormBottomSheet()
+                    : Container(),
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 35),
+              child: HomeAnswerBack(
+                onPressed: () {
+                  Get.toNamed(Routes.homeRoute);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

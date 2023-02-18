@@ -29,7 +29,7 @@ class AuthService implements AuthProvider {
   Future<AuthUser?> get currentUser => provider.currentUser;
 
   Future<void> initAuthStateForApp({required AuthUser authUser}) async {
-    MyApp.unsyncronizedAuthUser = authUser;
+    MyApp.unsyncronizedAuthUser = authUser;                                                                                                                                                                                                                                                                                                                                                                                               
     MyApp.appState[authStateFieldName]![hasGroupFieldName] =
         await hasAuthbeenAddedInDatabase(userId: authUser.id);
   }

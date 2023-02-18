@@ -4,7 +4,6 @@ import 'package:wrapped_korean_text/wrapped_korean_text.dart';
 import '../../../model/group.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
-import 'answer_progress_indicator_with_title.dart';
 
 class HomeQuestionSheet extends StatefulWidget {
   const HomeQuestionSheet({
@@ -46,8 +45,8 @@ class _HomeQuestionSheetState extends State<HomeQuestionSheet> {
             style: getMediumStyle(color: ColorManager.black, fontSize: 20),
           ),
         ),
-        const SizedBox(height: 35),
-        AnswerProgressIndicatorWithTitle(group: widget.group),
+        const SizedBox(height: 20),
+        //AnswerProgressIndicatorWithTitle(group: widget.group),
       ],
     );
   }
