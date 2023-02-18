@@ -29,17 +29,10 @@ class AuthUser {
   });
 
   // create authuser from firebase user
-<<<<<<< HEAD
-  factory AuthUser.fromFirebase(FirebaseAuth.User user) => AuthUser(
+  factory AuthUser.fromFirebase(firebase_auth.User user) => AuthUser(
         id: user.uid,
         isEmailVerified: user.emailVerified,
       );
-=======
-  factory AuthUser.fromFirebase(firebase_auth.User user) => AuthUser(
-    id: user.uid,
-    isEmailVerified: user.emailVerified,
-  );
->>>>>>> fbb028685ca3037df2a859ff852c7585b80e9f87
 
   factory AuthUser.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
