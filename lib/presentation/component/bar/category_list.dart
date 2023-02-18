@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 class AnswerListTabbar extends StatefulWidget {
   AnswerListTabbar({
     Key? key,
+    required this.tabController,
   }) : super(key: key);
+
+  late TabController tabController;
 
   static const List<Widget> _tabs = [
     Tab(text: "전체"),
@@ -19,23 +22,7 @@ class AnswerListTabbar extends StatefulWidget {
 
 class _AnswerListTabbarState extends State<AnswerListTabbar>
     with TickerProviderStateMixin {
-  late TabController _tabController;
   var currentTap = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-      length: 2,
-      vsync: this, //vsync에 this 형태로 전달해야 애니메이션이 정상 처리됨
-    );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +35,7 @@ class _AnswerListTabbarState extends State<AnswerListTabbar>
               currentTap = index;
             });
           },
-          controller: _tabController,
+          controller: widget.tabController,
           tabs: AnswerListTabbar._tabs,
           //indicator style start
           indicatorColor: ColorManager.point,

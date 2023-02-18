@@ -13,7 +13,6 @@ class ImageAssets {
   static const String solidCircleIc = "$IMAGE_PATH/solid_circle_ic.svg";
   static const String appLogo = "$IMAGE_PATH/app_logo.svg";
   static const String fambridgeIcon = "$IMAGE_PATH/fambridge_icon.svg";
-  static const String bookmark = "$IMAGE_PATH/bookmark.svg";
   static const String profile = "$IMAGE_PATH/profile.svg";
   static const String homeLogo = "$IMAGE_PATH/home_logo.svg";
   static const String userProfile2 = "$IMAGE_PATH/user_profile.svg";
@@ -51,6 +50,13 @@ class ImageAssets {
   //button
   static const String homeAnswerDone = "$IMAGE_PATH/home_answer_done.svg";
   static const String homeAnswerYet = "$IMAGE_PATH/home_answer_yet.svg";
+
+  //bookmark
+  static const String bookmark = "$IMAGE_PATH/bookmark.svg";
+  static const String bookmarkClick = "$IMAGE_PATH/bookmark_click.svg";
+
+  //dialog
+  static const String dialogBack = "$IMAGE_PATH/dialog_back.svg";
 }
 
 class RiveAssets {

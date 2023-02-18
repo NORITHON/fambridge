@@ -10,10 +10,10 @@ class BuildPages extends StatefulWidget {
 }
 
 class _BuildPagesState extends State<BuildPages> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   PageController pageController = PageController(
-    initialPage: 2,
+    initialPage: 1,
     keepPage: true,
   );
 
