@@ -40,6 +40,10 @@ class ImageAssets {
 
   //question view
   static const String answerNotYet = "$IMAGE_PATH/answer_lock_yet.svg";
+
+  //button
+  static const String homeAnswerDone = "$IMAGE_PATH/home_answer_done.svg";
+  static const String homeAnswerYet = "$IMAGE_PATH/home_answer_yet.svg";
 }
 
 class RiveAssets {

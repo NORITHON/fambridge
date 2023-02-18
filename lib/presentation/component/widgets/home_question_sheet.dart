@@ -6,8 +6,8 @@ import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 import 'answer_progress_indicator_with_title.dart';
 
-class QuestionSheet extends StatefulWidget {
-  const QuestionSheet({
+class HomeQuestionSheet extends StatefulWidget {
+  const HomeQuestionSheet({
     Key? key,
     required this.group,
   }) : super(key: key);
@@ -15,10 +15,10 @@ class QuestionSheet extends StatefulWidget {
   final Group group;
 
   @override
-  State<QuestionSheet> createState() => _QuestionSheetState();
+  State<HomeQuestionSheet> createState() => _HomeQuestionSheetState();
 }
 
-class _QuestionSheetState extends State<QuestionSheet> {
+class _HomeQuestionSheetState extends State<HomeQuestionSheet> {
   @override
   void initState() {
     super.initState();

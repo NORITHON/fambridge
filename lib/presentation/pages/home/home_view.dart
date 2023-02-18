@@ -8,7 +8,7 @@ import 'package:fambridge/presentation/component/bar/bottom_nav.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
-import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
+import 'package:fambridge/presentation/component/widgets/home_question_sheet.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -165,8 +165,8 @@ class Bottom extends StatelessWidget {
   }
 }
 
-class BottonSheetFrame extends StatelessWidget {
-  const BottonSheetFrame({super.key, required this.child});
+class HomeBottonSheetFrame extends StatelessWidget {
+  const HomeBottonSheetFrame({super.key, required this.child});
 
   final Widget child;
 
@@ -201,10 +201,10 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottonSheetFrame(
+    return HomeBottonSheetFrame(
       child: Column(
         children: [
-          QuestionSheet(group: group),
+          HomeQuestionSheet(group: group),
           const SizedBox(height: AppSize.s20),
           AnswerButton(
             group: group,

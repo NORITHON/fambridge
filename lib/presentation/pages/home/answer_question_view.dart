@@ -1,5 +1,7 @@
 import 'package:fambridge/app/constants/app_state_fieldname/question_state.dart';
 import 'package:fambridge/model/answer.dart';
+import 'package:fambridge/presentation/component/widgets/answer_question_sheet.dart';
+import 'package:fambridge/presentation/component/widgets/question_answer_button.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/presentation/utilities/loading_dialog.dart';
@@ -11,7 +13,7 @@ import 'package:get/get.dart';
 import '../../../app/app.dart';
 import '../../component/group_stream_builder.dart';
 import '../../component/widgets/answer_button.dart';
-import '../../component/widgets/question_sheet.dart';
+import '../../component/widgets/home_question_sheet.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/getx_routes_manager.dart';
 import '../../component/widgets/blurred_answer_list.dart';
@@ -26,6 +28,14 @@ class AnswerQuestionView extends StatefulWidget {
 }
 
 class _AnswerQuestionViewState extends State<AnswerQuestionView> {
+  final myAnswerTextEditinController = TextEditingController();
+
+  @override
+  void dispose() {
+    myAnswerTextEditinController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GroupStreamBuilder(
@@ -45,21 +55,28 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             title: const Text("질문"),
             toolbarHeight: AppSize.s60,
             backgroundColor: ColorManager.backgroundColor,
-            elevation: 1,
+            elevation: 7,
             shadowColor: ColorManager.shadowColor,
           ),
-          body: Column(
-            children: [
-              QuestionSheet(
-                group: snapshot.data!,
-              ),
-              const SizedBox(
-                height: AppPadding.p20,
-              ),
-              BlurredAnswerList(group: snapshot.data!),
-            ],
+          body: Container(
+            color: ColorManager.white,
+            child: Column(
+              children: [
+                AnswerQuestionSheet(
+                  group: snapshot.data!,
+                ),
+                const SizedBox(
+                  height: AppPadding.p30,
+                ),
+                BlurredAnswerList(
+                  group: snapshot.data!,
+                ),
+              ],
+            ),
           ),
-          floatingActionButton: _FloatingActionButton(snapshot: snapshot),
+          floatingActionButton: _FloatingActionButton(
+              snapshot: snapshot,
+              myAnswerTextEditinController: myAnswerTextEditinController),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         ),
@@ -72,15 +89,18 @@ class _FloatingActionButton extends StatelessWidget {
   const _FloatingActionButton({
     Key? key,
     required this.snapshot,
+    required this.myAnswerTextEditinController,
   }) : super(key: key);
+
   final AsyncSnapshot snapshot;
+  final TextEditingController myAnswerTextEditinController;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
       visible: !GroupService.firebase().hasUserAnsweredTodayQuestion(
           group: snapshot.data!, userId: MyApp.unsyncronizedAuthUser!.id),
-      child: AnswerButton(
+      child: QuestionAnswerButton(
         group: snapshot.data!,
         onPressed: () async {
           final String answerScript = MyApp
