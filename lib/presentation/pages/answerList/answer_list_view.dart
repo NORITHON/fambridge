@@ -1,5 +1,6 @@
 import 'package:fambridge/presentation/component/bar/category_list.dart';
 import 'package:fambridge/presentation/component/card/list.dart';
+import 'package:fambridge/presentation/component/widgets/answer_view_list.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -35,12 +36,89 @@ class _AnswerListViewState extends State<AnswerListView>
     super.dispose();
   }
 
+  void openDialog() {
+    Get.dialog(
+      AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        // icon: IconButton(
+        //   alignment: Alignment.topRight,
+        //   padding: const EdgeInsets.all(0),
+        //   icon: SvgPicture.asset(
+        //     ImageAssets.dialogBack,
+        //   ),
+        //   onPressed: () {
+        //     Get.back();
+        //   }, //do something,
+        // ),
+        // iconPadding: const EdgeInsets.only(right: 20, top: 20),
+        titlePadding: const EdgeInsets.all(0),
+        title: Stack(
+          children: [
+            Positioned(
+              right: 24,
+              top: 20,
+              child: IconButton(
+                alignment: Alignment.topRight,
+                padding: const EdgeInsets.all(0),
+                icon: SvgPicture.asset(
+                  ImageAssets.dialogBack,
+                ),
+                onPressed: () {
+                  Get.back();
+                }, //do something,
+              ),
+            ),
+            Positioned(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 48, left: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "#1",
+                      style: getMediumStyle(
+                        color: ColorManager.lightGrey,
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      height: 50,
+                      width: 240,
+                      child: WrappedKoreanText(
+                        textAlign: TextAlign.center,
+                        "우리가족은 어떤 가족인가요?",
+                        style: getMediumStyle(
+                            color: ColorManager.black, fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      padding: EdgeInsets.fromLTRB(32, 0, 32, 20),
+                      child: AnswerViewListBuilder(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        // content: const Text('This is a dialog'),
+      ),
+    );
+  }
+
   late final List<Widget> _views = [
     //전체 목록
     ListView.separated(
       itemCount: 10,
       itemBuilder: (context, index) {
         return GestureDetector(
+          onTap: openDialog,
           child: AnswerCardComponent(
             number: index + 1,
             question: "우리 가족은 어떤 가족인가요?",
