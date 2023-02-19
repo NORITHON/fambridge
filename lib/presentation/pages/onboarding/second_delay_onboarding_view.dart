@@ -21,7 +21,7 @@ class _second_delayState extends State<second_delayView> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 2), () {
-      Get.offAllNamed(Routes.homeRoute);
+      Get.offAllNamed(Routes.buildPages);
     });
   }
 
