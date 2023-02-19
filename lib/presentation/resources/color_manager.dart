@@ -10,6 +10,7 @@ class ColorManager {
   static Color point = HexColor.fromHex("#EA6F29");
   static Color lightpoint = HexColor.fromHex("#FDEAE0");
   static Color questionbackgroundColor = HexColor.fromHex("#F6F6F6");
+  static Color chipbackgroundColor = HexColor.fromHex("#F8F7F7");
 
   static Color backgroundColor = HexColor.fromHex("#FFFFFF");
   static Color textFieldbackgroundColor = HexColor.fromHex("#FFFFFF");

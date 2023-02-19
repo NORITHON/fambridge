@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 class StoreTabbar extends StatefulWidget {
   StoreTabbar({
     Key? key,
+    required this.tabController,
   }) : super(key: key);
+
+  late TabController tabController;
 
   @override
   State<StoreTabbar> createState() => _StoreTabbarState();
@@ -14,7 +17,6 @@ class StoreTabbar extends StatefulWidget {
 
 class _StoreTabbarState extends State<StoreTabbar>
     with TickerProviderStateMixin {
-  late TabController _tabController;
   var currentTap = 0;
 
   static const List<Widget> tabs = [
@@ -23,21 +25,6 @@ class _StoreTabbarState extends State<StoreTabbar>
     Tab(text: "선물"),
     Tab(text: "여가"),
   ];
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-      length: 4,
-      vsync: this, //vsync에 this 형태로 전달해야 애니메이션이 정상 처리됨
-    );
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +37,7 @@ class _StoreTabbarState extends State<StoreTabbar>
               currentTap = index;
             });
           },
-          controller: _tabController,
+          controller: widget.tabController,
           tabs: tabs,
           //indicator style start
           indicatorColor: ColorManager.point,
@@ -101,7 +88,7 @@ class _StoreTabbarState extends State<StoreTabbar>
               width: MediaQuery.of(context).size.width / 4,
             ),
             Container(
-              color: currentTap == 4 ? ColorManager.point : null,
+              color: currentTap == 3 ? ColorManager.point : null,
               height: 2,
               width: MediaQuery.of(context).size.width / 4,
             )

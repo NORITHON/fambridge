@@ -57,6 +57,14 @@ class ImageAssets {
 
   //dialog
   static const String dialogBack = "$IMAGE_PATH/dialog_back.svg";
+
+  //store View
+  static const String familyProfile = "$IMAGE_PATH/family_profile.png";
+  static const String information = "$IMAGE_PATH/information.svg";
+  static const String advertise = "$IMAGE_PATH/advertise.svg";
+  static const String money = "$IMAGE_PATH/money.svg";
+  static const String everland = "$IMAGE_PATH/everland.svg";
+  static const String download = "$IMAGE_PATH/download.svg";
 }
 
 class RiveAssets {
