@@ -119,7 +119,7 @@ class _FloatingActionButton extends StatelessWidget {
               .setTreeXp(group: snapshot.data!, setVal: 1);
           await GroupService.firebase()
               .makeTodayQuestionAnswerVisualizable(group: snapshot.data!);
-          Get.offAllNamed(Routes.homeRoute);
+          Get.offAllNamed(Routes.buildPages);
         },
       ),
     );
