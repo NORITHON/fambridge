@@ -37,6 +37,7 @@ class _AnswerListTabbarState extends State<AnswerListTabbar>
           },
           controller: widget.tabController,
           tabs: AnswerListTabbar._tabs,
+
           //indicator style start
           indicatorColor: ColorManager.point,
           indicatorWeight: 2,
@@ -52,7 +53,6 @@ class _AnswerListTabbarState extends State<AnswerListTabbar>
               ],
             ),
           ),
-          //indicator style end
 
           //label style start
           labelStyle: getMediumStyle(
@@ -65,9 +65,9 @@ class _AnswerListTabbarState extends State<AnswerListTabbar>
             fontSize: AppSize.s16,
           ),
           unselectedLabelColor: ColorManager.lightGrey,
-          //label style end
         ),
-        //underline container
+
+        //point underline containers
         Row(
           children: [
             Container(

@@ -36,23 +36,40 @@ class _AnswerListViewState extends State<AnswerListView>
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: ColorManager.white,
+        appBar: AppBar(
+          elevation: 0,
+          title: const Text("질문 목록"),
+          toolbarHeight: AppSize.s60,
+          backgroundColor: ColorManager.backgroundColor,
+          shadowColor: ColorManager.shadowColor,
+        ),
+        body: Column(
+          children: [
+            AnswerListTabbar(tabController: tabController),
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: _views,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void openDialog() {
     Get.dialog(
       AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        // icon: IconButton(
-        //   alignment: Alignment.topRight,
-        //   padding: const EdgeInsets.all(0),
-        //   icon: SvgPicture.asset(
-        //     ImageAssets.dialogBack,
-        //   ),
-        //   onPressed: () {
-        //     Get.back();
-        //   }, //do something,
-        // ),
-        // iconPadding: const EdgeInsets.only(right: 20, top: 20),
         titlePadding: const EdgeInsets.all(0),
         title: Stack(
           children: [
@@ -107,7 +124,6 @@ class _AnswerListViewState extends State<AnswerListView>
             ),
           ],
         ),
-        // content: const Text('This is a dialog'),
       ),
     );
   }
@@ -135,10 +151,13 @@ class _AnswerListViewState extends State<AnswerListView>
     ListView.separated(
       itemCount: 10,
       itemBuilder: (context, index) {
-        return AnswerCardComponent(
-          number: index,
-          question: "우리 가족은 어떤 가족인가요?",
-          numberOfAnswerdFamily: 5,
+        return GestureDetector(
+          onTap: openDialog,
+          child: AnswerCardComponent(
+            number: index + 1,
+            question: "우리 가족은 어떤 가족인가요?",
+            numberOfAnswerdFamily: 5,
+          ),
         );
       },
       separatorBuilder: (BuildContext context, int index) => const SizedBox(
@@ -146,32 +165,4 @@ class _AnswerListViewState extends State<AnswerListView>
       ),
     ),
   ];
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        backgroundColor: ColorManager.white,
-        appBar: AppBar(
-          elevation: 0,
-          title: const Text("질문 목록"),
-          toolbarHeight: AppSize.s60,
-          backgroundColor: ColorManager.backgroundColor,
-          shadowColor: ColorManager.shadowColor,
-        ),
-        body: Column(
-          children: [
-            AnswerListTabbar(tabController: tabController),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: _views,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

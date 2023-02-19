@@ -35,9 +35,6 @@ class BlurredAnswerList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(AppPadding.p35, AppPadding.p18,
                   AppPadding.p35, AppPadding.p16),
-              // padding: const EdgeInsets.symmetric(
-              //   horizontal: AppPadding.p45,
-              // ),
               child: CommentBuilder(group: group),
             ),
             Visibility(
@@ -47,9 +44,8 @@ class BlurredAnswerList extends StatelessWidget {
                 width: double.infinity,
                 height: double.infinity,
                 child: Align(
-                  alignment: const Alignment(0, -0.9),
-                  child: Text(
-                      "${GroupService.firebase().requiredNumOfAnswersToVisualizeAnswers(group: group)}명만 더 대답하면 볼 수 있어요!"),
+                  alignment: const Alignment(0, -1),
+                  child: AnswerNotYet(group: group),
                 ),
               ).asGlass(
                 tintColor: Colors.transparent,
@@ -66,12 +62,16 @@ class BlurredAnswerList extends StatelessWidget {
                     : Container(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 35),
-              child: HomeAnswerBack(
-                onPressed: () {
-                  Get.toNamed(Routes.homeRoute);
-                },
+            Visibility(
+              visible: GroupService.firebase()
+                  .checkIfAnswerCanBeVisualizable(group: group),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 35),
+                child: HomeAnswerBack(
+                  onPressed: () {
+                    Get.toNamed(Routes.homeRoute);
+                  },
+                ),
               ),
             ),
           ],
