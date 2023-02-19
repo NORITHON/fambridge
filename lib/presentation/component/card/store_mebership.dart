@@ -13,41 +13,54 @@ class StoreMembership extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(37.5, 26, 37.5, 26),
-      color: ColorManager.white,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FamilyProfileAndName(),
-              Container(
-                width: 101,
-                height: 28,
-                decoration: BoxDecoration(
-                    color: ColorManager.point,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Center(
-                  child: Text(
-                    "프리미엄 구독권",
-                    style: getMediumStyle(
-                      color: ColorManager.white,
-                      fontSize: 12,
+      padding: const EdgeInsets.only(bottom: 3),
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColorManager.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              blurRadius: 10,
+              spreadRadius: 1,
+              offset: const Offset(0, 10), // changes position of shadow
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.fromLTRB(37.5, 26, 37.5, 26),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FamilyProfileAndName(),
+                Container(
+                  width: 101,
+                  height: 28,
+                  decoration: BoxDecoration(
+                      color: ColorManager.point,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Center(
+                    child: Text(
+                      "프리미엄 구독권",
+                      style: getMediumStyle(
+                        color: ColorManager.white,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          ),
-          const SizedBox(height: 21),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              MembershipPoint(),
-              adversityAndDiscount(),
-            ],
-          ),
-        ],
+                )
+              ],
+            ),
+            const SizedBox(height: 21),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                MembershipPoint(),
+                adversityAndDiscount(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

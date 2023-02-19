@@ -1,21 +1,12 @@
 import 'package:fambridge/presentation/component/bar/category_store.dart';
+import 'package:fambridge/presentation/component/card/store_coupon.dart';
 import 'package:fambridge/presentation/component/card/store_mebership.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class StoreView extends StatefulWidget {
   const StoreView({super.key});
-
-  static const List<Widget> _views = [
-    const Center(child: const Text('Content of Tab One')),
-    const Center(child: const Text('Content of Tab Two')),
-    const Center(child: const Text('Content of Tab Three')),
-    const Center(child: const Text('Content of Tab Four')),
-  ];
 
   @override
   State<StoreView> createState() => _StoreViewState();
@@ -51,21 +42,58 @@ class _StoreViewState extends State<StoreView> with TickerProviderStateMixin {
           elevation: 7,
           shadowColor: ColorManager.shadowColor,
         ),
-        body: Column(
-          children: [
-            StoreMembership(),
-            Container(
-              color: ColorManager.white,
-              child: StoreTabbar(tabController: tabController),
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: tabController,
-                children: StoreView._views,
+        body: Container(
+          color: ColorManager.questionbackgroundColor,
+          child: Column(
+            children: [
+              const StoreMembership(),
+              StoreTabbar(tabController: tabController),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(25, 9, 25, 9),
+                  child: TabBarView(
+                    controller: tabController,
+                    children: views,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  List<Widget> views = [
+    //전체
+    const BuildCouponList(),
+    //식사
+    const BuildCouponList(),
+    //선물
+    const BuildCouponList(),
+    //여가
+    const BuildCouponList(),
+  ];
+}
+
+class BuildCouponList extends StatelessWidget {
+  const BuildCouponList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return const StoreCoupon();
+      },
+      separatorBuilder: (
+        BuildContext context,
+        int index,
+      ) =>
+          const SizedBox(
+        height: 0,
       ),
     );
   }

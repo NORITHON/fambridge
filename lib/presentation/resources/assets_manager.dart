@@ -63,7 +63,7 @@ class ImageAssets {
   static const String information = "$IMAGE_PATH/information.svg";
   static const String advertise = "$IMAGE_PATH/advertise.svg";
   static const String money = "$IMAGE_PATH/money.svg";
-  static const String everland = "$IMAGE_PATH/everland.svg";
+  static const String everland = "$IMAGE_PATH/everland.png";
   static const String download = "$IMAGE_PATH/download.svg";
 }
 

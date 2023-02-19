@@ -11,6 +11,8 @@ class ColorManager {
   static Color lightpoint = HexColor.fromHex("#FDEAE0");
   static Color questionbackgroundColor = HexColor.fromHex("#F6F6F6");
   static Color chipbackgroundColor = HexColor.fromHex("#F8F7F7");
+  static Color downloadbackgroundColor = HexColor.fromHex("#F2F2F2");
+  static Color storebarUnselectColor = HexColor.fromHex("#DFDFDF");
 
   static Color backgroundColor = HexColor.fromHex("#FFFFFF");
   static Color textFieldbackgroundColor = HexColor.fromHex("#FFFFFF");
