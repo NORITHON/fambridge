@@ -11,7 +11,7 @@ import 'constants/app_state_fieldname/question_state.dart';
 @immutable
 class MyApp extends StatefulWidget {
   const MyApp._internal();
-  static final MyApp instance =
+  static const MyApp instance =
       MyApp._internal(); // single instance -- singleton
 
   factory MyApp() => instance; // factory for the class instance
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.splashRoute,
+      initialRoute: Routes.loginRoute,
       // theme: getApplicationTheme(),
       getPages: getPages,
     );

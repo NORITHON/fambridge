@@ -1,3 +1,4 @@
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
@@ -42,6 +43,29 @@ class _numbersofFamilyState extends State<NumbersofFamilyView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.black, shape: BoxShape.circle),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.lightGrey,
+                            shape: BoxShape.circle),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 115,
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(Routes.checkMyselfRoute,
@@ -157,20 +181,6 @@ class _MenberCountButtonState extends State<MenberCountButton> {
       ),
     );
   }
-}
-
-PreferredSize onboardingAppBar() {
-  return PreferredSize(
-    preferredSize: const Size.fromHeight(60),
-    child: AppBar(
-      backgroundColor: ColorManager.white,
-      leading: TextButton(
-        onPressed: () => Get.back(),
-        child: Text("취소", style: TextStyle(color: ColorManager.lightGrey)),
-      ),
-      elevation: 0.0,
-    ),
-  );
 }
 
 class CircleProfile extends StatelessWidget {

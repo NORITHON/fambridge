@@ -4,6 +4,7 @@ import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/enums/family_role.dart';
 import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/component/widgets/input_code_field.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -28,7 +29,7 @@ class _InputFamilyCodeState extends State<InputFamilyCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _AppBar(),
+      appBar: onboardingLogoutAppBar(),
       resizeToAvoidBottomInset: false,
       body: const SafeArea(
         child: InputFamilybody(),
@@ -65,12 +66,12 @@ class InputFamilybody extends StatelessWidget {
     return Expanded(
       child: Container(
         color: ColorManager.backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: 30,
           ),
           child: Row(
-            children: const [
+            children: [
               FamilyCodeForm(),
             ],
           ),
@@ -132,64 +133,67 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                 hintText: "공유 받은 코드 입력", controller: codeController),
           ),
           const SizedBox(height: 150),
-          Text(
-            "제가 시작하는 사람이에요!",
-            textAlign: TextAlign.center,
-            style: getMediumStyle(
-              color: ColorManager.darkGrey,
-              fontSize: 16,
-            ),
-          ),
           const SizedBox(height: 7),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorManager.point,
-                padding: const EdgeInsets.all(12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                '처음 시작한다면',
+                style:
+                    getRegularStyle(color: ColorManager.darkGrey, fontSize: 14),
+              ),
+              SizedBox(
+                width: 160,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorManager.point,
+                    padding: const EdgeInsets.all(12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  onPressed: () async {
+                    loadingDialog(context);
+                    try {
+                      final user = await AuthService.firebase().currentUser;
+                      GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
+                          .familyGroupCodeFieldname] = const Uuid().v4();
+                      GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
+                          .groupIdFieldName] = const Uuid().v4();
+                      GroupStateProvider().newGroupInfo[
+                          GroupFirestoreFieldName.groupNameFieldName] = "group";
+                      GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
+                          .joinedUserIdsFieldName] = [user!.id];
+                      GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
+                          .totalNumOfFamilyMemberFieldName] = 5;
+                      GroupStateProvider().newGroupInfo[
+                          GroupFirestoreFieldName.treeXpFieldName] = 0;
+                      final group =
+                          await GroupService.firebase().createNewGroup();
+                      await AuthService.firebase().addAuthToDatabase(
+                          authUser: user,
+                          name: "shinhoo",
+                          familyRole: FamilyRole.son,
+                          birthOrder: 1,
+                          groupId: group.familyGroupId);
+                      MyApp.unsyncronizedAuthUser =
+                          await AuthService.firebase().currentUser;
+                    } catch (e) {
+                      log(e.toString());
+                    }
+                    Get.back();
+                    Get.toNamed(Routes.firstDelayRoute);
+                  },
+                  child: Text(
+                    "코드 받기",
+                    style: getRegularStyle(
+                      color: ColorManager.white,
+                      fontSize: 14,
+                    ),
+                  ),
                 ),
               ),
-              onPressed: () async {
-                loadingDialog(context);
-                try {
-                  final user = await AuthService.firebase().currentUser;
-                  GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
-                      .familyGroupCodeFieldname] = const Uuid().v4();
-                  GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
-                      .groupIdFieldName] = const Uuid().v4();
-                  GroupStateProvider().newGroupInfo[
-                      GroupFirestoreFieldName.groupNameFieldName] = "group";
-                  GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
-                      .joinedUserIdsFieldName] = [user!.id];
-                  GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
-                      .totalNumOfFamilyMemberFieldName] = 5;
-                  GroupStateProvider().newGroupInfo[
-                      GroupFirestoreFieldName.treeXpFieldName] = 0;
-                  final group = await GroupService.firebase().createNewGroup();
-                  await AuthService.firebase().addAuthToDatabase(
-                      authUser: user,
-                      name: "shinhoo",
-                      familyRole: FamilyRole.son,
-                      birthOrder: 1,
-                      groupId: group.familyGroupId);
-                  MyApp.unsyncronizedAuthUser =
-                      await AuthService.firebase().currentUser;
-                } catch (e) {
-                  log(e.toString());
-                }
-                Get.back();
-                Get.toNamed(Routes.firstDelayRoute);
-              },
-              child: Text(
-                "새로운 코드 받기",
-                style: getMediumStyle(
-                  color: ColorManager.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
+            ],
           ),
         ],
       ),

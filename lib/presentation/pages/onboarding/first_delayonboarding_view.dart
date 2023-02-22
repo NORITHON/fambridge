@@ -1,8 +1,7 @@
-import 'dart:async';
-
+import 'package:fambridge/presentation/component/button/button_checkfirst.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -20,27 +19,27 @@ class _firstDelayViewState extends State<firstDelayView> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
-      Get.toNamed(Routes.numbersofFamilyRoute);
-    });
+    // Timer(const Duration(seconds: 2), () {
+    //   Get.toNamed(Routes.numbersofFamilyRoute);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _AppBar(),
+      appBar: onboardingAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         width: double.infinity,
         height: double.infinity,
         child: Column(
           children: [
-            SizedBox(height: 250),
+            const SizedBox(height: 250),
             Text(
-              "2가지 질문에 답변을 통해.",
+              "2가지 질문에 답변을 통해",
               textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.black,
+              style: getRegularStyle(
+                color: ColorManager.darkGrey,
                 fontSize: FontSize.s16,
               ),
             ),
@@ -50,11 +49,15 @@ class _firstDelayViewState extends State<firstDelayView> {
             Text(
               "가족 코드가 발행됩니다.",
               textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.black,
+              style: getRegularStyle(
+                color: ColorManager.darkGrey,
                 fontSize: FontSize.s16,
               ),
             ),
+            const SizedBox(
+              height: 200,
+            ),
+            const ButtonCheckfirst(),
           ],
         ),
       ),

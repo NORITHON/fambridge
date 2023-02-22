@@ -6,6 +6,7 @@ class ColorManager {
   static Color shadowColor = HexColor.fromHex("#000000").withOpacity(0.1);
   static Color darkGrey = HexColor.fromHex("#636363");
   static Color lightGrey = HexColor.fromHex("#A1A1A1");
+  static Color ButtonlightGrey = HexColor.fromHex("#DFDFDF");
   static Color primary = HexColor.fromHex("#FFF3E3");
   static Color point = HexColor.fromHex("#EA6F29");
   static Color lightpoint = HexColor.fromHex("#FDEAE0");

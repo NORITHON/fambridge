@@ -80,22 +80,22 @@ class _HomeViewState extends State<HomeView> {
                             AsyncSnapshot<void> snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.done:
-                              return Center(
+                              return const Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    const Text("rebuilt!"),
-                                    const CircularProgressIndicator()
+                                  children: [
+                                    Text("rebuilt!"),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
                             default:
-                              return Center(
+                              return const Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    const Text("refreshing today question.."),
-                                    const CircularProgressIndicator()
+                                  children: [
+                                    Text("refreshing today question.."),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
@@ -215,9 +215,9 @@ class Top extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: const TopIconBar(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TopIconBar(),
           ),
           const SizedBox(height: 25),
           Row(

@@ -35,6 +35,7 @@ class ImageAssets {
   static const String newlikeOn = "$IMAGE_PATH/new_likeon.svg";
   static const String logoColor = "$IMAGE_PATH/logo_color.svg";
   static const String navigateNext = "$IMAGE_PATH/navigate_next.png";
+  static const String navigateBefore = "$IMAGE_PATH/navigate_next.png";
 
   //bottom navbar
   static const String navHome = "$IMAGE_PATH/Home.svg";
