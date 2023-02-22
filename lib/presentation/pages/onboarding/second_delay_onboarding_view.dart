@@ -1,7 +1,7 @@
-import 'dart:async';
-
+import 'package:fambridge/presentation/component/button/copybutton.dart';
+import 'package:fambridge/presentation/component/button/sharebutton.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -20,44 +20,74 @@ class _second_delayState extends State<second_delayView> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Get.offAllNamed(Routes.homeRoute);
-    });
+    // Timer(const Duration(seconds: 2), () {
+    //   Get.offAllNamed(Routes.buildPages);
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    var idController = "24983827";
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(40),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 220),
-            const FamilyList(),
-            const SizedBox(
-              height: 50,
-            ),
-            Text(
-              "가장 가깝지만 멀었던",
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.point,
-                fontSize: FontSize.s16,
+      appBar: onboardingLogoutAppBar(),
+      body: Container(
+        color: ColorManager.backgroundColor,
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Fambridge",
+                style: getMediumStyle(
+                    color: ColorManager.buttonDisable, fontSize: 20),
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "'우리'를 알아가는 시간을 보내세요",
-              textAlign: TextAlign.center,
-              style: getMediumStyle(
-                color: ColorManager.point,
-                fontSize: FontSize.s16,
+              const SizedBox(
+                height: 15,
               ),
-            ),
-          ],
+              Text(
+                "'우리'라는 이름 아래 모인 우리 ",
+                style:
+                    getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
+              ),
+              const SizedBox(height: 140),
+              const FamilyList(),
+              const SizedBox(
+                height: 110,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "가족 코드",
+                    textAlign: TextAlign.center,
+                    style: getRegularStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: FontSize.s14,
+                    ),
+                  ),
+                  Text(
+                    idController,
+                    textAlign: TextAlign.center,
+                    style: getMediumStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: FontSize.s20,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Copybutton(),
+                  Sharebutton(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -72,14 +102,14 @@ class FamilyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          FamilyMember(type: "아빠", profile: ImageAssets.onboardingLogo3),
-          FamilyMember(type: "엄마", profile: ImageAssets.onboardingLogo3),
-          FamilyMember(type: "첫째", profile: ImageAssets.onboardingLogo3),
-          FamilyMember(type: "둘째", profile: ImageAssets.onboardingLogo3),
-          FamilyMember(type: "셋째", profile: ImageAssets.onboardingLogo3),
+          FamilyMember(type: "아빠", profile: ImageAssets.profile2),
+          FamilyMember(type: "엄마", profile: ImageAssets.profile2),
+          FamilyMember(type: "첫째", profile: ImageAssets.profile2),
+          FamilyMember(type: "둘째", profile: ImageAssets.profile2),
+          FamilyMember(type: "셋째", profile: ImageAssets.profile2),
         ],
       ),
     );

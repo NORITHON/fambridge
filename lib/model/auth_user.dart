@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth show User;
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth show User;
 import 'package:flutter/foundation.dart';
 
 import '../app/constants/enums/family_role.dart';
@@ -16,7 +16,7 @@ class AuthUser {
   final bool? isEmailVerified;
   final Timestamp? lastLoginTime;
 
-  const AuthUser( {
+  const AuthUser({
     required this.id,
     this.isEmailVerified,
     this.name,
@@ -29,29 +29,35 @@ class AuthUser {
   });
 
   // create authuser from firebase user
-  factory AuthUser.fromFirebase(FirebaseAuth.User user) => AuthUser(
-    id: user.uid,
-    isEmailVerified: user.emailVerified,
-  );
+  factory AuthUser.fromFirebase(firebase_auth.User user) => AuthUser(
+        id: user.uid,
+        isEmailVerified: user.emailVerified,
+      );
 
   factory AuthUser.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
-        var snapshotData = snapshot.data() as Map<String, dynamic>;
+    var snapshotData = snapshot.data() as Map<String, dynamic>;
     return AuthUser(
       docId: snapshot.id,
-      id: snapshotData[AuthUserFirestoreFieldName.userIdFieldName], 
-      name: snapshotData[AuthUserFirestoreFieldName.userNameFieldName], 
-      familyRole: _castStringToFamiltyRole(snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName]), 
-      registerTime: snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName] as Timestamp?,
-      birthOrder: snapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
+      id: snapshotData[AuthUserFirestoreFieldName.userIdFieldName],
+      name: snapshotData[AuthUserFirestoreFieldName.userNameFieldName],
+      familyRole: _castStringToFamiltyRole(
+          snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName]),
+      registerTime:
+          snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName]
+              as Timestamp?,
+      birthOrder:
+          snapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
       groupId: snapshotData[AuthUserFirestoreFieldName.userGroupIdFieldName],
-      lastLoginTime: snapshotData[AuthUserFirestoreFieldName.lastLoginTimeFieldName] as Timestamp?,
+      lastLoginTime:
+          snapshotData[AuthUserFirestoreFieldName.lastLoginTimeFieldName]
+              as Timestamp?,
     );
   }
-  
-  static FamilyRole? _castStringToFamiltyRole(String string){
-    for(FamilyRole role in FamilyRole.values){
-      if(role.name == string){
+
+  static FamilyRole? _castStringToFamiltyRole(String string) {
+    for (FamilyRole role in FamilyRole.values) {
+      if (role.name == string) {
         return role;
       }
     }
@@ -59,7 +65,7 @@ class AuthUser {
   }
 }
 
-class AuthUserFirestoreFieldName{
+class AuthUserFirestoreFieldName {
   static const String userIdFieldName = 'user-id';
   static const String userNameFieldName = 'name';
   static const String userFamilyRoleFieldName = 'family-role';

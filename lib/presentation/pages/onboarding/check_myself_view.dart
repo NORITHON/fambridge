@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 RxInt target = 0.obs;
@@ -19,7 +18,7 @@ class _checkMyselfState extends State<CheckMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _MypageAppBar(),
+      appBar: onboardingAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         width: double.infinity,
@@ -33,7 +32,7 @@ class _checkMyselfState extends State<CheckMyselfView> {
                 "나는 '누구'인가요?",
                 textAlign: TextAlign.left,
                 style: getMediumStyle(
-                  color: ColorManager.darkGrey,
+                  color: ColorManager.point,
                   fontSize: 20,
                 ),
               ),
@@ -41,8 +40,42 @@ class _checkMyselfState extends State<CheckMyselfView> {
               const ChoiceForm(),
               const SizedBox(height: 100),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.numbersofFamilyRoute,
+                          );
+                        },
+                        child: CircleProfileBack(
+                          profile: ImageAssets.navigateBefore,
+                          size: 50,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 100,
+                      ),
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.lightGrey,
+                            shape: BoxShape.circle),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.black, shape: BoxShape.circle),
+                      ),
+                    ],
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(Routes.LastquestionRoute, arguments: {
@@ -162,29 +195,39 @@ class _MenberCountButtonState extends State<MenberCountButton> {
   }
 }
 
-PreferredSizeWidget _MypageAppBar() {
+PreferredSize onboardingAppBar() {
   return PreferredSize(
     preferredSize: const Size.fromHeight(60),
     child: AppBar(
-      title: Text(
-        "",
-        style: getMediumStyle(
-          fontSize: 18,
-          color: ColorManager.darkGrey,
-        ),
-      ),
-      centerTitle: true,
       backgroundColor: ColorManager.white,
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: SvgPicture.asset(
-          ImageAssets.back,
-          height: 20,
-          width: 20,
-          fit: BoxFit.scaleDown,
+      leading: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+        child: TextButton(
+          onPressed: () => Get.back(),
+          child: Text("취소", style: TextStyle(color: ColorManager.lightGrey)),
         ),
       ),
-      elevation: 0.0,
+      elevation: 3.0,
+    ),
+  );
+}
+
+PreferredSize onboardingLogoutAppBar() {
+  return PreferredSize(
+    preferredSize: const Size.fromHeight(90),
+    child: AppBar(
+      backgroundColor: ColorManager.white,
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 25, 20, 0),
+          child: TextButton(
+            onPressed: () => Get.toNamed(Routes.loginRoute),
+            child:
+                Text("로그아웃", style: TextStyle(color: ColorManager.lightGrey)),
+          ),
+        ),
+      ],
+      elevation: 3.0,
     ),
   );
 }
@@ -208,6 +251,37 @@ class CircleProfile extends StatelessWidget {
         ),
         child: CircleAvatar(
           backgroundColor: ColorManager.point,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(45),
+            child: Image.asset(
+              profile,
+              height: size,
+              width: size,
+            ),
+          ),
+        ));
+  }
+}
+
+class CircleProfileBack extends StatelessWidget {
+  double size;
+  String profile;
+  CircleProfileBack({
+    Key? key,
+    required this.profile,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: size,
+        width: size,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: CircleAvatar(
+          backgroundColor: ColorManager.ButtonlightGrey,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(45),
             child: Image.asset(

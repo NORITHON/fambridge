@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fambridge/presentation/pages/buildPages.dart';
 import 'package:fambridge/presentation/pages/login/login_view.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter/material.dart';
 
-import '../home/homepage.dart';
+import '../home/home_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -28,14 +29,20 @@ class _SplashViewState extends State<SplashView> {
           return const AppLogo();
         } else if (snapshot.hasData) {
           return FutureBuilder(
-            future: Future.wait([AuthService.firebase().currentUser.then((authUser) => AuthService.firebase().updateLastLoginTime(authUser: authUser),) ]),
+            future: Future.wait([
+              AuthService.firebase().currentUser.then(
+                    (authUser) => AuthService.firebase()
+                        .updateLastLoginTime(authUser: authUser),
+                  )
+            ]),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.done:
-                  if(!snapshot.hasData) return const LoginView();
-                  if(snapshot.data!.first == null) return const LoginView();
-                  AuthService.firebase().initAuthStateForApp(authUser: snapshot.data!.first!);
-                  return const HomeView();
+                  if (!snapshot.hasData) return const LoginView();
+                  if (snapshot.data!.first == null) return const LoginView();
+                  AuthService.firebase()
+                      .initAuthStateForApp(authUser: snapshot.data!.first!);
+                  return BuildPages();
                 default:
                   return Scaffold(
                     backgroundColor: ColorManager.buttonDisable,
@@ -64,7 +71,7 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      ImageAssets.appLogo,
+      ImageAssets.loginApplogo,
       width: size,
       height: size,
     );

@@ -8,7 +8,7 @@ import 'package:fambridge/presentation/component/bar/bottom_nav.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
-import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
+import 'package:fambridge/presentation/component/widgets/home_question_sheet.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -80,22 +80,22 @@ class _HomeViewState extends State<HomeView> {
                             AsyncSnapshot<void> snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.done:
-                              return Center(
+                              return const Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    const Text("rebuilt!"),
-                                    const CircularProgressIndicator()
+                                  children: [
+                                    Text("rebuilt!"),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
                             default:
-                              return Center(
+                              return const Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    const Text("refreshing today question.."),
-                                    const CircularProgressIndicator()
+                                  children: [
+                                    Text("refreshing today question.."),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
@@ -116,25 +116,10 @@ class _HomeViewState extends State<HomeView> {
                     return const CircularProgressIndicator();
                 }
               }),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: ColorManager.white,
-          boxShadow: [
-            BoxShadow(
-              color: ColorManager.darkGrey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(1, 1),
-            ),
-          ],
-        ),
-        padding: EdgeInsets.fromLTRB(0, 8, 0, 25),
-        child: CustomBottomNavbar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ),
-      ),
+      // bottomNavigationBar: CustomBottomNavbar(
+      //   selectedIndex: _selectedIndex,
+      //   onItemTapped: _onItemTapped,
+      // ),
     );
   }
 
@@ -166,8 +151,8 @@ class Bottom extends StatelessWidget {
   }
 }
 
-class BottonSheetFrame extends StatelessWidget {
-  const BottonSheetFrame({super.key, required this.child});
+class HomeBottonSheetFrame extends StatelessWidget {
+  const HomeBottonSheetFrame({super.key, required this.child});
 
   final Widget child;
 
@@ -175,7 +160,6 @@ class BottonSheetFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.95,
-      height: 300,
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -203,10 +187,10 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottonSheetFrame(
+    return HomeBottonSheetFrame(
       child: Column(
         children: [
-          QuestionSheet(group: group),
+          HomeQuestionSheet(group: group),
           const SizedBox(height: AppSize.s20),
           AnswerButton(
             group: group,
@@ -214,7 +198,7 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
               Get.toNamed(Routes.answerQuestionRoute);
             },
           ),
-          const SizedBox(height: AppSize.s35),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -227,38 +211,35 @@ class Top extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const TopIconBar(),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Row(
-                children: [
-                  Text(
-                    group.groupName,
-                    style: getMediumStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Text(
-                    "${group.treeXp}p",
-                    style: getBoldStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: 20,
-                    ),
-                  ),
-                ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 50),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TopIconBar(),
+          ),
+          const SizedBox(height: 25),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                group.groupName,
+                style: getMediumStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
               ),
-            ),
-          ],
-        ),
+              Text(
+                "${group.treeXp}p",
+                style: getBoldStyle(
+                  color: ColorManager.darkGrey,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -280,7 +261,20 @@ class TopIconBar extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Image.asset(ImageAssets.userProfile),
+        IconButton(
+          onPressed: () {
+            AuthService.firebase().logOut();
+            Get.offAllNamed(Routes.loginRoute);
+          },
+          icon: const Icon(
+            Icons.logout,
+          ),
+        ),
+        SvgPicture.asset(
+          ImageAssets.profile,
+          width: 40,
+          height: 40,
+        ),
       ],
     );
   }

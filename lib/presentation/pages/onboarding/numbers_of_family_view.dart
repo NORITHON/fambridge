@@ -1,9 +1,9 @@
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 RxInt target = 0.obs;
@@ -19,7 +19,7 @@ class _numbersofFamilyState extends State<NumbersofFamilyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _MypageAppBar(),
+      appBar: onboardingAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         width: double.infinity,
@@ -30,19 +30,42 @@ class _numbersofFamilyState extends State<NumbersofFamilyView> {
             children: [
               const SizedBox(height: 110),
               Text(
-                "가족 구성원은 몇 명인가요?",
+                "누구와 함께 사용할건가요?",
                 textAlign: TextAlign.left,
                 style: getMediumStyle(
-                  color: ColorManager.darkGrey,
+                  color: ColorManager.point,
                   fontSize: 20,
                 ),
               ),
               const SizedBox(height: 75),
-              ChoiceForm(),
+              const ChoiceForm(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.black, shape: BoxShape.circle),
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Container(
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                            color: ColorManager.lightGrey,
+                            shape: BoxShape.circle),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 115,
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(Routes.checkMyselfRoute,
@@ -74,27 +97,31 @@ class ChoiceForm extends StatelessWidget {
       children: [
         Row(
           children: [
-            MenberCountButton(content: "2명", index: 2),
-            MenberCountButton(content: "3명", index: 3),
+            SizedBox(
+                width: 100,
+                child: MenberCountButton(content: "할아버지", index: 2)),
+            SizedBox(
+                width: 80, child: MenberCountButton(content: "할머니", index: 3)),
           ],
         ),
         Row(
           children: [
-            MenberCountButton(content: "4명", index: 4),
-            MenberCountButton(content: "5명", index: 5),
-            MenberCountButton(content: "6명", index: 6),
-            MenberCountButton(content: "7명", index: 7),
+            MenberCountButton(content: "아빠", index: 4),
+            MenberCountButton(content: "엄마", index: 5),
           ],
         ),
         Row(
           children: [
-            MenberCountButton(content: "8명", index: 8),
-            MenberCountButton(content: "9명", index: 9),
-            MenberCountButton(content: "10명", index: 10),
+            MenberCountButton(content: "첫째", index: 6),
+            MenberCountButton(content: "둘째", index: 7),
+            MenberCountButton(content: "셋째", index: 8),
+            MenberCountButton(content: "넷째", index: 9),
           ],
         ),
         Row(
           children: [
+            SizedBox(
+                width: 80, child: MenberCountButton(content: "다섯째", index: 10)),
             MenberCountButton(content: "기타", index: 11),
           ],
         ),
@@ -127,7 +154,7 @@ class _MenberCountButtonState extends State<MenberCountButton> {
             target.value = widget.index;
           },
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             width: 60,
             decoration: BoxDecoration(
               color: widget.index == target.value
@@ -154,33 +181,6 @@ class _MenberCountButtonState extends State<MenberCountButton> {
       ),
     );
   }
-}
-
-PreferredSizeWidget _MypageAppBar() {
-  return PreferredSize(
-    preferredSize: const Size.fromHeight(60),
-    child: AppBar(
-      title: Text(
-        "",
-        style: getMediumStyle(
-          fontSize: 18,
-          color: ColorManager.darkGrey,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: ColorManager.white,
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: SvgPicture.asset(
-          ImageAssets.back,
-          height: 20,
-          width: 20,
-          fit: BoxFit.scaleDown,
-        ),
-      ),
-      elevation: 0.0,
-    ),
-  );
 }
 
 class CircleProfile extends StatelessWidget {
