@@ -128,7 +128,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ],
         ),
-        padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
+        padding: const EdgeInsets.fromLTRB(15, 8, 15, 25),
         child: CustomBottomNavbar(
           selectedIndex: _selectedIndex,
           onItemTapped: _onItemTapped,
@@ -229,9 +229,9 @@ class Top extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: const TopIconBar(),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: TopIconBar(),
           ),
           const SizedBox(height: 25),
           Row(

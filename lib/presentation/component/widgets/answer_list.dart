@@ -65,9 +65,9 @@ class Comment extends StatelessWidget {
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(left: 140)),
-                const Stack(
+                Stack(
                   clipBehavior: Clip.none,
-                  children: [
+                  children: const [
                     Positioned(
                       child: ProfileImage(size: 25),
                     ),
