@@ -66,12 +66,12 @@ class InputFamilybody extends StatelessWidget {
     return Expanded(
       child: Container(
         color: ColorManager.backgroundColor,
-        child: const Padding(
-          padding: EdgeInsets.symmetric(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
             horizontal: 30,
           ),
           child: Row(
-            children: [
+            children: const [
               FamilyCodeForm(),
             ],
           ),

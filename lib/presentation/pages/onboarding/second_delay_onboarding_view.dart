@@ -79,9 +79,9 @@ class _second_delayState extends State<second_delayView> {
               const SizedBox(
                 height: 30,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: const [
                   Copybutton(),
                   Sharebutton(),
                 ],
@@ -101,17 +101,15 @@ class FamilyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FamilyMember(type: "아빠", profile: ImageAssets.profile2),
-          FamilyMember(type: "엄마", profile: ImageAssets.profile2),
-          FamilyMember(type: "첫째", profile: ImageAssets.profile2),
-          FamilyMember(type: "둘째", profile: ImageAssets.profile2),
-          FamilyMember(type: "셋째", profile: ImageAssets.profile2),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: const [
+        FamilyMember(type: "아빠", profile: ImageAssets.profile2),
+        FamilyMember(type: "엄마", profile: ImageAssets.profile2),
+        FamilyMember(type: "첫째", profile: ImageAssets.profile2),
+        FamilyMember(type: "둘째", profile: ImageAssets.profile2),
+        FamilyMember(type: "셋째", profile: ImageAssets.profile2),
+      ],
     );
   }
 }
