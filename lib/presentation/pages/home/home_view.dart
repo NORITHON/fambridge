@@ -8,7 +8,7 @@ import 'package:fambridge/presentation/component/bar/bottom_nav.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
-import 'package:fambridge/presentation/component/widgets/question_sheet.dart';
+import 'package:fambridge/presentation/component/widgets/home_question_sheet.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
@@ -84,8 +84,8 @@ class _HomeViewState extends State<HomeView> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
-                                    const Text("rebuilt!"),
-                                    const CircularProgressIndicator()
+                                    Text("rebuilt!"),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
@@ -94,8 +94,8 @@ class _HomeViewState extends State<HomeView> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: const [
-                                    const Text("refreshing today question.."),
-                                    const CircularProgressIndicator()
+                                    Text("refreshing today question.."),
+                                    CircularProgressIndicator()
                                   ],
                                 ),
                               );
@@ -116,24 +116,10 @@ class _HomeViewState extends State<HomeView> {
                     return const CircularProgressIndicator();
                 }
               }),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: ColorManager.white,
-          boxShadow: [
-            BoxShadow(
-              color: ColorManager.darkGrey.withOpacity(0.2),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: const Offset(1, 1),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.fromLTRB(15, 8, 15, 25),
-        child: CustomBottomNavbar(
-          selectedIndex: _selectedIndex,
-          onItemTapped: _onItemTapped,
-        ),
-      ),
+      // bottomNavigationBar: CustomBottomNavbar(
+      //   selectedIndex: _selectedIndex,
+      //   onItemTapped: _onItemTapped,
+      // ),
     );
   }
 
@@ -165,8 +151,8 @@ class Bottom extends StatelessWidget {
   }
 }
 
-class BottonSheetFrame extends StatelessWidget {
-  const BottonSheetFrame({super.key, required this.child});
+class HomeBottonSheetFrame extends StatelessWidget {
+  const HomeBottonSheetFrame({super.key, required this.child});
 
   final Widget child;
 
@@ -201,10 +187,10 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottonSheetFrame(
+    return HomeBottonSheetFrame(
       child: Column(
         children: [
-          QuestionSheet(group: group),
+          HomeQuestionSheet(group: group),
           const SizedBox(height: AppSize.s20),
           AnswerButton(
             group: group,
@@ -284,7 +270,11 @@ class TopIconBar extends StatelessWidget {
             Icons.logout,
           ),
         ),
-        Image.asset(ImageAssets.userProfile),
+        SvgPicture.asset(
+          ImageAssets.profile,
+          width: 40,
+          height: 40,
+        ),
       ],
     );
   }

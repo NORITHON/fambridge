@@ -1,4 +1,5 @@
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:fambridge/presentation/component/button/button_check.dart';
+import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -26,7 +27,7 @@ class _LastquestionState extends State<LastquestionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _MypageAppBar(),
+      appBar: onboardingAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         child: Padding(
@@ -38,7 +39,8 @@ class _LastquestionState extends State<LastquestionView> {
               Text(
                 "축하합니다.",
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style:
+                    getRegularStyle(color: ColorManager.darkGrey, fontSize: 18),
               ),
               const SizedBox(
                 height: 10,
@@ -46,7 +48,8 @@ class _LastquestionState extends State<LastquestionView> {
               Text(
                 "곧이어 가족 코드가 발행됩니다.",
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style:
+                    getRegularStyle(color: ColorManager.darkGrey, fontSize: 18),
               ),
               const SizedBox(
                 height: 40,
@@ -54,7 +57,8 @@ class _LastquestionState extends State<LastquestionView> {
               Text(
                 "모든 '우리'가 모여야",
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style:
+                    getRegularStyle(color: ColorManager.darkGrey, fontSize: 18),
               ),
               const SizedBox(
                 height: 10,
@@ -62,32 +66,20 @@ class _LastquestionState extends State<LastquestionView> {
               Text(
                 "서비스가 시작됩니다.",
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style:
+                    getRegularStyle(color: ColorManager.darkGrey, fontSize: 18),
               ),
               const SizedBox(
-                height: 70,
+                height: 140,
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.point,
-                    padding: const EdgeInsets.all(20),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 240,
+                    child: ButtonCheck(),
                   ),
-                  onPressed: () {
-                    //가족이 다 모였다면
-                    Get.toNamed(Routes.secondDelayRoute);
-                    //아직 다 모이지 않았다면
-                    //Get.toNamed(Routes.codeshareRoute);
-                  },
-                  child: Text(
-                    "확인",
-                    style: textStyle,
-                  ),
-                ),
+                ],
               ),
             ],
           ),

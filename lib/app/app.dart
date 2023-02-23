@@ -10,14 +10,14 @@ import 'constants/app_state_fieldname/question_state.dart';
 
 @immutable
 class MyApp extends StatefulWidget {
-  MyApp._internal();
-  static final MyApp instance =
+  const MyApp._internal();
+  static const MyApp instance =
       MyApp._internal(); // single instance -- singleton
 
   factory MyApp() => instance; // factory for the class instance
 
   static final Map<String, Map<String, dynamic>> appState = {
-    authStateFieldName : {
+    authStateFieldName: {
       hasGroupFieldName: false,
       newUserInputsFieldName: {
         newUserBirthOrderFieldName: null,
@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
       title: 'norithon',
-      initialRoute: Routes.splashRoute,
+      initialRoute: Routes.loginRoute,
       // theme: getApplicationTheme(),
       getPages: getPages,
     );

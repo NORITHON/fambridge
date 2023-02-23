@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fambridge/presentation/pages/buildPages.dart';
 import 'package:fambridge/presentation/pages/login/login_view.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -41,7 +42,7 @@ class _SplashViewState extends State<SplashView> {
                   if (snapshot.data!.first == null) return const LoginView();
                   AuthService.firebase()
                       .initAuthStateForApp(authUser: snapshot.data!.first!);
-                  return const HomeView();
+                  return BuildPages();
                 default:
                   return Scaffold(
                     backgroundColor: ColorManager.buttonDisable,

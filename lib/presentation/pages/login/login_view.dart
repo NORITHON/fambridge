@@ -135,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                   MyApp.appState[groupStateFieldName]![groupFieldName] =
                       GroupService.firebase().getGroup(
                           groupId: MyApp.unsyncronizedAuthUser!.groupId!);
-                  Get.offAllNamed(Routes.homeRoute);
+                  Get.offAllNamed(Routes.buildPages);
                 }
               },
               child: const Text(

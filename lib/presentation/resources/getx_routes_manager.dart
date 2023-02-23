@@ -1,3 +1,4 @@
+import 'package:fambridge/presentation/pages/buildPages.dart';
 import 'package:fambridge/presentation/pages/familyCode/input_family_code_view.dart';
 import 'package:fambridge/presentation/pages/home/answer_question_view.dart';
 import 'package:fambridge/presentation/pages/home/home_view.dart';
@@ -11,7 +12,7 @@ import 'package:fambridge/presentation/pages/onboarding/second_delay_onboarding_
 import 'package:fambridge/presentation/pages/register/register_view.dart';
 import 'package:fambridge/presentation/pages/splash/splash_view.dart';
 import 'package:fambridge/presentation/pages/start/start_view.dart';
-import 'package:fambridge/presentation/pages/store_details/store_details_view.dart';
+import 'package:fambridge/presentation/pages/store_details/store_view.dart';
 import 'package:get/route_manager.dart';
 
 class Routes {
@@ -34,6 +35,7 @@ class Routes {
   static const String firstDelayRoute = "/first-onboarding";
   static const String secondDelayRoute = "/second-onboarding";
   static const String checkMyselfRoute = "/check-myself";
+  static const String buildPages = "/buildPages";
 }
 
 List<GetPage<dynamic>> getPages = [
@@ -59,7 +61,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.storeDetailsRoute,
-    page: () => const StoreDetailsView(),
+    page: () => const StoreView(),
     transition: Transition.downToUp,
   ),
   GetPage(
@@ -105,6 +107,11 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.checkMyselfRoute,
     page: () => const CheckMyselfView(),
+    transition: Transition.downToUp,
+  ),
+  GetPage(
+    name: Routes.buildPages,
+    page: () => BuildPages(),
     transition: Transition.downToUp,
   ),
 ];

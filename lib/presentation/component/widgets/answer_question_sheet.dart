@@ -4,9 +4,10 @@ import 'package:wrapped_korean_text/wrapped_korean_text.dart';
 import '../../../model/group.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
+import 'answer_progress_indicator_with_title.dart';
 
-class QuestionSheet extends StatefulWidget {
-  const QuestionSheet({
+class AnswerQuestionSheet extends StatefulWidget {
+  const AnswerQuestionSheet({
     Key? key,
     required this.group,
   }) : super(key: key);
@@ -14,10 +15,10 @@ class QuestionSheet extends StatefulWidget {
   final Group group;
 
   @override
-  State<QuestionSheet> createState() => _QuestionSheetState();
+  State<AnswerQuestionSheet> createState() => _AnswerQuestionSheetState();
 }
 
-class _QuestionSheetState extends State<QuestionSheet> {
+class _AnswerQuestionSheetState extends State<AnswerQuestionSheet> {
   @override
   void initState() {
     super.initState();
@@ -37,7 +38,6 @@ class _QuestionSheetState extends State<QuestionSheet> {
         ),
         const SizedBox(height: 20),
         SizedBox(
-          height: 50,
           width: 240,
           child: WrappedKoreanText(
             textAlign: TextAlign.center,
@@ -45,8 +45,6 @@ class _QuestionSheetState extends State<QuestionSheet> {
             style: getMediumStyle(color: ColorManager.black, fontSize: 20),
           ),
         ),
-        const SizedBox(height: 20),
-        //AnswerProgressIndicatorWithTitle(group: widget.group),
       ],
     );
   }
