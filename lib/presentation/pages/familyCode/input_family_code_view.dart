@@ -157,27 +157,39 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                     try {
                       final user = await AuthService.firebase().currentUser;
 
-                      // Todo : Q - 왜 코드 받기 버튼에 그룹객체 초기값 설정하는게 있는거지?
+                      // 그룹 코드 발급 -> 그룹이 없는 것이므로 새로운 그룹을 생성한다.
+                      // 그룹 [코드] 초기값 설정
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
                           .familyGroupCodeFieldname] = const Uuid().v4();
+                      // 그룹 [아이디] 초기값 설정
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
                           .groupIdFieldName] = const Uuid().v4();
+                      // 그룹 [이름] 초기값 설정
                       GroupStateProvider().newGroupInfo[
                           GroupFirestoreFieldName.groupNameFieldName] = "group";
+                      // 그룹 [유저아이디] 설정
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
                           .joinedUserIdsFieldName] = [user!.id];
+                      // 그룹 [맴버 수] 설정
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
                           .totalNumOfFamilyMemberFieldName] = 5;
+                      // 그룹 [treeXp] 초기값 설정
                       GroupStateProvider().newGroupInfo[
                           GroupFirestoreFieldName.treeXpFieldName] = 0;
+
+                      //새로운 그룹 생성하기
                       final group =
                           await GroupService.firebase().createNewGroup();
+                      //새로운 유저 생성하기
                       await AuthService.firebase().addAuthToDatabase(
-                          authUser: user,
-                          name: "shinhoo",
-                          familyRole: FamilyRole.son,
-                          birthOrder: 1,
-                          groupId: group.familyGroupId);
+                        authUser: user,
+                        name: "shinhoo",
+                        familyRole: FamilyRole.son,
+                        birthOrder: 1,
+                        groupId: group.familyGroupId,
+                      );
+
+                      // myapp으로 유저데이터 가져오기?
                       MyApp.unsyncronizedAuthUser =
                           await AuthService.firebase().currentUser;
                     } catch (e) {
