@@ -55,27 +55,25 @@ class FirebaseAuthProvider implements AuthProvider {
         return AuthUser.fromFirebase(user);
       }
     } else {
-      throw  UserNotLoggedInAuthException();
+      throw UserNotLoggedInAuthException();
     }
   }
 
   @override
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetUserFromFirestore({required String userId}) async {
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
+      maybeGetUserFromFirestore({required String userId}) async {
     final auth = await authCollection
-          .where(AuthUserFirestoreFieldName.userIdFieldName, isEqualTo: userId).get();
-    if(auth.docs.isNotEmpty){
+        .where(AuthUserFirestoreFieldName.userIdFieldName, isEqualTo: userId)
+        .get();
+    if (auth.docs.isNotEmpty) {
       return auth.docs.first;
     }
     return null;
   }
 
- 
-
   Future<bool> hasAuthbeenAddedInDatabase({required String userId}) async {
     return (await maybeGetUserFromFirestore(userId: userId)) != null;
   }
-
-
 
   @override
   Future<AuthUser?> addAuthToDatabase({
@@ -87,14 +85,15 @@ class FirebaseAuthProvider implements AuthProvider {
   }) async {
     if (authUser == null) return null;
     if (await hasAuthbeenAddedInDatabase(userId: authUser.id)) return null;
-    
+
     final docRef = await authCollection.add({
       AuthUserFirestoreFieldName.userIdFieldName: authUser.id,
       AuthUserFirestoreFieldName.userNameFieldName: name,
       AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.name,
       AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder,
       AuthUserFirestoreFieldName.userGroupIdFieldName: groupId,
-      AuthUserFirestoreFieldName.userRegisterTimeFieldName: FieldValue.serverTimestamp(),
+      AuthUserFirestoreFieldName.userRegisterTimeFieldName:
+          FieldValue.serverTimestamp(),
     });
     return AuthUser.fromSnapshot(await docRef.get());
   }
@@ -108,20 +107,26 @@ class FirebaseAuthProvider implements AuthProvider {
     bool shouldUpdateLastLoginTime = true,
   }) async {
     if (authUser == null) return null;
-    
+
     final docSnapshot = await maybeGetUserFromFirestore(userId: authUser.id);
-    if(docSnapshot == null) return null;
+    if (docSnapshot == null) return null;
     final docSnapshotData = docSnapshot.data();
-    
+
     await docSnapshot.reference.update({
-      AuthUserFirestoreFieldName.userNameFieldName: name ?? docSnapshotData[AuthUserFirestoreFieldName.userNameFieldName],
-      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole?.name ?? docSnapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName],
-      AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder ?? docSnapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
-      AuthUserFirestoreFieldName.lastLoginTimeFieldName: shouldUpdateLastLoginTime ? FieldValue.serverTimestamp() : docSnapshotData[AuthUserFirestoreFieldName.lastLoginTimeFieldName],
+      AuthUserFirestoreFieldName.userNameFieldName:
+          name ?? docSnapshotData[AuthUserFirestoreFieldName.userNameFieldName],
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole?.name ??
+          docSnapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName],
+      AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder ??
+          docSnapshotData[AuthUserFirestoreFieldName.userBirthOrderFieldName],
+      AuthUserFirestoreFieldName.lastLoginTimeFieldName:
+          shouldUpdateLastLoginTime
+              ? FieldValue.serverTimestamp()
+              : docSnapshotData[
+                  AuthUserFirestoreFieldName.lastLoginTimeFieldName],
     });
     return AuthUser.fromSnapshot(await docSnapshot.reference.get());
   }
-  
 
   @override
   Future<firebase_auth.UserCredential> signInWithGoogle() async {
@@ -155,7 +160,9 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<AuthUser> logIn() async {
     try {
+      print("-------------error in login11----------------");
       await signInWithGoogle();
+      print("-------------error in login22----------------");
       final AuthUser? user = await currentUser;
       if (user != null) {
         return user;

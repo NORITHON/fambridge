@@ -128,10 +128,12 @@ class _LoginFormState extends State<LoginForm> {
                   return;
                 }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
+                  // auth 그룹이름이 없는 경우
                   Get.back();
                   log(MyApp.unsyncronizedAuthUser!.id);
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else {
+                  // auth 그룹이름이 이미 있는 경우
                   MyApp.appState[groupStateFieldName]![groupFieldName] =
                       GroupService.firebase().getGroup(
                           groupId: MyApp.unsyncronizedAuthUser!.groupId!);
@@ -142,6 +144,10 @@ class _LoginFormState extends State<LoginForm> {
                 AppStrings.login,
               ),
             ),
+          ),
+          TextButton(
+            onPressed: () => Get.toNamed(Routes.buildPages),
+            child: const Text("to home"),
           ),
           const SizedBox(height: AppPadding.p40),
           Row(

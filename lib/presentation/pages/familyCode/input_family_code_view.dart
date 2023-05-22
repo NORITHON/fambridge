@@ -156,6 +156,8 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                     loadingDialog(context);
                     try {
                       final user = await AuthService.firebase().currentUser;
+
+                      // Todo : Q - 왜 코드 받기 버튼에 그룹객체 초기값 설정하는게 있는거지?
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
                           .familyGroupCodeFieldname] = const Uuid().v4();
                       GroupStateProvider().newGroupInfo[GroupFirestoreFieldName

@@ -10,7 +10,7 @@ abstract class AuthProvider {
   Future<AuthUser?> get currentUser;
   Future<void> initialize();
   Future<AuthUser> logIn();
-   Future<AuthUser?> updateAuthUser({
+  Future<AuthUser?> updateAuthUser({
     String? name,
     FamilyRole? familyRole,
     required AuthUser? authUser,
@@ -32,5 +32,6 @@ abstract class AuthProvider {
   Future<firebase_auth.UserCredential> signInWithGoogle();
   Stream<User?> getAuthStateChanges();
   Future<void> sendEmailVerification();
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetUserFromFirestore({required String userId});
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
+      maybeGetUserFromFirestore({required String userId});
 }
