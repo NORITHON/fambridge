@@ -38,7 +38,7 @@ class _numbersofFamilyState extends State<NumbersofFamilyView> {
                 ),
               ),
               const SizedBox(height: 75),
-              ChoiceForm(),
+              const ChoiceForm(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

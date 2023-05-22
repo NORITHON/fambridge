@@ -11,18 +11,18 @@ import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class second_delayView extends StatefulWidget {
-  const second_delayView({super.key});
+class SecondDelayView extends StatefulWidget {
+  const SecondDelayView({super.key});
 
   @override
-  _second_delayState createState() => _second_delayState();
+  _SecondDelayState createState() => _SecondDelayState();
 }
 
-class _second_delayState extends State<second_delayView> {
+class _SecondDelayState extends State<SecondDelayView> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Get.put(AnswerViewModel()).init(groupId: AuthService.nonSyncronizedUser!.groupId!);
       Get.offAllNamed(Routes.homeRoute);
     });
@@ -148,9 +148,9 @@ PreferredSizeWidget _MypageAppBar() {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  String profile;
-  CircleProfile({
+  final double size;
+  final String profile;
+  const CircleProfile({
     Key? key,
     required this.profile,
     required this.size,

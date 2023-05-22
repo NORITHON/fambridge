@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../resources/color_manager.dart';
-import '../../resources/getx_routes_manager.dart';
 import '../../resources/styles_manager.dart';
 import '../view_model.dart';
 

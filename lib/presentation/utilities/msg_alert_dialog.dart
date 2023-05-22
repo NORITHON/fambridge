@@ -1,7 +1,6 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../resources/styles_manager.dart';
 

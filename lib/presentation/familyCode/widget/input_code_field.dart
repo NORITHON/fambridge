@@ -11,10 +11,10 @@ import '../../../service/auth/auth_service.dart';
 import '../../utilities/loading_dialog.dart';
 
 class InputCodeTextField extends StatefulWidget {
-  String hintText;
-  TextEditingController controller;
+  final String hintText;
+  final TextEditingController controller;
 
-  InputCodeTextField({
+  const InputCodeTextField({
     super.key,
     required this.hintText,
     required this.controller,

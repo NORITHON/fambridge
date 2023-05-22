@@ -72,8 +72,8 @@ class Comment extends StatelessWidget {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  CircleProfile({
+  final double size;
+  const CircleProfile({
     Key? key,
     required this.size,
   }) : super(key: key);

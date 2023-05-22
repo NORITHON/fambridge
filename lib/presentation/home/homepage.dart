@@ -1,4 +1,3 @@
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -151,54 +150,52 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 }
 
 class Top extends StatelessWidget {
-  String point = "326";
+  final String point = "326";
 
-  Top({super.key});
+  const Top({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const TopIconBar(),
-            const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
-              child: Text(
-                "'우리'나무",
-                style: getMediumStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 20,
-                ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 50),
+          const TopIconBar(),
+          const SizedBox(height: 25),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 6, 0, 8),
+            child: Text(
+              "'우리'나무",
+              style: getMediumStyle(
+                color: ColorManager.darkGrey,
+                fontSize: 20,
               ),
             ),
-            FutureBuilder(
-              future: GroupService.firebase()
-                  .getTreeXp(groupId: AuthService.nonSyncronizedUser!.groupId!),
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.done:
-                    return Text(
-                      "${snapshot.data}p",
-                      style: getBoldStyle(
-                        color: ColorManager.darkGrey,
-                        fontSize: 20,
-                      ),
-                    );
-                  default:
-                    return CircularProgressIndicator(
-                      color: ColorManager.point,
-                    );
-                }
-              },
-            ),
-          ],
-        ),
+          ),
+          FutureBuilder(
+            future: GroupService.firebase()
+                .getTreeXp(groupId: AuthService.nonSyncronizedUser!.groupId!),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.done:
+                  return Text(
+                    "${snapshot.data}p",
+                    style: getBoldStyle(
+                      color: ColorManager.darkGrey,
+                      fontSize: 20,
+                    ),
+                  );
+                default:
+                  return CircularProgressIndicator(
+                    color: ColorManager.point,
+                  );
+              }
+            },
+          ),
+        ],
       ),
     );
   }
@@ -260,8 +257,8 @@ class FambridgeIcon extends StatelessWidget {
 }
 
 class profileFrameForSvg extends StatelessWidget {
-  String asset;
-  profileFrameForSvg({
+  final String asset;
+  const profileFrameForSvg({
     Key? key,
     required this.asset,
   }) : super(key: key);

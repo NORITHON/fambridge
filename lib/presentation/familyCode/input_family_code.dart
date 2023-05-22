@@ -1,4 +1,3 @@
-import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/familyCode/widget/input_code_field.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
@@ -62,12 +61,12 @@ class InputFamilybody extends StatelessWidget {
     return Expanded(
       child: Container(
         color: ColorManager.backgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
+        child: const Padding(
+          padding: EdgeInsets.symmetric(
             horizontal: 30,
           ),
           child: Row(
-            children: const [
+            children: [
               FamilyCodeForm(),
             ],
           ),

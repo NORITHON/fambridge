@@ -1,9 +1,5 @@
-import 'dart:developer';
-
-import 'package:fambridge/constants/enums/family_role.dart';
 import 'package:fambridge/presentation/common/custom_textfield.dart';
 import 'package:fambridge/presentation/home/view_model.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/strings_manager.dart';
@@ -11,9 +7,7 @@ import 'package:fambridge/presentation/resources/values_manager.dart';
 import 'package:fambridge/presentation/utilities/loading_dialog.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/group/group_service.dart';
-import 'package:fambridge/service/question/question_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../resources/styles_manager.dart';
 import '../splash/splash.dart';

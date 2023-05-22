@@ -103,7 +103,7 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<AuthUser> logIn() async {
     try {
-      final u = await signInWithGoogle();
+      await signInWithGoogle();
       final AuthUser? user = await currentUser;
       if (user != null) {
         return user;

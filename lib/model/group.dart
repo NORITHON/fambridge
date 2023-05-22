@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fambridge/model/question.dart';
 
 import '../constants/database_fieldname/firebase_fieldname.dart';
 

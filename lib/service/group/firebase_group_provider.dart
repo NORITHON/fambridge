@@ -93,6 +93,7 @@ class FirebaseGroupProvider implements GroupProvider {
     });
   }
 
+  @override
   Future<double> getTreeXp({required String groupId}) async {
     final docSnap = await groupCollection.doc(groupId).get();
     if(!docSnap.exists) throw GroupNotFoundGroupException();
@@ -161,7 +162,6 @@ class FirebaseGroupProvider implements GroupProvider {
     } on GroupNotFoundGroupException catch(_){
       return false;
     }
-
   }
 
   @override

@@ -1,17 +1,12 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:fambridge/service/group/group_exception.dart';
-import 'package:fambridge/service/group/group_provider.dart';
-import 'package:fambridge/service/group/group_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CustomTextfield extends StatefulWidget {
-  String hintText;
-  TextEditingController controller;
+  final String hintText;
+  final TextEditingController controller;
 
-  CustomTextfield({
+  const CustomTextfield({
     super.key,
     required this.hintText,
     required this.controller,

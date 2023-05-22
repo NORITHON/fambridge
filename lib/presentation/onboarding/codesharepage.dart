@@ -6,14 +6,14 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class codeshareview extends StatefulWidget {
-  const codeshareview({super.key});
+class Codeshareview extends StatefulWidget {
+  const Codeshareview({super.key});
 
   @override
-  _codeshareState createState() => _codeshareState();
+  _CodeshareState createState() => _CodeshareState();
 }
 
-class _codeshareState extends State<codeshareview> {
+class _CodeshareState extends State<Codeshareview> {
   var idController = "24983827"; //family code
 
   @override
@@ -32,7 +32,7 @@ class _codeshareState extends State<codeshareview> {
               const SizedBox(height: 10),
               const SubTitle(),
               const SizedBox(height: 100),
-              FamilyList(),
+              const FamilyList(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -41,9 +41,9 @@ class _codeshareState extends State<codeshareview> {
                     "가족 코드",
                     // style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Text(
-                    idController == null ? "" : idController, //family code
+                    idController, //family code
                     textAlign: TextAlign.center,
                     style: getBoldStyle(
                       color: ColorManager.darkGrey,
@@ -177,9 +177,9 @@ class FamilyList extends StatelessWidget {
 }
 
 class FamilyMember extends StatelessWidget {
-  String type;
-  String profile;
-  FamilyMember({
+  final String type;
+  final String profile;
+  const FamilyMember({
     required this.type,
     required this.profile,
     Key? key,
@@ -190,7 +190,7 @@ class FamilyMember extends StatelessWidget {
     return Column(
       children: [
         CircleProfile(size: 44, profile: profile),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(
@@ -233,9 +233,9 @@ PreferredSizeWidget _MypageAppBar() {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  String profile;
-  CircleProfile({
+  final double size;
+  final String profile;
+  const CircleProfile({
     Key? key,
     required this.profile,
     required this.size,

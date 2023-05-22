@@ -13,7 +13,7 @@ import 'package:fambridge/presentation/start/startPage.dart';
 import 'package:fambridge/presentation/store_details/store_details.dart';
 import 'package:get/route_manager.dart';
 
-import '../onboarding/numbersofFamily.dart';
+import '../onboarding/numbersof_family.dart';
 
 class Routes {
   static const String splashRoute = "/";
@@ -87,7 +87,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.codeshareRoute,
-    page: () => const codeshareview(),
+    page: () => const Codeshareview(),
     transition: Transition.downToUp,
   ),
   GetPage(
@@ -102,12 +102,12 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: Routes.secondDelayRoute,
-    page: () => const second_delayView(),
+    page: () => const SecondDelayView(),
     transition: Transition.downToUp,
   ),
   GetPage(
     name: Routes.checkMyselfRoute,
-    page: () => const checkMyselfView(),
+    page: () => const CheckMyselfView(),
     transition: Transition.downToUp,
   ),
 ];

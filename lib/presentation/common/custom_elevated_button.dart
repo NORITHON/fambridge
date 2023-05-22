@@ -2,12 +2,12 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 
 class CustumButton extends StatelessWidget {
-  double width;
-  TextEditingController? id;
-  TextEditingController? password;
-  VoidCallback onpress;
+  final double width;
+  final TextEditingController? id;
+  final TextEditingController? password;
+  final VoidCallback onpress;
 
-  CustumButton({
+  const CustumButton({
     super.key,
     this.id,
     this.password,
@@ -15,7 +15,7 @@ class CustumButton extends StatelessWidget {
     required this.onpress,
   });
 
-  var textStyle = TextStyle(
+  final textStyle = const TextStyle(
     fontFamily: 'GmarketSans',
   );
 

@@ -8,14 +8,14 @@ import 'package:get/get.dart';
 
 RxInt target = 0.obs;
 
-class checkMyselfView extends StatefulWidget {
-  const checkMyselfView({super.key});
+class CheckMyselfView extends StatefulWidget {
+  const CheckMyselfView({super.key});
 
   @override
-  _checkMyselfState createState() => _checkMyselfState();
+  _CheckMyselfState createState() => _CheckMyselfState();
 }
 
-class _checkMyselfState extends State<checkMyselfView> {
+class _CheckMyselfState extends State<CheckMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +108,9 @@ class ChoiceForm extends StatelessWidget {
 }
 
 class MenberCountButton extends StatefulWidget {
-  String content;
-  int index;
-  MenberCountButton({
+  final String content;
+  final int index;
+  const MenberCountButton({
     required this.content,
     required this.index,
     Key? key,
@@ -190,9 +190,9 @@ PreferredSizeWidget _MypageAppBar() {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  String profile;
-  CircleProfile({
+  final double size;
+  final String profile;
+  const CircleProfile({
     Key? key,
     required this.profile,
     required this.size,
