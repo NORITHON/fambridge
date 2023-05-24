@@ -1,10 +1,12 @@
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 
 class Sharebutton extends StatelessWidget {
-  const Sharebutton({Key? key}) : super(key: key);
+  final String data;
+
+  const Sharebutton({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class Sharebutton extends StatelessWidget {
             ),
             onPressed: () {
               //가족이 다 모였다면
-              Clipboard.setData(const ClipboardData(text: "24983827"));
+              Share.share(data);
               //아직 다 모이지 않았다면
               //Get.toNamed(Routes.codeshareRoute);
             },
