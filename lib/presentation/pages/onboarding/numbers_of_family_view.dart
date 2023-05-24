@@ -96,33 +96,33 @@ class ChoiceForm extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
+          children: const [
             SizedBox(
                 width: 100,
-                child: MenberCountButton(content: "할아버지", index: 2)),
+                child: MemberCountButton(content: "할아버지", index: 2)),
             SizedBox(
-                width: 80, child: MenberCountButton(content: "할머니", index: 3)),
+                width: 80, child: MemberCountButton(content: "할머니", index: 3)),
           ],
         ),
         Row(
-          children: [
-            MenberCountButton(content: "아빠", index: 4),
-            MenberCountButton(content: "엄마", index: 5),
+          children: const [
+            MemberCountButton(content: "아빠", index: 4),
+            MemberCountButton(content: "엄마", index: 5),
           ],
         ),
         Row(
-          children: [
-            MenberCountButton(content: "첫째", index: 6),
-            MenberCountButton(content: "둘째", index: 7),
-            MenberCountButton(content: "셋째", index: 8),
-            MenberCountButton(content: "넷째", index: 9),
+          children: const [
+            MemberCountButton(content: "첫째", index: 6),
+            MemberCountButton(content: "둘째", index: 7),
+            MemberCountButton(content: "셋째", index: 8),
+            MemberCountButton(content: "넷째", index: 9),
           ],
         ),
         Row(
-          children: [
+          children: const [
             SizedBox(
-                width: 80, child: MenberCountButton(content: "다섯째", index: 10)),
-            MenberCountButton(content: "기타", index: 11),
+                width: 80, child: MemberCountButton(content: "다섯째", index: 10)),
+            MemberCountButton(content: "기타", index: 11),
           ],
         ),
       ],
@@ -130,20 +130,20 @@ class ChoiceForm extends StatelessWidget {
   }
 }
 
-class MenberCountButton extends StatefulWidget {
-  String content;
-  int index;
-  MenberCountButton({
+class MemberCountButton extends StatefulWidget {
+  final String content;
+  final int index;
+  const MemberCountButton({
     required this.content,
     required this.index,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<MenberCountButton> createState() => _MenberCountButtonState();
+  State<MemberCountButton> createState() => _MemberCountButtonState();
 }
 
-class _MenberCountButtonState extends State<MenberCountButton> {
+class _MemberCountButtonState extends State<MemberCountButton> {
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -184,9 +184,9 @@ class _MenberCountButtonState extends State<MenberCountButton> {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  String profile;
-  CircleProfile({
+  final double size;
+  final String profile;
+  const CircleProfile({
     Key? key,
     required this.profile,
     required this.size,

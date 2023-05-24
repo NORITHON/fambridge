@@ -37,7 +37,7 @@ class AuthService implements AuthProvider {
   @override
   Future<AuthUser> logIn() async {
     final user = await provider.logIn();
-    initAuthStateForApp(authUser: user);
+    await initAuthStateForApp(authUser: user);
     return user;
   }
 

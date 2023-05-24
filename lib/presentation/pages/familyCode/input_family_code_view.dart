@@ -5,7 +5,6 @@ import 'package:fambridge/app/constants/enums/family_role.dart';
 import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/component/widgets/input_code_field.dart';
 import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -14,7 +13,6 @@ import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:fambridge/service/crud/group_state_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 
@@ -37,25 +35,6 @@ class _InputFamilyCodeState extends State<InputFamilyCode> {
     );
   }
 
-  PreferredSizeWidget _AppBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
-      child: AppBar(
-        centerTitle: true,
-        backgroundColor: ColorManager.white,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: SvgPicture.asset(
-            ImageAssets.back,
-            height: 20,
-            width: 20,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-        elevation: 0,
-      ),
-    );
-  }
 }
 
 class InputFamilybody extends StatelessWidget {
@@ -94,6 +73,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
   void initState() {
     super.initState();
     codeController = TextEditingController();
+    log(MyApp.unsyncronizedAuthUser?.id ?? "no user data");
   }
 
   @override
