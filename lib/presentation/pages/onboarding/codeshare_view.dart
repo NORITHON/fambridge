@@ -5,6 +5,7 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class codeshareview extends StatefulWidget {
   const codeshareview({super.key});
@@ -14,8 +15,8 @@ class codeshareview extends StatefulWidget {
 }
 
 class _codeshareState extends State<codeshareview> {
-  var idController = "24983827"; //family code
-
+  //var idController = "24983827"; //family code
+  var idController = const Uuid().v4().substring(6, 11);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class _codeshareState extends State<codeshareview> {
               const SizedBox(height: 10),
               const SubTitle(),
               const SizedBox(height: 100),
-              FamilyList(),
+              const FamilyList(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -41,9 +42,9 @@ class _codeshareState extends State<codeshareview> {
                     "가족 코드",
                     // style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Text(
-                    idController == null ? "" : idController, //family code
+                    idController ?? "", //family code
                     textAlign: TextAlign.center,
                     style: getBoldStyle(
                       color: ColorManager.darkGrey,
@@ -78,7 +79,7 @@ class _codeshareState extends State<codeshareview> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: ColorManager.white,
@@ -190,7 +191,7 @@ class FamilyMember extends StatelessWidget {
     return Column(
       children: [
         CircleProfile(size: 44, profile: profile),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Text(
@@ -210,7 +211,7 @@ PreferredSizeWidget _MypageAppBar() {
     preferredSize: const Size.fromHeight(60),
     child: AppBar(
       title: Text(
-        "",
+        "ddd",
         style: getMediumStyle(
           fontSize: 18,
           color: ColorManager.darkGrey,

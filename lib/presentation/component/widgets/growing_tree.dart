@@ -79,7 +79,7 @@ class _GrowingTreeState extends State<GrowingTree> {
                     },
                     child: SizedBox(
                       width: 300.0,
-                      height: 240,
+                      height: 210,
                       child: rive.Rive(
                         artboard: _riveArtboard!,
                       ),

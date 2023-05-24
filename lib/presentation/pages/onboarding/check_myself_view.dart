@@ -1,9 +1,11 @@
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 RxInt target = 0.obs;
 
@@ -218,10 +220,16 @@ PreferredSize onboardingLogoutAppBar() {
     child: AppBar(
       backgroundColor: ColorManager.white,
       actions: <Widget>[
+        // await GoogleSignIn().signOut();
+        // onPressed: () => Get.toNamed(Routes.loginRoute),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 25, 20, 0),
           child: TextButton(
-            onPressed: () => Get.toNamed(Routes.loginRoute),
+            onPressed: () async {
+              await GoogleSignIn().signOut();
+              await FirebaseAuth.instance.signOut();
+              Get.toNamed(Routes.loginRoute);
+            },
             child:
                 Text("로그아웃", style: TextStyle(color: ColorManager.lightGrey)),
           ),
