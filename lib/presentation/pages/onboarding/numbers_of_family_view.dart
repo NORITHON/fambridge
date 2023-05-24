@@ -1,3 +1,4 @@
+import 'package:fambridge/controller/family_consist_controller.dart';
 import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
@@ -6,16 +7,9 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
 
-RxInt target = 0.obs;
-
-class NumbersofFamilyView extends StatefulWidget {
+class NumbersofFamilyView extends StatelessWidget {
   const NumbersofFamilyView({super.key});
 
-  @override
-  _numbersofFamilyState createState() => _numbersofFamilyState();
-}
-
-class _numbersofFamilyState extends State<NumbersofFamilyView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,48 +34,59 @@ class _numbersofFamilyState extends State<NumbersofFamilyView> {
               const SizedBox(height: 75),
               const ChoiceForm(),
               const SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                            color: ColorManager.black, shape: BoxShape.circle),
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Container(
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                            color: ColorManager.lightGrey,
-                            shape: BoxShape.circle),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 115,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.checkMyselfRoute,
-                          arguments: {"familyMemberCount": target});
-                    },
-                    child: CircleProfile(
-                      profile: ImageAssets.navigateNext,
-                      size: 50,
-                    ),
-                  ),
-                ],
-              ),
+              const NavIndicate(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class NavIndicate extends StatelessWidget {
+  const NavIndicate({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Row(
+          children: [
+            Container(
+              height: 6,
+              width: 6,
+              decoration: BoxDecoration(
+                  color: ColorManager.black, shape: BoxShape.circle),
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Container(
+              height: 6,
+              width: 6,
+              decoration: BoxDecoration(
+                  color: ColorManager.lightGrey, shape: BoxShape.circle),
+            ),
+          ],
+        ),
+        const SizedBox(
+          width: 115,
+        ),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(
+              Routes.checkMyselfRoute,
+            );
+          },
+          child: CircleProfile(
+            profile: ImageAssets.navigateNext,
+            size: 50,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -97,32 +102,22 @@ class ChoiceForm extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox(
-                width: 100,
-                child: MenberCountButton(content: "할아버지", index: 2)),
-            SizedBox(
-                width: 80, child: MenberCountButton(content: "할머니", index: 3)),
+            SizedBox(width: 100, child: MenberCountButton(content: "할아버지")),
+            SizedBox(width: 80, child: MenberCountButton(content: "할머니")),
           ],
         ),
         Row(
           children: [
-            MenberCountButton(content: "아빠", index: 4),
-            MenberCountButton(content: "엄마", index: 5),
+            MenberCountButton(content: "아빠"),
+            MenberCountButton(content: "엄마"),
           ],
         ),
         Row(
           children: [
-            MenberCountButton(content: "첫째", index: 6),
-            MenberCountButton(content: "둘째", index: 7),
-            MenberCountButton(content: "셋째", index: 8),
-            MenberCountButton(content: "넷째", index: 9),
-          ],
-        ),
-        Row(
-          children: [
-            SizedBox(
-                width: 80, child: MenberCountButton(content: "다섯째", index: 10)),
-            MenberCountButton(content: "기타", index: 11),
+            MenberCountButton(content: "첫째"),
+            MenberCountButton(content: "둘째"),
+            MenberCountButton(content: "셋째"),
+            MenberCountButton(content: "넷째"),
           ],
         ),
       ],
@@ -130,47 +125,49 @@ class ChoiceForm extends StatelessWidget {
   }
 }
 
-class MenberCountButton extends StatefulWidget {
-  String content;
-  int index;
+class MenberCountButton extends StatelessWidget {
   MenberCountButton({
     required this.content,
-    required this.index,
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<MenberCountButton> createState() => _MenberCountButtonState();
-}
+  final familyConsistController = Get.put(FamilyConsistController());
+  String content;
 
-class _MenberCountButtonState extends State<MenberCountButton> {
   @override
   Widget build(BuildContext context) {
+    Map<String, int> familySet = familyConsistController.familySet;
+    int index = familySet[content]!;
+
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: GestureDetector(
           onTap: () {
-            target.value = widget.index;
+            if (familyConsistController.target.contains(index)) {
+              familyConsistController.target.remove(index);
+            } else {
+              familyConsistController.target.add(index);
+            }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
             width: 60,
             decoration: BoxDecoration(
-              color: widget.index == target.value
+              color: familyConsistController.target.contains(index)
                   ? ColorManager.point
                   : ColorManager.white,
               borderRadius: BorderRadius.circular(40),
               border: Border.all(
-                  color: widget.index == target.value
+                  color: familyConsistController.target.contains(index)
                       ? ColorManager.white
                       : ColorManager.darkGrey),
             ),
             child: Text(
-              widget.content,
+              content,
               textAlign: TextAlign.center,
               style: getMediumStyle(
-                color: widget.index == target.value
+                color: familyConsistController.target.contains(index)
                     ? ColorManager.white
                     : ColorManager.darkGrey,
                 fontSize: 16,

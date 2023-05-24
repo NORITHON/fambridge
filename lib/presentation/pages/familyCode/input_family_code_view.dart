@@ -180,10 +180,11 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                       //새로운 그룹 생성하기
                       final group =
                           await GroupService.firebase().createNewGroup();
+
                       //새로운 유저 생성하기
                       await AuthService.firebase().addAuthToDatabase(
                         authUser: user,
-                        name: "shinhoo",
+                        name: user.name!,
                         familyRole: FamilyRole.son,
                         birthOrder: 1,
                         groupId: group.familyGroupId,
@@ -195,6 +196,7 @@ class _FamilyCodeFormState extends State<FamilyCodeForm> {
                     } catch (e) {
                       log(e.toString());
                     }
+
                     Get.back();
                     Get.toNamed(Routes.firstDelayRoute);
                   },
