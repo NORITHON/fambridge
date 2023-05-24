@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -160,7 +162,10 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<AuthUser> logIn() async {
     try {
-      await signInWithGoogle();
+      await signInWithGoogle().catchError((error) {
+        log(error);
+        throw UserNotLoggedInAuthException();
+      });
       final AuthUser? user = await currentUser;
       if (user != null) {
         return user;

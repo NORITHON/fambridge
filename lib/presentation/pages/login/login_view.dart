@@ -125,6 +125,7 @@ class _LoginFormState extends State<LoginForm> {
                   MyApp.unsyncronizedAuthUser =
                       await AuthService.firebase().logIn();
                 } catch (_) {
+                  Get.close(1);
                   return;
                 }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
