@@ -35,13 +35,19 @@ class Group {
     return Group(
       familyGroupId: snapshotData[GroupFirestoreFieldName.groupIdFieldName],
       groupName: snapshotData[GroupFirestoreFieldName.groupNameFieldName],
-      userIdsInGroup: snapshotData[GroupFirestoreFieldName.joinedUserIdsFieldName].cast<String>(),
-      todayQuestion:
-          GroupQuestion.fromMap(snapshotData[GroupFirestoreFieldName.todayQuestionFieldName]),
+      userIdsInGroup:
+          snapshotData[GroupFirestoreFieldName.joinedUserIdsFieldName]
+              .cast<String>(),
+      todayQuestion: GroupQuestion.fromMap(
+          snapshotData[GroupFirestoreFieldName.todayQuestionFieldName]),
       treeXp: snapshotData[GroupFirestoreFieldName.treeXpFieldName],
-      createdTime: snapshotData[GroupFirestoreFieldName.familyGroupCreatedTimeFieldname] as Timestamp,
-      groupJoinCode: snapshotData[GroupFirestoreFieldName.familyGroupCodeFieldname],
-      totalNumOfFamilyMember: snapshotData[GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName],
+      createdTime:
+          snapshotData[GroupFirestoreFieldName.familyGroupCreatedTimeFieldname]
+              as Timestamp,
+      groupJoinCode:
+          snapshotData[GroupFirestoreFieldName.familyGroupCodeFieldname],
+      totalNumOfFamilyMember:
+          snapshotData[GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName],
     );
   }
 }
