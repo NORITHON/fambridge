@@ -1,3 +1,4 @@
+import 'package:fambridge/controller/family_consist_controller.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
@@ -5,16 +6,9 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
 
-RxInt target = 0.obs;
-
-class CheckMyselfView extends StatefulWidget {
+class CheckMyselfView extends StatelessWidget {
   const CheckMyselfView({super.key});
 
-  @override
-  _checkMyselfState createState() => _checkMyselfState();
-}
-
-class _checkMyselfState extends State<CheckMyselfView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,61 +33,68 @@ class _checkMyselfState extends State<CheckMyselfView> {
               const SizedBox(height: 85),
               const ChoiceForm(),
               const SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Get.toNamed(
-                            Routes.numbersofFamilyRoute,
-                          );
-                        },
-                        child: CircleProfileBack(
-                          profile: ImageAssets.navigateBefore,
-                          size: 50,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 100,
-                      ),
-                      Container(
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                            color: ColorManager.lightGrey,
-                            shape: BoxShape.circle),
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Container(
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                            color: ColorManager.black, shape: BoxShape.circle),
-                      ),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.LastquestionRoute, arguments: {
-                        "familyMemberCount": Get.arguments['familyMemberCount'],
-                        "UserFamilyOrder": target,
-                      });
-                    },
-                    child: CircleProfile(
-                      profile: ImageAssets.navigateNext,
-                      size: 50,
-                    ),
-                  ),
-                ],
-              ),
+              const NavIndicate(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class NavIndicate extends StatelessWidget {
+  const NavIndicate({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(
+                  Routes.numbersofFamilyRoute,
+                );
+              },
+              child: CircleProfileBack(
+                profile: ImageAssets.navigateBefore,
+                size: 50,
+              ),
+            ),
+            const SizedBox(
+              width: 100,
+            ),
+            Container(
+              height: 6,
+              width: 6,
+              decoration: BoxDecoration(
+                  color: ColorManager.lightGrey, shape: BoxShape.circle),
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Container(
+              height: 6,
+              width: 6,
+              decoration: BoxDecoration(
+                  color: ColorManager.black, shape: BoxShape.circle),
+            ),
+          ],
+        ),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(Routes.LastquestionRoute);
+          },
+          child: CircleProfile(
+            profile: ImageAssets.navigateNext,
+            size: 50,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -115,83 +116,17 @@ class ChoiceForm extends StatelessWidget {
   }
 
   List<Widget> buildCheckMySelfForm() {
+    final familyConsistController = Get.put(FamilyConsistController());
+
     List<Widget> result = [];
-    var n = int.parse(Get.arguments['familyMemberCount'].toString());
+    List<int> familystate = familyConsistController.getTraget();
+    Map<int, String> familySet = familyConsistController.familySetInvert;
 
-    List<String> familyMember = [
-      "엄마",
-      "아빠",
-      "첫째",
-      "둘째",
-      "셋째",
-      "넷째",
-      "다섯째",
-      "여섯째",
-      "일곱째",
-      "여덟째",
-      "아홉째",
-      "열째",
-    ];
-
-    for (var i = 0; i < n; i++) {
-      result.add(MenberCountButton(content: familyMember[i], index: i + 1));
+    for (var i = 0; i < familystate.length; i++) {
+      result.add(MenberButton(content: familySet[familystate[i]]!));
     }
+
     return result;
-  }
-}
-
-class MenberCountButton extends StatefulWidget {
-  String content;
-  int index;
-  MenberCountButton({
-    required this.content,
-    required this.index,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MenberCountButton> createState() => _MenberCountButtonState();
-}
-
-class _MenberCountButtonState extends State<MenberCountButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Obx(
-      () => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-        child: GestureDetector(
-          onTap: () {
-            target.value = widget.index;
-          },
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
-              decoration: BoxDecoration(
-                color: widget.index == target.value
-                    ? ColorManager.point
-                    : ColorManager.white,
-                borderRadius: BorderRadius.circular(40),
-                border: Border.all(
-                    color: widget.index == target.value
-                        ? ColorManager.white
-                        : ColorManager.darkGrey),
-              ),
-              child: Text(
-                widget.content,
-                textAlign: TextAlign.center,
-                style: getMediumStyle(
-                  color: widget.index == target.value
-                      ? ColorManager.white
-                      : ColorManager.darkGrey,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 
@@ -291,5 +226,64 @@ class CircleProfileBack extends StatelessWidget {
             ),
           ),
         ));
+  }
+}
+
+class MenberButton extends StatelessWidget {
+  MenberButton({
+    required this.content,
+    Key? key,
+  }) : super(key: key);
+
+  final familyConsistController = Get.put(FamilyConsistController());
+  String content;
+
+  @override
+  Widget build(BuildContext context) {
+    Map<String, int> familySet = familyConsistController.familySet;
+    int index = familySet[content]!;
+    double sizeOfWidth;
+    if (index == 1) {
+      sizeOfWidth = 90;
+    } else if (index == 2) {
+      sizeOfWidth = 80;
+    } else {
+      sizeOfWidth = 60;
+    }
+
+    return Obx(
+      () => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        child: GestureDetector(
+          onTap: () {
+            familyConsistController.targetMyself.value = index;
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+            width: sizeOfWidth,
+            decoration: BoxDecoration(
+              color: familyConsistController.targetMyself.value == index
+                  ? ColorManager.point
+                  : ColorManager.white,
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(
+                  color: familyConsistController.targetMyself.value == index
+                      ? ColorManager.white
+                      : ColorManager.darkGrey),
+            ),
+            child: Text(
+              content,
+              textAlign: TextAlign.center,
+              style: getMediumStyle(
+                color: familyConsistController.targetMyself.value == index
+                    ? ColorManager.white
+                    : ColorManager.darkGrey,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

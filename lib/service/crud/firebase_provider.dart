@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';
 import 'package:fambridge/model/answer.dart';
@@ -39,8 +38,10 @@ class FirebaseGroupProvider implements GroupProvider {
   Future<Group> createNewGroup({
     int treeXp = 0,
   }) async {
+    // 그룹 아이디 가져오기
     final familyGroupId = GroupStateProvider()
         .newGroupInfo[GroupFirestoreFieldName.groupIdFieldName];
+    // 그룹
     final todayQuestion = await createTodayQuestion(
         familyGroupId: GroupStateProvider()
             .newGroupInfo[GroupFirestoreFieldName.groupIdFieldName],
@@ -87,27 +88,30 @@ class FirebaseGroupProvider implements GroupProvider {
           questionRes.questionOrder,
       GroupQuestionFirestoreFieldName.rewardTreeXpFieldName: questionRes.treeXp,
     });
-    final newTodayQuestion = GroupQuestion.fromFirestore(await groupQuestionDocRef.get());
-    await updateFamilyGroup(docId: familyGroupId, todayQuestion: newTodayQuestion);
+    final newTodayQuestion =
+        GroupQuestion.fromFirestore(await groupQuestionDocRef.get());
+    await updateFamilyGroup(
+        docId: familyGroupId, todayQuestion: newTodayQuestion);
     return newTodayQuestion;
   }
 
   @override
   Stream<Group> getGroup({required String groupId}) {
     try {
-      return findGroupReference(groupId).snapshots().map(
-            (docSnap) {
-              final group = Group.fromFirestore(docSnap);
-              return group;
-            }
-          );
+      return findGroupReference(groupId).snapshots().map((docSnap) {
+        final group = Group.fromFirestore(docSnap);
+        return group;
+      });
     } catch (_) {
       rethrow;
     }
   }
 
   Future<Group> test({required String groupId}) async {
-    return Group.fromFirestore(await FirebaseFirestore.instance.collection('group').doc(groupId).get());
+    return Group.fromFirestore(await FirebaseFirestore.instance
+        .collection('group')
+        .doc(groupId)
+        .get());
   }
 
   @override
@@ -118,19 +122,25 @@ class FirebaseGroupProvider implements GroupProvider {
         (event) => event.docs.map((doc) => GroupQuestion.fromFirestore(doc)));
   }
 
-   @override
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetGroupFromFirestore({required String groupId}) async {
+  @override
+  Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
+      maybeGetGroupFromFirestore({required String groupId}) async {
     final groups = await groupCollection
-          .where(GroupFirestoreFieldName.groupIdFieldName, isEqualTo: groupId).get();
-    if(groups.docs.isNotEmpty){
+        .where(GroupFirestoreFieldName.groupIdFieldName, isEqualTo: groupId)
+        .get();
+    if (groups.docs.isNotEmpty) {
       return groups.docs.first;
     }
     return null;
   }
 
-  Future<void> deleteGroupQuestion({required Group group, required String questionIdToDelete}) async {
-    return await getGroupQuestionCollectionRef(group.familyGroupId).doc(questionIdToDelete).delete();
+  Future<void> deleteGroupQuestion(
+      {required Group group, required String questionIdToDelete}) async {
+    return await getGroupQuestionCollectionRef(group.familyGroupId)
+        .doc(questionIdToDelete)
+        .delete();
   }
+
   @override
   Future<GroupQuestion> addTodayQuestionToGroupQuestion(
       {required String groupId, required GroupQuestion groupQuestion}) async {
@@ -163,8 +173,8 @@ class FirebaseGroupProvider implements GroupProvider {
               doc[GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName],
       GroupFirestoreFieldName.groupNameFieldName:
           groupName ?? doc[GroupFirestoreFieldName.groupNameFieldName],
-      GroupFirestoreFieldName.todayQuestionFieldName:
-          todayQuestion?.toMap() ?? doc[GroupFirestoreFieldName.todayQuestionFieldName],
+      GroupFirestoreFieldName.todayQuestionFieldName: todayQuestion?.toMap() ??
+          doc[GroupFirestoreFieldName.todayQuestionFieldName],
       GroupFirestoreFieldName.treeXpFieldName:
           treeXp ?? doc[GroupFirestoreFieldName.treeXpFieldName],
       GroupFirestoreFieldName.joinedUserIdsFieldName: targetUserId == null

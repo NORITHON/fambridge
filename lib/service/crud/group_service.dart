@@ -93,7 +93,8 @@ class GroupService implements GroupProvider {
   Future<bool> makeTodayQuestionAnswerVisualizable(
       {required Group group}) async {
     if (!checkIfAnswerCanBeVisualizable(group: group)) return false;
-    await deleteGroupQuestion(group: group, questionIdToDelete: group.todayQuestion.groupQuestionId);
+    await deleteGroupQuestion(
+        group: group, questionIdToDelete: group.todayQuestion.groupQuestionId);
     final fetchedTodayQuestion = await addTodayQuestionToGroupQuestion(
         groupId: group.familyGroupId, groupQuestion: group.todayQuestion);
     await updateFamilyGroup(
@@ -113,17 +114,27 @@ class GroupService implements GroupProvider {
         docId: groupId, targetUserId: userId, shouldAddUserId: true);
   }
 
-  Future<void> replaceTodayQuestionToTheNextQuestion({required Group group}) async {
+  Future<void> replaceTodayQuestionToTheNextQuestion(
+      {required Group group}) async {
     int currentQuestionOrder = group.todayQuestion.questionOrder;
-    await provider.createTodayQuestion(familyGroupId: group.familyGroupId, questionOrder: currentQuestionOrder + 1);
+    await provider.createTodayQuestion(
+        familyGroupId: group.familyGroupId,
+        questionOrder: currentQuestionOrder + 1);
   }
 
-  bool shouldReplaceTodayQuestion({required Group group, required AuthUser user}) {
-    if(group.todayQuestion.visualizedTime == null || user.lastLoginTime == null) return false;
-    if(!group.todayQuestion.isVisible) return false;
+  bool shouldReplaceTodayQuestion(
+      {required Group group, required AuthUser user}) {
+    if (group.todayQuestion.visualizedTime == null ||
+        user.lastLoginTime == null) return false;
+    if (!group.todayQuestion.isVisible) return false;
     final visualizedDatetime = group.todayQuestion.visualizedTime!.toDate();
     final userLastLoginDatetime = user.lastLoginTime!.toDate();
-    return visualizedDatetime.day + visualizedDatetime.month + visualizedDatetime.year < userLastLoginDatetime.day + userLastLoginDatetime.month + userLastLoginDatetime.year;
+    return visualizedDatetime.day +
+            visualizedDatetime.month +
+            visualizedDatetime.year <
+        userLastLoginDatetime.day +
+            userLastLoginDatetime.month +
+            userLastLoginDatetime.year;
   }
 
   @override

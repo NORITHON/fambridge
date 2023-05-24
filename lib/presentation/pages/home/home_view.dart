@@ -4,7 +4,6 @@ import 'dart:developer';
 
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
-import 'package:fambridge/presentation/component/bar/bottom_nav.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
@@ -32,11 +31,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() {});
   }
 
   @override

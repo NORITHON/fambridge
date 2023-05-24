@@ -48,9 +48,8 @@ class _MyAppState extends State<MyApp> {
     return GetMaterialApp(
       theme: getApplicationTheme(),
       debugShowCheckedModeBanner: false,
-      title: 'norithon',
+      title: 'fambridge',
       initialRoute: Routes.loginRoute,
-      // theme: getApplicationTheme(),
       getPages: getPages,
     );
   }

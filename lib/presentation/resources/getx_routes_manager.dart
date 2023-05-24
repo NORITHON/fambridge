@@ -77,7 +77,7 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.numbersofFamilyRoute,
     page: () => const NumbersofFamilyView(),
-    transition: Transition.downToUp,
+    transition: Transition.rightToLeft,
   ),
   GetPage(
     name: Routes.LastquestionRoute,
@@ -97,17 +97,17 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: Routes.firstDelayRoute,
     page: () => const firstDelayView(),
-    transition: Transition.downToUp,
+    transition: Transition.rightToLeft,
   ),
   GetPage(
     name: Routes.secondDelayRoute,
     page: () => const second_delayView(),
-    transition: Transition.downToUp,
+    transition: Transition.rightToLeft,
   ),
   GetPage(
     name: Routes.checkMyselfRoute,
     page: () => const CheckMyselfView(),
-    transition: Transition.downToUp,
+    transition: Transition.rightToLeft,
   ),
   GetPage(
     name: Routes.buildPages,

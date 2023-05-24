@@ -14,15 +14,6 @@ class LastquestionView extends StatefulWidget {
   _LastquestionState createState() => _LastquestionState();
 }
 
-var textStyle = const TextStyle(
-  fontFamily: 'GmarketSans',
-  fontSize: 16,
-);
-var pointStyle = TextStyle(
-  color: ColorManager.point,
-  fontFamily: 'GmarketSans',
-);
-
 class _LastquestionState extends State<LastquestionView> {
   @override
   Widget build(BuildContext context) {
