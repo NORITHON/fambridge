@@ -63,9 +63,9 @@ class _LastquestionState extends State<LastquestionView> {
               const SizedBox(
                 height: 140,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SizedBox(
                     width: 240,
                     child: ButtonCheck(),
