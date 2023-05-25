@@ -181,9 +181,9 @@ class MenberCountButton extends StatelessWidget {
 }
 
 class CircleProfile extends StatelessWidget {
-  double size;
-  String profile;
-  CircleProfile({
+  final double size;
+  final String profile;
+  const CircleProfile({
     Key? key,
     required this.profile,
     required this.size,

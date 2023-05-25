@@ -1,12 +1,9 @@
 import 'package:fambridge/presentation/component/button/button_checkfirst.dart';
 import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
-import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 
 class firstDelayView extends StatefulWidget {
   const firstDelayView({super.key});
@@ -60,26 +57,6 @@ class _firstDelayViewState extends State<firstDelayView> {
             const ButtonCheckfirst(),
           ],
         ),
-      ),
-    );
-  }
-
-  PreferredSizeWidget _AppBar() {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(60),
-      child: AppBar(
-        centerTitle: true,
-        backgroundColor: ColorManager.white,
-        leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: SvgPicture.asset(
-            ImageAssets.back,
-            height: 20,
-            width: 20,
-            fit: BoxFit.scaleDown,
-          ),
-        ),
-        elevation: 0,
       ),
     );
   }

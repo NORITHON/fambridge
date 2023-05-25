@@ -8,6 +8,7 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class second_delayView extends StatefulWidget {
   const second_delayView({super.key});
@@ -27,7 +28,9 @@ class _second_delayState extends State<second_delayView> {
 
   @override
   Widget build(BuildContext context) {
-    var idController = "24983827";
+    //가족코드 생성
+    String idController = const Uuid().v4().substring(1, 8);
+    //todo: update family group code
     return Scaffold(
       appBar: onboardingLogoutAppBar(),
       body: Container(
@@ -81,9 +84,9 @@ class _second_delayState extends State<second_delayView> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
-                  Copybutton(),
-                  Sharebutton(),
+                children: [
+                  CopyButton(data: idController),
+                  Sharebutton(data: idController),
                 ],
               ),
             ],

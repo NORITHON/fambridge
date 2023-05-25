@@ -134,6 +134,7 @@ class FirebaseGroupProvider implements GroupProvider {
     return null;
   }
 
+  @override
   Future<void> deleteGroupQuestion(
       {required Group group, required String questionIdToDelete}) async {
     return await getGroupQuestionCollectionRef(group.familyGroupId)

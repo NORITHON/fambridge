@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
-import 'package:fambridge/presentation/resources/font_manager.dart';
-import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -68,15 +68,15 @@ class CustomBottomNavbar extends StatelessWidget {
         currentIndex: selectedIndex,
         // selectedIconTheme: ,
         // unselectedIconTheme: ,
-        selectedLabelStyle: getRegularStyle(color: Colors.black).copyWith(
-          fontWeight: FontWeightManager.medium,
-          fontSize: FontSize.s12,
-          height: 2,
-        ),
-        unselectedLabelStyle: getRegularStyle(color: Colors.black).copyWith(
-          fontWeight: FontWeightManager.medium,
-          fontSize: FontSize.s12,
-        ),
+        // selectedLabelStyle: textStyle.copyWith(
+        //   fontWeight: FontWeightManager.medium,
+        //   fontSize: FontSize.s12,
+        //   height: 2,
+        // ),
+        // unselectedLabelStyle: textStyle.copyWith(
+        //   fontWeight: FontWeightManager.medium,
+        //   fontSize: FontSize.s12,
+        // ),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: ColorManager.point,
         selectedIconTheme: IconThemeData(color: ColorManager.point),
