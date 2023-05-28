@@ -62,4 +62,6 @@ class GroupFirestoreFieldName {
   static const String todayQuestionFieldName = 'today-question';
   static const String totalNumOfFamilyMemberFieldName =
       'total-num-of-family-member';
+      static const String myRoleFieldName =
+      'my-role-in-family';
 }

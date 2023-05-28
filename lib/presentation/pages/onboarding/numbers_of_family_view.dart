@@ -7,6 +7,9 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:get/get.dart';
 
+import '../../../model/group.dart';
+import '../../../service/crud/group_state_provider.dart';
+
 class NumbersofFamilyView extends StatelessWidget {
   const NumbersofFamilyView({super.key});
 
@@ -77,6 +80,10 @@ class NavIndicate extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
+            final familyConsistController = Get.put(FamilyConsistController());
+            // 그룹 [맴버 수] 설정
+            GroupStateProvider().newGroupInfo[GroupFirestoreFieldName
+                .totalNumOfFamilyMemberFieldName] = familyConsistController.target.length;
             Get.toNamed(
               Routes.checkMyselfRoute,
             );

@@ -93,7 +93,7 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
         groupId: groupId,
         authUser: user,
         name: "shinhoo",
-        familyRole: FamilyRole.son,
+        familyRole: "",
         birthOrder: 1,
       );
       await GroupService.firebase()

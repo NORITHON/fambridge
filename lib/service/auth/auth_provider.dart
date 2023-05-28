@@ -24,7 +24,7 @@ abstract class AuthProvider {
   Future<void> logOut();
   Future<AuthUser?> addAuthToDatabase({
     required String name,
-    required FamilyRole familyRole,
+    required String familyRole,
     required AuthUser? authUser,
     int? birthOrder,
     String? groupId,

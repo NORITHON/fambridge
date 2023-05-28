@@ -129,17 +129,13 @@ class _LoginFormState extends State<LoginForm> {
                   return;
                 }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
-                  // auth 그룹이름이 없는 경우 -> 가족코드 입력 / 발급하러 가기
-                  //log(MyApp.appState[authStateFieldName]![hasGroupFieldName]);
                   Get.back();
-                  //log(MyApp.unsyncronizedAuthUser!.id);
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else {
                   // auth 그룹이름이 이미 있는 경우 -> 홈으로 가기
                   MyApp.appState[groupStateFieldName]![groupFieldName] =
                       GroupService.firebase().getGroup(
                           groupId: MyApp.unsyncronizedAuthUser!.groupId!);
-                  //log(MyApp.appState[groupStateFieldName]![groupFieldName]);
                   Get.offAllNamed(Routes.buildPages);
                 }
               },

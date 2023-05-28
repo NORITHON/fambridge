@@ -80,7 +80,7 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<AuthUser?> addAuthToDatabase({
     required String name,
-    required FamilyRole familyRole,
+    required String familyRole,
     required AuthUser? authUser,
     int? birthOrder,
     String? groupId,
@@ -91,7 +91,7 @@ class FirebaseAuthProvider implements AuthProvider {
     final docRef = await authCollection.add({
       AuthUserFirestoreFieldName.userIdFieldName: authUser.id,
       AuthUserFirestoreFieldName.userNameFieldName: name,
-      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.name,
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole,
       AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder,
       AuthUserFirestoreFieldName.userGroupIdFieldName: groupId,
       AuthUserFirestoreFieldName.userRegisterTimeFieldName:

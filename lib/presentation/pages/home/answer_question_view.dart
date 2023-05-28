@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../app/app.dart';
+import '../../../model/group.dart';
 import '../../component/group_stream_builder.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/getx_routes_manager.dart';
@@ -38,7 +39,7 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
   Widget build(BuildContext context) {
     return GroupStreamBuilder(
       groupId: MyApp.unsyncronizedAuthUser!.groupId!,
-      builder: (context, snapshot) => SafeArea(
+      builder: (context, data) => SafeArea(
         child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
@@ -61,19 +62,19 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
             child: Column(
               children: [
                 AnswerQuestionSheet(
-                  group: snapshot.data!,
+                  group: data,
                 ),
                 const SizedBox(
                   height: AppPadding.p30,
                 ),
                 BlurredAnswerList(
-                  group: snapshot.data!,
+                  group: data,
                 ),
               ],
             ),
           ),
           floatingActionButton: _FloatingActionButton(
-              snapshot: snapshot,
+              data: data,
               myAnswerTextEditinController: myAnswerTextEditinController),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
@@ -86,20 +87,20 @@ class _AnswerQuestionViewState extends State<AnswerQuestionView> {
 class _FloatingActionButton extends StatelessWidget {
   const _FloatingActionButton({
     Key? key,
-    required this.snapshot,
+    required this.data,
     required this.myAnswerTextEditinController,
   }) : super(key: key);
 
-  final AsyncSnapshot snapshot;
+  final Group data;
   final TextEditingController myAnswerTextEditinController;
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
       visible: !GroupService.firebase().hasUserAnsweredTodayQuestion(
-          group: snapshot.data!, userId: MyApp.unsyncronizedAuthUser!.id),
+          group: data, userId: MyApp.unsyncronizedAuthUser!.id),
       child: QuestionAnswerButton(
-        group: snapshot.data!,
+        group: data,
         onPressed: () async {
           final String answerScript = MyApp
               .appState[questionStateFieldName]![userAnswerTextInputFieldName];
@@ -112,11 +113,11 @@ class _FloatingActionButton extends StatelessWidget {
               userName: MyApp.unsyncronizedAuthUser!.name);
           loadingDialog(context);
           await GroupService.firebase().submitAnswerForTodayQuestion(
-              group: snapshot.data!, answer: answer);
+              group: data, answer: answer);
           await GroupService.firebase()
-              .setTreeXp(group: snapshot.data!, setVal: 1);
+              .setTreeXp(group: data, setVal: 1);
           await GroupService.firebase()
-              .makeTodayQuestionAnswerVisualizable(group: snapshot.data!);
+              .makeTodayQuestionAnswerVisualizable(group: data);
           Get.offAllNamed(Routes.buildPages);
         },
       ),

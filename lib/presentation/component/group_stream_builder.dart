@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import '../../model/group.dart';
@@ -7,7 +9,7 @@ class GroupStreamBuilder extends StatelessWidget {
   const GroupStreamBuilder({super.key, required this.builder, required this.groupId});
 
   final String groupId;
-  final Widget Function(BuildContext, AsyncSnapshot<Group>) builder;
+  final Widget Function(BuildContext, Group) builder;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class GroupStreamBuilder extends StatelessWidget {
             case ConnectionState.waiting:
             case ConnectionState.active:
               if (snapshot.hasData) {
-                return builder(context, snapshot);
+                return builder(context, snapshot.data!);
               } else {
                 return const Scaffold(
                     body: Center(
