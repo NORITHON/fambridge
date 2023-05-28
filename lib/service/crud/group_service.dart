@@ -26,7 +26,7 @@ class GroupService implements GroupProvider {
   }
 
   @override
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
+  Future<Group?>
       maybeGetGroupFromFirestore({required String groupId}) async =>
           await provider.maybeGetGroupFromFirestore(groupId: groupId);
 

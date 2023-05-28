@@ -1,10 +1,6 @@
-import 'package:fambridge/model/answer.dart';
 import 'package:fambridge/presentation/component/profile/profile_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../../model/group.dart';
-import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/styles_manager.dart';
 

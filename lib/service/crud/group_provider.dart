@@ -14,7 +14,7 @@ abstract class GroupProvider {
     required int questionOrder,
   });
     Future<void> deleteGroupQuestion({required Group group, required String questionIdToDelete});
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?> maybeGetGroupFromFirestore({required String groupId});
+  Future<Group?> maybeGetGroupFromFirestore({required String groupId});
   Future<QuestionRes> getQuestionFromRes({int questionOrder = 0});
   Stream<Group> getGroup({required String groupId});
   Stream<Iterable<GroupQuestion>> getAllGroupQuestion(

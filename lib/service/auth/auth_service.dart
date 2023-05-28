@@ -102,4 +102,10 @@ class AuthService implements AuthProvider {
     MyApp.unsyncronizedAuthUser = fetchedAuthUser;
     return fetchedAuthUser;
   }
+
+  @override
+  Future<AuthUser?> getUserInfo({required String userId}) async => provider.getUserInfo(userId: userId);
+
+  @override
+  Future<List<AuthUser>> getUserInfos({required List<String> userIds}) async => provider.getUserInfos(userIds: userIds);
 }

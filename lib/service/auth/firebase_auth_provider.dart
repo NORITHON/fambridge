@@ -226,4 +226,22 @@ class FirebaseAuthProvider implements AuthProvider {
       throw UserNotLoggedInAuthException();
     }
   }
+
+  @override
+  Future<AuthUser?> getUserInfo({required String userId}) async {
+    final snapshot = await authCollection.where(AuthUserFirestoreFieldName.userIdFieldName, isEqualTo: userId).get();
+    if(snapshot.docs.isEmpty) return null;
+    return AuthUser.fromSnapshot(snapshot.docs[0]);
+  }
+
+  @override
+  Future<List<AuthUser>> getUserInfos({required List<String> userIds}) async {
+    final List<AuthUser> bucket = [];
+    for (var userId in userIds) { 
+      AuthUser? maybeUser = await getUserInfo(userId: userId);
+      if(maybeUser == null) continue;
+      bucket.add(maybeUser);
+    }
+    return bucket;
+  }
 }

@@ -32,7 +32,7 @@ class _codeshareState extends State<codeshareview> {
               const SizedBox(height: 10),
               const SubTitle(),
               const SizedBox(height: 100),
-              FamilyList(),
+              const FamilyList(),
               const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

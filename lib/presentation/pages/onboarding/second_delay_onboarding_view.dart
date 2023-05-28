@@ -1,7 +1,9 @@
+import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/component/button/copybutton.dart';
 import 'package:fambridge/presentation/component/button/sharebutton.dart';
 import 'package:fambridge/presentation/pages/onboarding/check_myself_view.dart';
 import 'package:fambridge/presentation/resources/font_manager.dart';
+import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -9,6 +11,8 @@ import 'package:fambridge/presentation/resources/assets_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../../model/auth_user.dart';
 
 class second_delayView extends StatefulWidget {
   const second_delayView({super.key});
@@ -18,6 +22,8 @@ class second_delayView extends StatefulWidget {
 }
 
 class _second_delayState extends State<second_delayView> {
+
+  
   @override
   void initState() {
     super.initState();
@@ -28,8 +34,9 @@ class _second_delayState extends State<second_delayView> {
 
   @override
   Widget build(BuildContext context) {
+    final Group group = Get.arguments;
     //가족코드 생성
-    String idController = const Uuid().v4().substring(1, 8);
+    String idController = group.groupJoinCode;
     //todo: update family group code
     return Scaffold(
       appBar: onboardingLogoutAppBar(),
@@ -54,11 +61,17 @@ class _second_delayState extends State<second_delayView> {
                     getMediumStyle(color: ColorManager.darkGrey, fontSize: 16),
               ),
               const SizedBox(height: 140),
-              const FamilyList(),
+              const Text("지금까지 들어온 가족 명단"),
+              const SizedBox(
+                height: 10,
+              ),
+              Text("${group.userIdsInGroup.length} / ${group.totalNumOfFamilyMember}"),
+              const SizedBox(height: 10),
+              FamilyList(group: group),
               const SizedBox(
                 height: 110,
               ),
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
@@ -69,14 +82,19 @@ class _second_delayState extends State<second_delayView> {
                       fontSize: FontSize.s14,
                     ),
                   ),
-                  Text(
-                    idController,
-                    textAlign: TextAlign.center,
-                    style: getMediumStyle(
-                      color: ColorManager.darkGrey,
-                      fontSize: FontSize.s20,
-                    ),
+                  const SizedBox(height: 10,),
+                  FittedBox(
+                    child: Text(
+                          idController,
+                          textAlign: TextAlign.center,
+                          style: getMediumStyle(
+                            color: ColorManager.darkGrey,
+                            fontSize: FontSize.s20,
+                          ),
+                        ),
                   ),
+                    
+                  
                 ],
               ),
               const SizedBox(
@@ -98,31 +116,49 @@ class _second_delayState extends State<second_delayView> {
 }
 
 class FamilyList extends StatelessWidget {
+  final Group group;
   const FamilyList({
     Key? key,
+    required this.group,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
-        FamilyMember(type: "아빠", profile: ImageAssets.profile2),
-        FamilyMember(type: "엄마", profile: ImageAssets.profile2),
-        FamilyMember(type: "첫째", profile: ImageAssets.profile2),
-        FamilyMember(type: "둘째", profile: ImageAssets.profile2),
-        FamilyMember(type: "셋째", profile: ImageAssets.profile2),
-      ],
+    return FutureBuilder<List<AuthUser>>(
+      future: AuthService.firebase().getUserInfos(userIds: group.userIdsInGroup),
+      builder: (context, snapshot) {
+        switch(snapshot.connectionState){
+          case ConnectionState.done:
+            final users = snapshot.data;
+            if(users == null){
+              return const Text("no user data");
+            }
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: users
+                    .map(
+                      (AuthUser user) => FamilyMember(
+                        name: user.name ?? "no name",
+                        type: user.familyRole ?? "no role",
+                      ),
+                    )
+                    .toList(),
+            );
+          default:
+            return const CircularProgressIndicator();
+        }
+        
+      }
     );
   }
 }
 
 class FamilyMember extends StatelessWidget {
   final String type;
-  final String profile;
+  final String name;
   const FamilyMember({
     required this.type,
-    required this.profile,
+    required this.name,
     Key? key,
   }) : super(key: key);
 
@@ -130,7 +166,8 @@ class FamilyMember extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleProfile(size: 44, profile: profile),
+        Text(name),
+        // CircleProfile(size: 44, profile: profile),
         const SizedBox(
           height: 5,
         ),

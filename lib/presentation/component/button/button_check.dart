@@ -57,10 +57,11 @@ class ButtonCheck extends StatelessWidget {
               // 그룹 [유저아이디] 설정
               GroupStateProvider().newGroupInfo[
                   GroupFirestoreFieldName.joinedUserIdsFieldName] = [user!.id];
+              late final group;
 
               try {
                 //새로운 그룹 생성하기
-                final group = await GroupService.firebase().createNewGroup();
+                group = await GroupService.firebase().createNewGroup();
 
                 //새로운 유저 생성하기
                 await AuthService.firebase().addAuthToDatabase(
@@ -83,11 +84,12 @@ class ButtonCheck extends StatelessWidget {
 
               Get.back();
               // for test
-              Get.toNamed(Routes.homeRoute);
-              //가족이 다 모였다면
-              //Get.toNamed(Routes.secondDelayRoute);
+              
+              //가족이 다 모였다면 -> 모였을 수 가 없음. 방금 만듬.
+              //Get.toNamed(Routes.buildPages);
+              
               //아직 다 모이지 않았다면
-              //Get.toNamed(Routes.codeshareRoute);
+              Get.toNamed(Routes.secondDelayRoute, arguments: group);
             },
             child: Text(
               "그룹 생성 완료하기",
