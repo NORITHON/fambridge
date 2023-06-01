@@ -80,29 +80,4 @@ class _LastquestionState extends State<LastquestionView> {
   }
 }
 
-PreferredSizeWidget _MypageAppBar() {
-  return PreferredSize(
-    preferredSize: const Size.fromHeight(60),
-    child: AppBar(
-      title: Text(
-        "",
-        style: getMediumStyle(
-          fontSize: 18,
-          color: ColorManager.darkGrey,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: ColorManager.white,
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: SvgPicture.asset(
-          ImageAssets.back,
-          height: 20,
-          width: 20,
-          fit: BoxFit.scaleDown,
-        ),
-      ),
-      elevation: 0.0,
-    ),
-  );
-}
+

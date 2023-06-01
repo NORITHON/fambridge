@@ -69,7 +69,7 @@ class BlurredAnswerList extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 35),
                 child: HomeAnswerBack(
                   onPressed: () {
-                    Get.toNamed(Routes.homeRoute);
+                    Get.offAllNamed(Routes.buildPages);
                   },
                 ),
               ),

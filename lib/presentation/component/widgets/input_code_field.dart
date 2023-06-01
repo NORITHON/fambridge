@@ -82,24 +82,24 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
   }
 
   Future<void> onSubmitted() async {
-    var groupId = widget.controller.text == "" ? null : widget.controller.text;
-    if (groupId == null) return;
+    var groupJoinCode = widget.controller.text == "" ? null : widget.controller.text;
+    if (groupJoinCode == null) return;
     try {
       loadingDialog(context);
-      final Group? group = await GroupService.firebase().maybeGetGroupFromFirestore(groupId: groupId);
+      final Group? group = await GroupService.firebase().maybeGetGroupFromFirestoreByJoinCode(groupJoinCode:  groupJoinCode);
       if (group == null) {
         throw GroupNotFoundGroupException();
       }
       final user = await AuthService.firebase().currentUser;
       await AuthService.firebase().addAuthToDatabase(
-        groupId: groupId,
+        groupId: group.familyGroupId,
         authUser: user,
         name: "shinhoo",
         familyRole: "",
         birthOrder: 1,
       );
       await GroupService.firebase()
-          .addUserIntoGroup(groupId: groupId, userId: user!.id);
+          .addUserIntoGroup(groupId: group.familyGroupId, userId: user!.id);
       MyApp.unsyncronizedAuthUser = await AuthService.firebase().currentUser;
       Get.back();
 

@@ -29,4 +29,6 @@ abstract class GroupProvider {
     String? targetUserId,
     bool shouldAddUserId = true,
   });
+  Future<Group?>
+      maybeGetGroupFromFirestoreByJoinCode({required String groupJoinCode});
   }

@@ -136,6 +136,18 @@ class FirebaseGroupProvider implements GroupProvider {
   }
 
   @override
+  Future<Group?>
+      maybeGetGroupFromFirestoreByJoinCode({required String groupJoinCode}) async {
+    final groups = await groupCollection
+        .where(GroupFirestoreFieldName.familyGroupCodeFieldname, isEqualTo: groupJoinCode)
+        .get();
+    if (groups.docs.isNotEmpty) {
+      return Group.fromFirestore(groups.docs.first);
+    }
+    return null;
+  }
+
+  @override
   Future<void> deleteGroupQuestion(
       {required Group group, required String questionIdToDelete}) async {
     return await getGroupQuestionCollectionRef(group.familyGroupId)

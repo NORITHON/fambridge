@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/model/group.dart';
+import 'package:fambridge/presentation/component/button/navigate_to_feedback.dart';
 import 'package:fambridge/presentation/component/widgets/answer_button.dart';
 import 'package:fambridge/presentation/component/widgets/buttom_sheet_background.dart';
 import 'package:fambridge/presentation/component/widgets/growing_tree.dart';
@@ -13,7 +14,6 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
-import 'package:fambridge/service/crud/firebase_provider.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -47,26 +47,11 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     body: FutureBuilder(
-  //       future: FirebaseGroupProvider().test(groupId: MyApp.unsyncronizedAuthUser!.groupId!),
-  //       builder: (context, snapshot) {
-  //         switch(snapshot.connectionState){
-  //           case ConnectionState.done:
-  //           return snapshot.data == null ? const Center(child: Text("no data")) : Center(child: Text(snapshot.data!.familyGroupId));
-  //           default:
-  //             return const CircularProgressIndicator();
-  //         }
-  //     },),
-  //   );
-  // }
-  
   @override
   Widget build(BuildContext context) {
     log(MyApp.unsyncronizedAuthUser!.groupId!);
     return Scaffold(
+      appBar: AppBar(actions: const [DictionaryAddButton()]),
       body: MyApp.unsyncronizedAuthUser == null
           ? const Center(
               child: Text("cannot find login info"),
@@ -122,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
       // ),
     );
   }
-  
+
   var textStyle = TextStyle(
     color: ColorManager.darkGrey,
     fontFamily: "GmarketSans",
