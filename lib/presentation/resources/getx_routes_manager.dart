@@ -1,5 +1,6 @@
 import 'package:fambridge/presentation/pages/buildPages.dart';
 import 'package:fambridge/presentation/pages/familyCode/input_family_code_view.dart';
+import 'package:fambridge/presentation/pages/feedback_page/feedback_page.dart';
 import 'package:fambridge/presentation/pages/home/answer_question_view.dart';
 import 'package:fambridge/presentation/pages/home/home_view.dart';
 import 'package:fambridge/presentation/pages/login/login_view.dart';
@@ -36,9 +37,15 @@ class Routes {
   static const String secondDelayRoute = "/second-onboarding";
   static const String checkMyselfRoute = "/check-myself";
   static const String buildPages = "/buildPages";
+  static const String feedbackPages = "/feedback";
 }
 
 List<GetPage<dynamic>> getPages = [
+  GetPage(
+    name: Routes.feedbackPages,
+    page: () => const FeedbackPage(),
+    transition: Transition.rightToLeft,
+  ),
   GetPage(
     name: Routes.splashRoute,
     page: () => const SplashView(),

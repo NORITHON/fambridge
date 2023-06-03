@@ -160,4 +160,7 @@ class GroupService implements GroupProvider {
           required GroupQuestion groupQuestion}) async =>
       await provider.addTodayQuestionToGroupQuestion(
           groupId: groupId, groupQuestion: groupQuestion);
+          
+  @override
+  Future<Group?> maybeGetGroupFromFirestoreByJoinCode({required String groupJoinCode}) async => provider.maybeGetGroupFromFirestoreByJoinCode(groupJoinCode: groupJoinCode);
 }

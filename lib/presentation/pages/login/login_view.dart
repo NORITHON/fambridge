@@ -134,6 +134,7 @@ class _LoginFormState extends State<LoginForm> {
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else {
                   // auth 그룹이름이 이미 있는 경우
+                  log(MyApp.unsyncronizedAuthUser!.groupId ?? "no group Id");
                   final Stream<Group> groupStream = GroupService.firebase()
                       .getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!);
                   MyApp.appState[groupStateFieldName]![groupFieldName] =

@@ -6,6 +6,8 @@ import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../component/widgets/app_bar.dart';
+
 class codeshareview extends StatefulWidget {
   const codeshareview({super.key});
 
@@ -19,7 +21,7 @@ class _codeshareState extends State<codeshareview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _MypageAppBar(),
+      appBar: mypageAppBar(),
       body: Container(
         color: ColorManager.backgroundColor,
         child: Padding(
@@ -205,32 +207,6 @@ class FamilyMember extends StatelessWidget {
   }
 }
 
-PreferredSizeWidget _MypageAppBar() {
-  return PreferredSize(
-    preferredSize: const Size.fromHeight(60),
-    child: AppBar(
-      title: Text(
-        "",
-        style: getMediumStyle(
-          fontSize: 18,
-          color: ColorManager.darkGrey,
-        ),
-      ),
-      centerTitle: true,
-      backgroundColor: ColorManager.white,
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: SvgPicture.asset(
-          ImageAssets.back,
-          height: 20,
-          width: 20,
-          fit: BoxFit.scaleDown,
-        ),
-      ),
-      elevation: 0.0,
-    ),
-  );
-}
 
 class CircleProfile extends StatelessWidget {
   double size;

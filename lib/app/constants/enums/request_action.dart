@@ -1,0 +1,4 @@
+enum RequestAction{
+  revisementRequest,
+  addRequest,
+}

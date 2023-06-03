@@ -15,7 +15,7 @@ class ColorManager {
   static Color downloadbackgroundColor = HexColor.fromHex("#F2F2F2");
   static Color storebarUnselectColor = HexColor.fromHex("#DFDFDF");
 
-  static Color backgroundColor = HexColor.fromHex("#FFFFFF");
+  static Color backgroundColor = HexColor.fromHex("#E5E5E5");
   static Color textFieldbackgroundColor = HexColor.fromHex("#FFFFFF");
 
   static Color error = HexColor.fromHex("#EA6F29");
