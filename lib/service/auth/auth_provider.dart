@@ -24,7 +24,7 @@ abstract class AuthProvider {
   Future<void> logOut();
   Future<AuthUser?> addAuthToDatabase({
     required String name,
-    required FamilyRole familyRole,
+    required String familyRole,
     required AuthUser? authUser,
     int? birthOrder,
     String? groupId,
@@ -34,4 +34,7 @@ abstract class AuthProvider {
   Future<void> sendEmailVerification();
   Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
       maybeGetUserFromFirestore({required String userId});
+
+   Future<AuthUser?> getUserInfo({required String userId});
+    Future<List<AuthUser>> getUserInfos({required List<String> userIds});
 }

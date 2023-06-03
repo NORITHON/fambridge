@@ -10,6 +10,8 @@ class FamilyConsistController extends GetxController {
     return result;
   }
 
+  String getMySelfRole() => familySetInvert[targetMyself.value] ?? "not defined";
+
   Map<String, int> familySet = {
     "할아버지": 1,
     "할머니": 2,

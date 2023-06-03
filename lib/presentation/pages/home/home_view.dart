@@ -13,6 +13,7 @@ import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
 import 'package:fambridge/service/auth/auth_service.dart';
+import 'package:fambridge/service/crud/firebase_provider.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -46,6 +47,22 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: FutureBuilder(
+  //       future: FirebaseGroupProvider().test(groupId: MyApp.unsyncronizedAuthUser!.groupId!),
+  //       builder: (context, snapshot) {
+  //         switch(snapshot.connectionState){
+  //           case ConnectionState.done:
+  //           return snapshot.data == null ? const Center(child: Text("no data")) : Center(child: Text(snapshot.data!.familyGroupId));
+  //           default:
+  //             return const CircularProgressIndicator();
+  //         }
+  //     },),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     log(MyApp.unsyncronizedAuthUser!.groupId!);
@@ -56,61 +73,48 @@ class _HomeViewState extends State<HomeView> {
             )
           : GroupStreamBuilder(
               groupId: MyApp.unsyncronizedAuthUser!.groupId!,
-              builder: (context, snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                  case ConnectionState.active:
-                    if (snapshot.data == null) {
-                      return const Center(
-                        child: Text("cannot find family group info"),
-                      );
-                    }
-                    if (GroupService.firebase().shouldReplaceTodayQuestion(
-                        group: snapshot.data!,
-                        user: MyApp.unsyncronizedAuthUser!)) {
-                      return FutureBuilder(
-                        future: GroupService.firebase()
-                            .replaceTodayQuestionToTheNextQuestion(
-                                group: snapshot.data!),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<void> snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.done:
-                              return Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    Text("rebuilt!"),
-                                    CircularProgressIndicator()
-                                  ],
-                                ),
-                              );
-                            default:
-                              return Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const [
-                                    Text("refreshing today question.."),
-                                    CircularProgressIndicator()
-                                  ],
-                                ),
-                              );
-                          }
-                        },
-                      );
-                    }
-                    return Column(
-                      children: [
-                        Top(
-                          group: snapshot.data!,
-                        ),
-                        GrowingTree(group: snapshot.data!),
-                        Bottom(group: snapshot.data!),
-                      ],
-                    );
-                  default:
-                    return const CircularProgressIndicator();
+              builder: (context, data) {
+                if (GroupService.firebase().shouldReplaceTodayQuestion(
+                    group: data, user: MyApp.unsyncronizedAuthUser!)) {
+                  return FutureBuilder(
+                    future: GroupService.firebase()
+                        .replaceTodayQuestionToTheNextQuestion(group: data),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.done:
+                          return Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text("rebuilt!"),
+                                CircularProgressIndicator()
+                              ],
+                            ),
+                          );
+                        default:
+                          return Center(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: const [
+                                Text("refreshing today question.."),
+                                CircularProgressIndicator()
+                              ],
+                            ),
+                          );
+                      }
+                    },
+                  );
                 }
+                return Column(
+                  children: [
+                    Top(
+                      group: data,
+                    ),
+                    GrowingTree(group: data),
+                    Bottom(group: data),
+                  ],
+                );
               }),
       // bottomNavigationBar: CustomBottomNavbar(
       //   selectedIndex: _selectedIndex,
@@ -204,6 +208,7 @@ class QuestionSheetWithAnswerButton extends StatelessWidget {
 class Top extends StatelessWidget {
   const Top({super.key, required this.group});
   final Group group;
+
   @override
   Widget build(BuildContext context) {
     return Container(

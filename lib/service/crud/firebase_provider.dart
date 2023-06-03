@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fambridge/service/crud/database_fieldname/firebase_collection_name.dart';
 import 'package:fambridge/model/answer.dart';
@@ -42,10 +44,6 @@ class FirebaseGroupProvider implements GroupProvider {
     final familyGroupId = GroupStateProvider()
         .newGroupInfo[GroupFirestoreFieldName.groupIdFieldName];
     // 그룹
-    final todayQuestion = await createTodayQuestion(
-        familyGroupId: GroupStateProvider()
-            .newGroupInfo[GroupFirestoreFieldName.groupIdFieldName],
-        questionOrder: 0);
     await groupCollection.doc(familyGroupId).set({
       GroupFirestoreFieldName.familyGroupCodeFieldname: GroupStateProvider()
           .newGroupInfo[GroupFirestoreFieldName.familyGroupCodeFieldname],
@@ -57,11 +55,14 @@ class FirebaseGroupProvider implements GroupProvider {
       GroupFirestoreFieldName.treeXpFieldName: treeXp,
       GroupFirestoreFieldName.joinedUserIdsFieldName: GroupStateProvider()
           .newGroupInfo[GroupFirestoreFieldName.joinedUserIdsFieldName],
-      GroupFirestoreFieldName.todayQuestionFieldName: todayQuestion.toMap(),
       GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName:
           GroupStateProvider().newGroupInfo[
               GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName],
     });
+    await createTodayQuestion(
+        familyGroupId: GroupStateProvider()
+            .newGroupInfo[GroupFirestoreFieldName.groupIdFieldName],
+        questionOrder: 0);
     return Group.fromFirestore(await groupCollection.doc(familyGroupId).get());
   }
 
@@ -123,13 +124,13 @@ class FirebaseGroupProvider implements GroupProvider {
   }
 
   @override
-  Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
+  Future<Group?>
       maybeGetGroupFromFirestore({required String groupId}) async {
     final groups = await groupCollection
         .where(GroupFirestoreFieldName.groupIdFieldName, isEqualTo: groupId)
         .get();
     if (groups.docs.isNotEmpty) {
-      return groups.docs.first;
+      return Group.fromFirestore(groups.docs.first);
     }
     return null;
   }

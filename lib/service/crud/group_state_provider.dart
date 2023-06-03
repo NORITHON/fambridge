@@ -16,5 +16,6 @@ class GroupStateProvider{
     GroupFirestoreFieldName.todayQuestionFieldName: null,
     GroupFirestoreFieldName.totalNumOfFamilyMemberFieldName: null,
     GroupFirestoreFieldName.treeXpFieldName: null,
+    GroupFirestoreFieldName.myRoleFieldName: null,
   };
 }

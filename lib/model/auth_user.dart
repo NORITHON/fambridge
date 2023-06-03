@@ -9,7 +9,7 @@ class AuthUser {
   final String? docId;
   final String id;
   final String? name;
-  final FamilyRole? familyRole;
+  final String? familyRole;
   final int? birthOrder;
   final Timestamp? registerTime;
   final String? groupId;
@@ -41,8 +41,7 @@ class AuthUser {
       docId: snapshot.id,
       id: snapshotData[AuthUserFirestoreFieldName.userIdFieldName],
       name: snapshotData[AuthUserFirestoreFieldName.userNameFieldName],
-      familyRole: _castStringToFamiltyRole(
-          snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName]),
+      familyRole: snapshotData[AuthUserFirestoreFieldName.userFamilyRoleFieldName],
       registerTime:
           snapshotData[AuthUserFirestoreFieldName.userRegisterTimeFieldName]
               as Timestamp?,

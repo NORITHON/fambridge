@@ -12,6 +12,7 @@ import 'package:fambridge/service/auth/auth_service.dart';
 import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../model/group.dart';
 import '../../component/custom_textfield.dart';
 import '../../resources/styles_manager.dart';
 import '../splash/splash_view.dart';
@@ -129,18 +130,25 @@ class _LoginFormState extends State<LoginForm> {
                   return;
                 }
                 if (!MyApp.appState[authStateFieldName]![hasGroupFieldName]) {
-                  // auth 그룹이름이 없는 경우 -> 가족코드 입력 / 발급하러 가기
-                  //log(MyApp.appState[authStateFieldName]![hasGroupFieldName]);
                   Get.back();
-                  //log(MyApp.unsyncronizedAuthUser!.id);
                   Get.toNamed(Routes.inputFamilyCodeRoute);
                 } else {
-                  // auth 그룹이름이 이미 있는 경우 -> 홈으로 가기
+                  // auth 그룹이름이 이미 있는 경우
+                  final Stream<Group> groupStream = GroupService.firebase()
+                      .getGroup(groupId: MyApp.unsyncronizedAuthUser!.groupId!);
                   MyApp.appState[groupStateFieldName]![groupFieldName] =
-                      GroupService.firebase().getGroup(
-                          groupId: MyApp.unsyncronizedAuthUser!.groupId!);
-                  log(MyApp.appState[groupStateFieldName]![groupFieldName]);
-                  Get.offAllNamed(Routes.buildPages);
+                      groupStream;
+
+                  final Group group = await groupStream.first;
+
+                  if (group.userIdsInGroup.length <
+                      group.totalNumOfFamilyMember) {
+                    // 가족이 다 들어오지 않았다면,
+                    Get.offAllNamed(Routes.secondDelayRoute, arguments: group);
+                  } else {
+                    // 가족이 다 들어왔다면,
+                    Get.offAllNamed(Routes.buildPages);
+                  }
                 }
               },
               child: const Text(

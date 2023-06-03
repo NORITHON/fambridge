@@ -1,3 +1,4 @@
+import 'package:fambridge/model/group.dart';
 import 'package:fambridge/presentation/resources/color_manager.dart';
 import 'package:fambridge/presentation/resources/getx_routes_manager.dart';
 import 'package:fambridge/presentation/resources/styles_manager.dart';
@@ -85,7 +86,8 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
     if (groupId == null) return;
     try {
       loadingDialog(context);
-      if (!(await GroupService.firebase().isGroupExist(groupId: groupId))) {
+      final Group? group = await GroupService.firebase().maybeGetGroupFromFirestore(groupId: groupId);
+      if (group == null) {
         throw GroupNotFoundGroupException();
       }
       final user = await AuthService.firebase().currentUser;
@@ -93,14 +95,22 @@ class _InputCodeTextFieldState extends State<InputCodeTextField> {
         groupId: groupId,
         authUser: user,
         name: "shinhoo",
-        familyRole: FamilyRole.son,
+        familyRole: "",
         birthOrder: 1,
       );
       await GroupService.firebase()
           .addUserIntoGroup(groupId: groupId, userId: user!.id);
       MyApp.unsyncronizedAuthUser = await AuthService.firebase().currentUser;
       Get.back();
-      Get.toNamed(Routes.secondDelayRoute);
+
+      if(group.userIdsInGroup.length < group.totalNumOfFamilyMember){
+        // 가족이 다 들어오지 않았다면,
+        Get.toNamed(Routes.secondDelayRoute, arguments: group);
+      } else{
+        // 가족이 다 들어왔다면,
+        Get.toNamed(Routes.buildPages);
+      }
+      
     } on GroupNotFoundGroupException catch (_) {
       Get.back();
       Get.defaultDialog(

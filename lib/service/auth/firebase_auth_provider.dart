@@ -80,7 +80,7 @@ class FirebaseAuthProvider implements AuthProvider {
   @override
   Future<AuthUser?> addAuthToDatabase({
     required String name,
-    required FamilyRole familyRole,
+    required String familyRole,
     required AuthUser? authUser,
     int? birthOrder,
     String? groupId,
@@ -91,7 +91,7 @@ class FirebaseAuthProvider implements AuthProvider {
     final docRef = await authCollection.add({
       AuthUserFirestoreFieldName.userIdFieldName: authUser.id,
       AuthUserFirestoreFieldName.userNameFieldName: name,
-      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole.name,
+      AuthUserFirestoreFieldName.userFamilyRoleFieldName: familyRole,
       AuthUserFirestoreFieldName.userBirthOrderFieldName: birthOrder,
       AuthUserFirestoreFieldName.userGroupIdFieldName: groupId,
       AuthUserFirestoreFieldName.userRegisterTimeFieldName:
@@ -225,5 +225,23 @@ class FirebaseAuthProvider implements AuthProvider {
     } else {
       throw UserNotLoggedInAuthException();
     }
+  }
+
+  @override
+  Future<AuthUser?> getUserInfo({required String userId}) async {
+    final snapshot = await authCollection.where(AuthUserFirestoreFieldName.userIdFieldName, isEqualTo: userId).get();
+    if(snapshot.docs.isEmpty) return null;
+    return AuthUser.fromSnapshot(snapshot.docs[0]);
+  }
+
+  @override
+  Future<List<AuthUser>> getUserInfos({required List<String> userIds}) async {
+    final List<AuthUser> bucket = [];
+    for (var userId in userIds) { 
+      AuthUser? maybeUser = await getUserInfo(userId: userId);
+      if(maybeUser == null) continue;
+      bucket.add(maybeUser);
+    }
+    return bucket;
   }
 }
