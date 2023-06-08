@@ -50,61 +50,62 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     log(MyApp.unsyncronizedAuthUser!.groupId!);
-    return Scaffold(
-      appBar: AppBar(actions: const [DictionaryAddButton()]),
-      body: MyApp.unsyncronizedAuthUser == null
-          ? const Center(
-              child: Text("cannot find login info"),
-            )
-          : GroupStreamBuilder(
-              groupId: MyApp.unsyncronizedAuthUser!.groupId!,
-              builder: (context, data) {
-                if (GroupService.firebase().shouldReplaceTodayQuestion(
-                    group: data, user: MyApp.unsyncronizedAuthUser!)) {
-                  return FutureBuilder(
-                    future: GroupService.firebase()
-                        .replaceTodayQuestionToTheNextQuestion(group: data),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<void> snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.done:
-                          return Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Text("rebuilt!"),
-                                CircularProgressIndicator()
-                              ],
-                            ),
-                          );
-                        default:
-                          return Center(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [
-                                Text("refreshing today question.."),
-                                CircularProgressIndicator()
-                              ],
-                            ),
-                          );
-                      }
-                    },
+    return SafeArea(
+      child: Scaffold(
+        body: MyApp.unsyncronizedAuthUser == null
+            ? const Center(
+                child: Text("cannot find login info"),
+              )
+            : GroupStreamBuilder(
+                groupId: MyApp.unsyncronizedAuthUser!.groupId!,
+                builder: (context, data) {
+                  if (GroupService.firebase().shouldReplaceTodayQuestion(
+                      group: data, user: MyApp.unsyncronizedAuthUser!)) {
+                    return FutureBuilder(
+                      future: GroupService.firebase()
+                          .replaceTodayQuestionToTheNextQuestion(group: data),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<void> snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.done:
+                            return Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text("rebuilt!"),
+                                  CircularProgressIndicator()
+                                ],
+                              ),
+                            );
+                          default:
+                            return Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text("refreshing today question.."),
+                                  CircularProgressIndicator()
+                                ],
+                              ),
+                            );
+                        }
+                      },
+                    );
+                  }
+                  return Column(
+                    children: [
+                      Top(
+                        group: data,
+                      ),
+                      GrowingTree(group: data),
+                      Bottom(group: data),
+                    ],
                   );
-                }
-                return Column(
-                  children: [
-                    Top(
-                      group: data,
-                    ),
-                    GrowingTree(group: data),
-                    Bottom(group: data),
-                  ],
-                );
-              }),
-      // bottomNavigationBar: CustomBottomNavbar(
-      //   selectedIndex: _selectedIndex,
-      //   onItemTapped: _onItemTapped,
-      // ),
+                }),
+        // bottomNavigationBar: CustomBottomNavbar(
+        //   selectedIndex: _selectedIndex,
+        //   onItemTapped: _onItemTapped,
+        // ),
+      ),
     );
   }
 
@@ -200,30 +201,33 @@ class Top extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 10),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: TopIconBar(),
           ),
           const SizedBox(height: 25),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                group.groupName,
-                style: getMediumStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 20,
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  group.groupName,
+                  style: getMediumStyle(
+                    color: ColorManager.darkGrey,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              Text(
-                "${group.treeXp}p",
-                style: getBoldStyle(
-                  color: ColorManager.darkGrey,
-                  fontSize: 20,
+                Text(
+                  "${group.treeXp}p",
+                  style: getBoldStyle(
+                    color: ColorManager.darkGrey,
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -247,6 +251,7 @@ class TopIconBar extends StatelessWidget {
           ),
         ),
         const Spacer(),
+        DictionaryAddButton(),
         IconButton(
           onPressed: () {
             AuthService.firebase().logOut();
