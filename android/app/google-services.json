@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "672451599743-1eqm90vlkpsrejps7fiuk9fnlo5ujkj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fambridge",
+            "certificate_hash": "4624d7bea1f9b1c28bc710c670adee7216da5e38"
+          }
+        },
+        {
+          "client_id": "672451599743-54obdt3jdskvlmb5dnlnerltj5iq7q2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fambridge",
+            "certificate_hash": "440479e92c36b68b619c57fdd15a5893a24c5800"
+          }
+        },
+        {
           "client_id": "672451599743-9epa9d2n9d1faicu07pdja4fphjmqlt1.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -79,44 +79,6 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: AppPadding.p150),
           const AppLogo(size: AppSize.s100),
           const SizedBox(height: AppPadding.p100),
-          Text(
-            AppStrings.login,
-            textAlign: TextAlign.center,
-            style: getRegularStyle(color: ColorManager.darkGrey),
-          ),
-          const SizedBox(height: AppPadding.p14),
-          CustomTextfield(
-              hintText: AppStrings.loginId, controller: idController),
-          const SizedBox(
-            height: AppPadding.p8,
-          ),
-          CustomTextfield(
-              hintText: AppStrings.loginPwd, controller: passwordController),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.forgotIdRoute);
-                },
-                child: const Text(
-                  AppStrings.loginId,
-                ),
-              ),
-              Text(
-                "/",
-                style: getRegularStyle(color: ColorManager.darkGrey),
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.forgotIdRoute);
-                },
-                child: const Text(
-                  "${AppStrings.loginPwd} ${AppStrings.loginFind}",
-                ),
-              ),
-            ],
-          ),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -158,19 +120,19 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(height: AppPadding.p40),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(AppStrings.registeredYet),
-              TextButton(
-                onPressed: () => Get.toNamed(Routes.registerRoute),
-                //onPressed: () => Get.toNamed(Routes.splashRoute),
-                child: const Text(
-                  AppStrings.signup,
-                ),
-              ),
-            ],
-          )
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     const Text(AppStrings.registeredYet),
+          //     TextButton(
+          //       onPressed: () => Get.toNamed(Routes.registerRoute),
+          //       //onPressed: () => Get.toNamed(Routes.splashRoute),
+          //       child: const Text(
+          //         AppStrings.signup,
+          //       ),
+          //     ),
+          //   ],
+          // )
         ],
       ),
     );
