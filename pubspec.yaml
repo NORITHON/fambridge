@@ -52,6 +52,7 @@ dependencies:
   word_break_text: ^0.1.0
   wrapped_korean_text: ^0.0.3
   rive: 0.9.1
+  sign_in_with_apple: ^4.3.0
 
 dev_dependencies:
   flutter_test:
