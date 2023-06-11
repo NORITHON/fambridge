@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:fambridge/app/app.dart';
 import 'package:fambridge/app/constants/app_state_fieldname/auth_state.dart';
 import 'package:fambridge/app/constants/app_state_fieldname/group_state.dart';
@@ -13,9 +12,9 @@ import 'package:fambridge/service/crud/group_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../model/group.dart';
-import '../../component/custom_textfield.dart';
-import '../../resources/styles_manager.dart';
 import '../splash/splash_view.dart';
+
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -79,6 +78,7 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: AppPadding.p150),
           const AppLogo(size: AppSize.s100),
           const SizedBox(height: AppPadding.p100),
+
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -119,6 +119,21 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
+          SignInWithAppleButton(
+            onPressed: () async {
+              final credential = await SignInWithApple.getAppleIDCredential(
+                scopes: [
+                  AppleIDAuthorizationScopes.email,
+                  AppleIDAuthorizationScopes.fullName,
+                ],
+              );
+
+              print(credential);
+
+              // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+              // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+            },
+          ),
           const SizedBox(height: AppPadding.p40),
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.center,
@@ -138,3 +153,29 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 }
+
+// Future<void> signInWithApple() async {
+//   try {
+//     final appleCredential = await SignInWithApple.getAppleIDCredential(
+//       scopes: [
+//         AppleIDAuthorizationScopes.email,
+//         AppleIDAuthorizationScopes.fullName,
+//       ],
+//     );
+
+//     final oauthCredential = OAuthProvider("apple.com").credential(
+//       idToken: appleCredential.identityToken,
+//       accessToken: appleCredential.authorizationCode,
+//     );
+
+//     final authResult =
+//         await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+//     (authResult.user);
+//     AuthService.firebase().logIn();
+//     return Future<void>.value();
+//   } catch (error) {
+//     (null);
+//     return Future<void>.value();
+//   }
+// }
+

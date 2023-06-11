@@ -104,8 +104,10 @@ class AuthService implements AuthProvider {
   }
 
   @override
-  Future<AuthUser?> getUserInfo({required String userId}) async => provider.getUserInfo(userId: userId);
+  Future<AuthUser?> getUserInfo({required String userId}) async =>
+      provider.getUserInfo(userId: userId);
 
   @override
-  Future<List<AuthUser>> getUserInfos({required List<String> userIds}) async => provider.getUserInfos(userIds: userIds);
+  Future<List<AuthUser>> getUserInfos({required List<String> userIds}) async =>
+      provider.getUserInfos(userIds: userIds);
 }

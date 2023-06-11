@@ -35,6 +35,6 @@ abstract class AuthProvider {
   Future<QueryDocumentSnapshot<Map<String, dynamic>>?>
       maybeGetUserFromFirestore({required String userId});
 
-   Future<AuthUser?> getUserInfo({required String userId});
-    Future<List<AuthUser>> getUserInfos({required List<String> userIds});
+  Future<AuthUser?> getUserInfo({required String userId});
+  Future<List<AuthUser>> getUserInfos({required List<String> userIds});
 }
