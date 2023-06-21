@@ -41,7 +41,7 @@ dependencies:
   firebase_core: ^2.4.1
   cloud_firestore: ^4.3.1
   firebase_auth: ^4.2.5
-  flutter_svg: ^0.22.0
+  flutter_svg: ^2.0.7
   google_sign_in: ^5.4.3
   uuid: ^3.0.7
   firebase_database: ^10.0.9
@@ -53,10 +53,30 @@ dependencies:
   wrapped_korean_text: ^0.0.3
   rive: 0.9.1
   sign_in_with_apple: ^4.3.0
+  xml: ^6.0.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/appicon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/appicon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/appicon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/appicon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -64,6 +84,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.11.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -88,6 +109,7 @@ flutter:
     - assets/images/right_arrow_ic.svg
     - assets/images/solid_circle_ic.svg
     - assets/rive/growing_tree.riv
+    - assets/appicon.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

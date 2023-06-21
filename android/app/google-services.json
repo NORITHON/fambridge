@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:672451599743:android:856d9d8162000c8af74e4a",
         "android_client_info": {
-          "package_name": "com.example.fambridge"
+          "package_name": "com.handong.fambridge"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "672451599743-1eqm90vlkpsrejps7fiuk9fnlo5ujkj1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.fambridge",
+            "package_name": "com.handong.fambridge",
             "certificate_hash": "4624d7bea1f9b1c28bc710c670adee7216da5e38"
           }
         },
@@ -26,7 +26,7 @@
           "client_id": "672451599743-54obdt3jdskvlmb5dnlnerltj5iq7q2v.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.fambridge",
+            "package_name": "com.handong.fambridge",
             "certificate_hash": "440479e92c36b68b619c57fdd15a5893a24c5800"
           }
         },
@@ -51,7 +51,7 @@
               "client_id": "672451599743-ghrnrvml8u050od9cc1gsl67ckgmj3nq.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.fambridge"
+                "bundle_id": "com.handong.fambridge"
               }
             }
           ]
